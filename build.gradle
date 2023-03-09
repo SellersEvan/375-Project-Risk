@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id "com.github.spotbugs" version "5.0.6"
+    id 'checkstyle'
+    id 'jacoco'
+    id 'info.solidsoft.pitest' version '1.5.1'
+}
+checkstyleTest.enabled = false
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+spotbugs {
+    excludeFilter = file("exclude.xml")
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    // https://mvnrepository.com/artifact/org.easymock/easymock
+    testImplementation 'org.easymock:easymock:4.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+jacocoTestReport {
+    dependsOn test
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.enabled true
+    }
+}
+test.finalizedBy(jacocoTestReport)
+
+pitest {
+    targetClasses = ['controller.*,model.*,view.*']
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
+    junit5PluginVersion = '0.15'
+}
