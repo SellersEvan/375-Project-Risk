@@ -16,4 +16,8 @@
 - Is it possible to simplify the logic for `model.CardTrader.tradeInCardSet`
 - Fix logic with constant of 42 `model.Player.hasWon`
 - Roll dice has no association to the player class, it can be moved `model.Player.rollDice`
-- ...
+- Implement Contenent Enum in `model.Territory`
+- Implement HashMap for `model.Territory.**_TERRITORIES`, `model.Territory.**_BONUS`
+- Rename Paramaters for `model.Territory.loseArmies`, `model.Territory.addArmies`, `model.Territory.addAdjacentTerritory`
+- Seperate return statment for `model.Territory.attackTerritory`
+- Complete Re-Organize for `controller.Game`
