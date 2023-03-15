@@ -12,7 +12,7 @@
 - Abilitiy to have different maps
 - Implement "Wild Cards" (In the official game but not yet implemented in this project)
 - New Risk Game Modes
-  - Secret Mission Risk
+  - Secret Mission Risk (Would also require implementing "Mission Cards") 
   - World Domination Risk
   - Capital Risk
 
