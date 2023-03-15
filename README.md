@@ -7,14 +7,14 @@
 
 ## Potential Features 
 - Updated User Interfaces
--- Indicate which Territory is selected
--- Indicate which Territories can be attacked from the selected Territory (without needing to guess and check)
+- - Indicate which Territory is selected
+- - Indicate which Territories can be attacked from the selected Territory (without needing to guess and check)
 - Abilitiy to have different maps
 - Implement "Wild Cards" (In the official game but not yet implemented in this project)
 - New Risk Game Modes
--- Secret Mission Risk
--- World Domination Risk
--- Capital Risk
+- - Secret Mission Risk
+- - World Domination Risk
+- - Capital Risk
 
 ## Potential Refactoring Changes (general remedies to bad smells and changes to accomodate the new features)
 - Remove switch statement and make more abstract method `model.CardTrader.generateNewCard`
@@ -31,4 +31,4 @@
 - Multiple classes use magic numbers - replace with constants using explanatory names
 - Confusing return value in `model.Player.attackTerritory`
 - Generalize win conditions to make alternative game modes possible (currently only checks that a player controls every Territory)
-- World Domination Risk uses "neutral" armies (controlled by no players), but the current codebase requires every player color has a controlling player who takes turns
+- World Domination Risk uses "neutral" armies (controlled by no players), but the current codebase requires every player color has a controlling player who takes turns. Multiple refactors would probably be necessary to implement this without giving `controller.Game` more responsibilities than it already has
