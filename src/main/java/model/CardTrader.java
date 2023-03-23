@@ -66,20 +66,4 @@ public class CardTrader {
 		
 		return false;
 	}
-	
-	public Card generateNewCard() {
-		CardSymbol symbol = null;
-		switch (this.random.nextInt(3)) {
-			case 0:
-				symbol = CardSymbol.INFANTRY;
-				break;
-			case 1:
-				symbol = CardSymbol.CAVALRY;
-				break;
-			case 2:
-				symbol = CardSymbol.ARTILLERY;
-				break;
-		}
-		return new Card(this.territories.get(this.random.nextInt(this.territories.size())), symbol);
-	}
 }
