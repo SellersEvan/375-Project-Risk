@@ -5,9 +5,9 @@ import controller.GameSetup;
 import java.util.List;
 
 public class MapManager {
-    private static final List<Territory> territories = GameSetup.initTerritories();
+    private static final List<Territory> TERRITORIES = GameSetup.initTerritories();
 
     public static List<Territory> getTerritories() {
-        return territories;
+        return TERRITORIES;
     }
 }
