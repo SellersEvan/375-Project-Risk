@@ -12,7 +12,7 @@ class CardTraderTest {
 
 	@Test
 	void testCalculateValueNoSetsTurnedIn() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		int expected = 4;
 		int actual = cardTrader.getCurrentSetValue();
 		
@@ -21,7 +21,7 @@ class CardTraderTest {
 	
 	@Test
 	void testCalculateValueOneSetTurnedIn() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		cardTrader.numSetsTurnedIn = 1;
 		int expected = 6;
 		int actual = cardTrader.getCurrentSetValue();
@@ -31,7 +31,7 @@ class CardTraderTest {
 	
 	@Test
 	void testCalculateValueFourSetsTurnedIn() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		cardTrader.numSetsTurnedIn = 4;
 		int expected = 12;
 		int actual = cardTrader.getCurrentSetValue();
@@ -41,7 +41,7 @@ class CardTraderTest {
 	
 	@Test
 	void testCalculateValueFiveSetsTurnedIn() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		cardTrader.numSetsTurnedIn = 5;
 		int expected = 15;
 		int actual = cardTrader.getCurrentSetValue();
@@ -51,7 +51,7 @@ class CardTraderTest {
 	
 	@Test
 	void testCalculateValueSixSetsTurnedIn() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		cardTrader.numSetsTurnedIn = 6;
 		int expected = 20;
 		int actual = cardTrader.getCurrentSetValue();
@@ -61,7 +61,7 @@ class CardTraderTest {
 	
 	@Test
 	void testCalculateValueMaxTurnedIn() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		cardTrader.numSetsTurnedIn = 429496731;
 		int expected = Integer.MAX_VALUE - 2;
 		int actual = cardTrader.getCurrentSetValue();
@@ -71,7 +71,7 @@ class CardTraderTest {
 	
 	@Test
 	void testCalculateValueTooManyTurnedIn() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		cardTrader.numSetsTurnedIn = 429496732;
 		
 		assertThrows(IllegalStateException.class, () -> {cardTrader.getCurrentSetValue();}, "Too many card sets turned in.");
@@ -108,7 +108,7 @@ class CardTraderTest {
 	
 	@Test
 	void testTerritoryBonusOneMatch1() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, null);
 		occupyTerritoriesSetup(player, 3);
 		
@@ -117,7 +117,7 @@ class CardTraderTest {
 	
 	@Test
 	void testTerritoryBonusOneMatch2() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, null);
 		occupyTerritoriesSetup(player, 1);
 		
@@ -126,7 +126,7 @@ class CardTraderTest {
 	
 	@Test
 	void testTerritoryBonusNoTerritories() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, null);
 		
 		assertFalse(cardTrader.getsTerritoryBonus(player, territoryBonusSetup(3, 0, player)));
@@ -134,7 +134,7 @@ class CardTraderTest {
 	
 	@Test
 	void testTerritoryBonusNoMatches() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, null);
 		occupyTerritoriesSetup(player, 3);
 		
@@ -143,7 +143,7 @@ class CardTraderTest {
 	
 	@Test
 	void testTerritoryBonusMultipleMatches() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, null);
 		occupyTerritoriesSetup(player, 4);
 		
@@ -152,7 +152,7 @@ class CardTraderTest {
 	
 	@Test
 	void testTerritoryBonusNullPlayer() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		Player player = null;
 		
 		Set<Card> cardSet = territoryBonusSetup(3, 0, player);
@@ -161,7 +161,7 @@ class CardTraderTest {
 	
 	@Test
 	void testTerritoryBonusNullCardSet() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, null);
 		
 		Set<Card> cardSet = null;
@@ -170,7 +170,7 @@ class CardTraderTest {
 	
 	@Test
 	void testTerritoryBonusSetSizeTwo1() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, null);
 		occupyTerritoriesSetup(player, 2);
 		
@@ -179,7 +179,7 @@ class CardTraderTest {
 	
 	@Test
 	void testTerritoryBonusSetSizeTwo2() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, null);
 		
 		assertFalse(cardTrader.getsTerritoryBonus(player, territoryBonusSetup(2, 0, player)));
@@ -187,7 +187,7 @@ class CardTraderTest {
 	
 	@Test
 	void testTerritoryBonusSetSizeFour() {
-		CardTrader cardTrader = new CardTrader(null, null);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, null);
 		occupyTerritoriesSetup(player, 3);
 		
@@ -456,7 +456,6 @@ class CardTraderTest {
 		CardTrader cardTrader = new CardTrader(randomMock, territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(0);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
-		
 		EasyMock.replay(randomMock);
 		
 		Card newCard = cardTrader.generateNewCard();
@@ -475,7 +474,6 @@ class CardTraderTest {
 		CardTrader cardTrader = new CardTrader(randomMock, territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
-		
 		EasyMock.replay(randomMock);
 		
 		Card newCard = cardTrader.generateNewCard();
@@ -494,7 +492,6 @@ class CardTraderTest {
 		CardTrader cardTrader = new CardTrader(randomMock, territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
-		
 		EasyMock.replay(randomMock);
 		
 		Card newCard = cardTrader.generateNewCard();
@@ -511,13 +508,13 @@ class CardTraderTest {
 		}
 
 		Set<Territory> generated = new HashSet<Territory>();
-		CardTrader cardTrader = new CardTrader(randomMock, territories);
 		for (int i = 0; i < 14; i++) {
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(0);
 			EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(i);
 			EasyMock.replay(randomMock);
-			
-			Card newCard = cardTrader.generateNewCard();
+
+			Card newCard = new Card(randomMock);
+
 			assertTrue(generated.add(newCard.getPicturedTerritory()));
 			assertEquals(newCard.getSymbol(), CardSymbol.INFANTRY);
 			EasyMock.verify(randomMock);
@@ -527,8 +524,9 @@ class CardTraderTest {
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(1);
 			EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(i);
 			EasyMock.replay(randomMock);
-			
-			Card newCard = cardTrader.generateNewCard();
+
+			Card newCard = new Card(randomMock);
+
 			assertTrue(generated.add(newCard.getPicturedTerritory()));
 			assertEquals(newCard.getSymbol(), CardSymbol.CAVALRY);
 			EasyMock.verify(randomMock);
@@ -538,8 +536,9 @@ class CardTraderTest {
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
 			EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(i);
 			EasyMock.replay(randomMock);
-			
-			Card newCard = cardTrader.generateNewCard();
+
+			Card newCard = new Card(randomMock);
+
 			assertTrue(generated.add(newCard.getPicturedTerritory()));
 			assertEquals(newCard.getSymbol(), CardSymbol.ARTILLERY);
 			EasyMock.verify(randomMock);

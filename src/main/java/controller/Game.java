@@ -1,9 +1,7 @@
 package controller;
 
 import model.InvalidAttackException;
-import model.Map.Continent;
-import model.Map.MapLoader;
-import model.Map.MapLoaderYAML;
+import model.MapManager;
 import model.Player;
 import model.Map.Territory;
 import view.GameView;
@@ -31,13 +29,7 @@ public class Game {
         this.numberOfPlayers = numberOfPlayers;
         gameSetup = new GameSetup(numberOfPlayers);
         gameSetup.setInitialArmies();
-
-        // FIXME Forced Loading
-        File map = MapLoader.getMapFiles().get("Earth");
-        MapLoader mapLoader = new MapLoaderYAML(map);
-        this.territories = mapLoader.getTerritories();
-        this.continents  = mapLoader.getContinents();
-
+        territories = MapManager.getTerritories();
         playerArray = gameSetup.fillPlayerArray(territories);
         setFirstPlayer(new Random());
 
