@@ -1,17 +1,9 @@
 package model;
 
-import controller.GameSetup;
 import model.Map.Continent;
-import model.Map.MapLoader;
-import model.Map.MapLoaderYAML;
 import model.Map.Territory;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class TerritoryTest {

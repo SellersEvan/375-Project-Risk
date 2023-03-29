@@ -2,14 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import model.Map.MapLoader;
-import model.Map.MapLoaderYAML;
+import java.util.*;
 import model.Map.Territory;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
@@ -18,20 +11,22 @@ import org.junit.jupiter.api.Test;
 public class TradingCardsIntegrationTest {
 
 
-    List<Territory> initTerritories() {
-        File map = MapLoader.getMapFiles().get("Earth");
-        MapLoader mapLoader = new MapLoaderYAML(map);
-        return mapLoader.getTerritories();
-    }
-
-
 	@Test
 	void testTradeInFirstValidSetNoBonus() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = this.initTerritories();
-
+		Territory territory4 = EasyMock.mock(Territory.class);
+		List<Territory> territories = new ArrayList<>();
+		for (int i = 0; i < 42; i++) {
+			territories.add(EasyMock.mock(Territory.class));
+		}
+		territories.set(3, territory4);
 		CardTrader cardTrader = new CardTrader(randomMock, territories);
 		Player player = new Player(PlayerColor.BLUE, randomMock, cardTrader);
+		EasyMock.expect(territory4.hasOccupant()).andReturn(false);
+		territory4.addArmies(1);
+		territory4.setOccupant(player);
+		EasyMock.expectLastCall();
+		EasyMock.replay(territory4);
 		player.giveArmies(1);
 		// Player occupies Territory 3
 		player.occupyTerritory(territories.get(3));
@@ -55,15 +50,30 @@ public class TradingCardsIntegrationTest {
 		assertEquals(0, player.getCards().size());
 		assertEquals(1, cardTrader.numSetsTurnedIn);
 
-		EasyMock.verify(randomMock);
+		EasyMock.verify(randomMock, territory4);
 	}
 
 	@Test
 	void testTradeInSecondValidSetWithBonus() {
-		List<Territory> territories = this.initTerritories();
-
+		Territory territory1 = EasyMock.mock(Territory.class);
+		Territory territory4 = EasyMock.mock(Territory.class);
+		List<Territory> territories = new ArrayList<>();
+		for (int i = 0; i < 42; i++) {
+			territories.add(EasyMock.mock(Territory.class));
+		}
+		territories.set(0, territory1);
+		territories.set(3, territory4);
 		CardTrader cardTrader = new CardTrader(null, territories);
 		Player player = new Player(PlayerColor.RED, null, cardTrader);
+		EasyMock.expect(territory4.hasOccupant()).andReturn(false);
+		territory4.addArmies(1);
+		territory4.setOccupant(player);
+		EasyMock.expect(territory1.hasOccupant()).andReturn(false);
+		territory1.addArmies(1);
+		territory1.setOccupant(player);
+		EasyMock.expectLastCall();
+		EasyMock.replay(territory1, territory4);
+
 		player.giveArmies(2);
 		// Player occupies Territory 0 and 3
 		player.occupyTerritory(territories.get(0));
@@ -91,14 +101,31 @@ public class TradingCardsIntegrationTest {
 		assertEquals(8, player.getArmiesAvailable());
 		assertEquals(1, player.getCards().size());
 		assertEquals(2, cardTrader.numSetsTurnedIn);
+		EasyMock.verify(territory1, territory4);
 	}
+
 
 	@Test
 	void testInvalidSet() {
-		List<Territory> territories = this.initTerritories();
-
+		Territory territory2 = EasyMock.mock(Territory.class);
+		Territory territory3 = EasyMock.mock(Territory.class);
+		List<Territory> territories = new ArrayList<>();
+		for (int i = 0; i < 42; i++) {
+			territories.add(EasyMock.mock(Territory.class));
+		}
+		territories.set(1, territory2);
+		territories.set(2, territory3);
 		CardTrader cardTrader = new CardTrader(null, territories);
 		Player player = new Player(PlayerColor.RED, null, cardTrader);
+		EasyMock.expect(territory2.hasOccupant()).andReturn(false);
+		territory2.addArmies(1);
+		territory2.setOccupant(player);
+		EasyMock.expect(territory3.hasOccupant()).andReturn(false);
+		territory3.addArmies(1);
+		territory3.setOccupant(player);
+		EasyMock.expectLastCall();
+		EasyMock.replay(territory2, territory3);
+
 		player.giveArmies(2);
 		// Player occupies Territory 1 and 2
 		player.occupyTerritory(territories.get(1));
@@ -123,14 +150,30 @@ public class TradingCardsIntegrationTest {
 		assertEquals(0, player.getArmiesAvailable());
 		assertEquals(4, player.getCards().size());
 		assertEquals(0, cardTrader.numSetsTurnedIn);
+		EasyMock.verify(territory2, territory3);
 	}
 
 	@Test
 	void testTradeInNinthAndTenthSets() {
-		List<Territory> territories = this.initTerritories();
-
+		Territory territory2 = EasyMock.mock(Territory.class);
+		Territory territory3 = EasyMock.mock(Territory.class);
+		List<Territory> territories = new ArrayList<>();
+		for (int i = 0; i < 42; i++) {
+			territories.add(EasyMock.mock(Territory.class));
+		}
+		territories.set(1, territory2);
+		territories.set(2, territory3);
 		CardTrader cardTrader = new CardTrader(null, territories);
 		Player player = new Player(PlayerColor.RED, null, cardTrader);
+		EasyMock.expect(territory2.hasOccupant()).andReturn(false);
+		territory2.addArmies(1);
+		territory2.setOccupant(player);
+		EasyMock.expect(territory3.hasOccupant()).andReturn(false);
+		territory3.addArmies(1);
+		territory3.setOccupant(player);
+		EasyMock.expectLastCall();
+		EasyMock.replay(territory2, territory3);
+
 		player.giveArmies(2);
 		// Player occupies Territory 1 and 2
 		player.occupyTerritory(territories.get(1));
@@ -177,15 +220,37 @@ public class TradingCardsIntegrationTest {
 		assertEquals(67, player.getArmiesAvailable());
 		assertEquals(0, player.getCards().size());
 		assertEquals(10, cardTrader.numSetsTurnedIn);
+		EasyMock.verify(territory2, territory3);
 	}
+
 
 	@Test
 	void testTwoPlayersTurnInValidSets() {
-		List<Territory> territories = this.initTerritories();
-
+		Territory territory2 = EasyMock.mock(Territory.class);
+		Territory territory3 = EasyMock.mock(Territory.class);
+		Territory territory42 = EasyMock.mock(Territory.class);
+		List<Territory> territories = new ArrayList<>();
+		for (int i = 0; i < 42; i++) {
+			territories.add(EasyMock.mock(Territory.class));
+		}
+		territories.set(1, territory2);
+		territories.set(2, territory3);
+		territories.set(41, territory42);
 		CardTrader cardTrader = new CardTrader(null, territories);
 		Player player1 = new Player(PlayerColor.RED, null, cardTrader);
 		Player player2 = new Player(PlayerColor.GREEN, null, cardTrader);
+		EasyMock.expect(territory2.hasOccupant()).andReturn(false);
+		territory2.addArmies(1);
+		territory2.setOccupant(player1);
+		EasyMock.expect(territory3.hasOccupant()).andReturn(false);
+		territory3.addArmies(1);
+		territory3.setOccupant(player1);
+		EasyMock.expect(territory42.hasOccupant()).andReturn(false);
+		territory42.addArmies(1);
+		territory42.setOccupant(player2);
+		EasyMock.expectLastCall();
+		EasyMock.replay(territory2, territory3, territory42);
+
 		player1.giveArmies(2);
 		player2.giveArmies(1);
 		// Player 1 occupies Territory 1 and 2
@@ -235,5 +300,6 @@ public class TradingCardsIntegrationTest {
 		assertEquals(17, player2.getArmiesAvailable());
 		assertEquals(0, player2.getCards().size());
 		assertEquals(6, cardTrader.numSetsTurnedIn);
+		EasyMock.verify(territory2, territory3, territory42);
 	}
 }
