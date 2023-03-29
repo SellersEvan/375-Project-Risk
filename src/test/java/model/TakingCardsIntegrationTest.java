@@ -22,7 +22,7 @@ public class TakingCardsIntegrationTest {
 		instanceTerritories.add(attackingTerritory);
 		instanceTerritories.add(attackedTerritory);
 		
-		CardTrader cardTrader = new CardTrader(randomMock, instanceTerritories);
+		CardTrader cardTrader = new CardTrader();
 		
 		Player aggressor = new Player(PlayerColor.GREEN, randomMock, cardTrader);
 		Player defender = new Player(PlayerColor.BLUE, randomMock, cardTrader);
@@ -71,7 +71,7 @@ public class TakingCardsIntegrationTest {
 		instanceTerritories.add(attackingTerritory);
 		instanceTerritories.add(attackedTerritory);
 		
-		CardTrader cardTrader = new CardTrader(randomMock, instanceTerritories);
+		CardTrader cardTrader = new CardTrader();
 		
 		Player aggressor = new Player(PlayerColor.GREEN, randomMock, cardTrader);
 		Player defender = new Player(PlayerColor.BLUE, randomMock, cardTrader);
@@ -83,7 +83,7 @@ public class TakingCardsIntegrationTest {
 		
 		for (int i = 0; i < 10; i++) {
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(i % 3);
-			EasyMock.expect(randomMock.nextInt(instanceTerritories.size())).andReturn(i % 2);
+			EasyMock.expect(randomMock.nextInt(MapManager.getTerritories().size())).andReturn(i % 2);
 		}
 		
 		// Attacker rolls
@@ -132,7 +132,7 @@ public class TakingCardsIntegrationTest {
 		instanceTerritories.add(attackedTerritory);
 		instanceTerritories.add(otherTerritory);
 		
-		CardTrader cardTrader = new CardTrader(randomMock, instanceTerritories);
+		CardTrader cardTrader = new CardTrader();
 		
 		Player aggressor = new Player(PlayerColor.YELLOW, randomMock, cardTrader);
 		Player defender = new Player(PlayerColor.RED, randomMock, cardTrader);
@@ -146,7 +146,7 @@ public class TakingCardsIntegrationTest {
 		
 		for (int i = 0; i < 7; i++) {
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(i % 3);
-			EasyMock.expect(randomMock.nextInt(instanceTerritories.size())).andReturn(i % 2);
+			EasyMock.expect(randomMock.nextInt(MapManager.getTerritories().size())).andReturn(i % 2);
 		}
 		
 		// Attacker rolls
@@ -193,7 +193,7 @@ public class TakingCardsIntegrationTest {
 		instanceTerritories.add(attackingTerritory);
 		instanceTerritories.add(attackedTerritory);
 		
-		CardTrader cardTrader = new CardTrader(randomMock, instanceTerritories);
+		CardTrader cardTrader = new CardTrader();
 		
 		Player aggressor = new Player(PlayerColor.GREEN, randomMock, cardTrader);
 		Player defender = new Player(PlayerColor.BLUE, randomMock, cardTrader);
@@ -205,7 +205,7 @@ public class TakingCardsIntegrationTest {
 		
 		for (int i = 0; i < 6; i++) {
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(i % 3);
-			EasyMock.expect(randomMock.nextInt(instanceTerritories.size())).andReturn(i % 2);
+			EasyMock.expect(randomMock.nextInt(MapManager.getTerritories().size())).andReturn(i % 2);
 		}
 		
 		// Attacker rolls

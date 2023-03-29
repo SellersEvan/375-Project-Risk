@@ -147,7 +147,7 @@ public class Player {
 	}
 	
 	void drawCard() {
-		this.cards.add(new Card());
+		this.cards.add(new Card(this.random));
 	}
 	
 	public Set<Card> getCards() {

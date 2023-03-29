@@ -19,7 +19,7 @@ public class TradingCardsIntegrationTest {
 		Random randomMock = EasyMock.strictMock(Random.class);
 		List<Territory> territories = GameSetup.initTerritories();
 		
-		CardTrader cardTrader = new CardTrader(randomMock, territories);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.BLUE, randomMock, cardTrader);
 		player.giveArmies(1);
 		// Player occupies Territory 3
@@ -51,7 +51,7 @@ public class TradingCardsIntegrationTest {
 	void testTradeInSecondValidSetWithBonus() {
 		List<Territory> territories = GameSetup.initTerritories();
 		
-		CardTrader cardTrader = new CardTrader(null, territories);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, cardTrader);
 		player.giveArmies(2);
 		// Player occupies Territory 0 and 3
@@ -86,7 +86,7 @@ public class TradingCardsIntegrationTest {
 	void testInvalidSet() {
 		List<Territory> territories = GameSetup.initTerritories();
 		
-		CardTrader cardTrader = new CardTrader(null, territories);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, cardTrader);
 		player.giveArmies(2);
 		// Player occupies Territory 1 and 2
@@ -118,7 +118,7 @@ public class TradingCardsIntegrationTest {
 	void testTradeInNinthAndTenthSets() {
 		List<Territory> territories = GameSetup.initTerritories();
 		
-		CardTrader cardTrader = new CardTrader(null, territories);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, cardTrader);
 		player.giveArmies(2);
 		// Player occupies Territory 1 and 2
@@ -172,7 +172,7 @@ public class TradingCardsIntegrationTest {
 	void testTwoPlayersTurnInValidSets() {
 		List<Territory> territories = GameSetup.initTerritories();
 		
-		CardTrader cardTrader = new CardTrader(null, territories);
+		CardTrader cardTrader = new CardTrader();
 		Player player1 = new Player(PlayerColor.RED, null, cardTrader);
 		Player player2 = new Player(PlayerColor.GREEN, null, cardTrader);
 		player1.giveArmies(2);

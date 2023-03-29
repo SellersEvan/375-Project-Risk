@@ -18,7 +18,7 @@ public class CardButton extends JButton {
     public CardButton(String text, Game game) {
         super(text);
         this.gameController = game;
-        this.cardTrader = new CardTrader(new Random(), null);
+        this.cardTrader = new CardTrader();
         messages = game.getLanguageBundle();
         setActionListener();
     }
