@@ -1,19 +1,14 @@
 package model;
 
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 public class CardTrader {
 	
 	int numSetsTurnedIn;
-	Random random;
-	List<Territory> territories;
 	
-	public CardTrader(Random random, List<Territory> territories) {
+	public CardTrader() {
 		this.numSetsTurnedIn = 0;
-		this.random = random;
-		this.territories = territories;
 	}
 	
 	public int getCurrentSetValue() {
@@ -65,21 +60,5 @@ public class CardTrader {
 		}
 		
 		return false;
-	}
-	
-	public Card generateNewCard() {
-		CardSymbol symbol = null;
-		switch (this.random.nextInt(3)) {
-			case 0:
-				symbol = CardSymbol.INFANTRY;
-				break;
-			case 1:
-				symbol = CardSymbol.CAVALRY;
-				break;
-			case 2:
-				symbol = CardSymbol.ARTILLERY;
-				break;
-		}
-		return new Card(this.territories.get(this.random.nextInt(this.territories.size())), symbol);
 	}
 }

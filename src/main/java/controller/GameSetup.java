@@ -41,7 +41,7 @@ public class GameSetup {
     public ArrayList<Player> fillPlayerArray(List<Territory> territories) {
         ArrayList<Player> playerArray = new ArrayList<>();
     	Random random = new Random();
-    	CardTrader cardTrader = new CardTrader(random, territories);
+    	CardTrader cardTrader = new CardTrader();
         for (int i = 0; i < numberOfPlayers; i++) {
             PlayerColor playerColor = PLAYER_COLORS[i];
             Player p = new Player(playerColor, random, cardTrader);

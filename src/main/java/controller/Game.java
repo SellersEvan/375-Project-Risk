@@ -1,6 +1,7 @@
 package controller;
 
 import model.InvalidAttackException;
+import model.MapManager;
 import model.Player;
 import model.Territory;
 import view.GameView;
@@ -27,7 +28,7 @@ public class Game {
         this.numberOfPlayers = numberOfPlayers;
         gameSetup = new GameSetup(numberOfPlayers);
         gameSetup.setInitialArmies();
-        territories = GameSetup.initTerritories();
+        territories = MapManager.getTerritories();
         playerArray = gameSetup.fillPlayerArray(territories);
         setFirstPlayer(new Random());
 
