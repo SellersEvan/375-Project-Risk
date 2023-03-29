@@ -1,5 +1,7 @@
 package model;
 
+import model.Map.Territory;
+
 public class Card {
 	
 	private Territory picturedTerritory;

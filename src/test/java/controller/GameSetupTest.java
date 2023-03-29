@@ -1,7 +1,7 @@
 package controller;
 
 import model.Player;
-import model.Territory;
+import model.Map.Territory;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -86,46 +86,4 @@ public class GameSetupTest {
         GameSetup g = new GameSetup(6);
         assertThrows(IllegalArgumentException.class, () -> g.getPlayerWhoGoesFirst(7));
     }
-    @Test
-    public void testInitTerritories(){
-        List<Territory> territoryList = GameSetup.initTerritories();
-
-        assertEquals("Territory Name: Alaska, Continent: North America", territoryList.get(0).toString());
-        assertEquals("Territory Name: Argentina, Continent: South America", territoryList.get(12).toString());
-        assertEquals("Territory Name: Western Australia, Continent: Australia", territoryList.get(22).toString());
-        assertEquals("Territory Name: Southern Europe, Continent: Europe", territoryList.get(41).toString());
-    }
-
-    @Test
-    public void testAlaskaAdjacency(){
-        List<Territory> allTerritories = GameSetup.initTerritories();
-        assertTrue(allTerritories.get(0).isAdjacent(allTerritories.get(1)));
-        assertTrue(allTerritories.get(0).isAdjacent(allTerritories.get(3)));
-        assertTrue(allTerritories.get(0).isAdjacent(allTerritories.get(25)));
-        assertFalse(allTerritories.get(0).isAdjacent(allTerritories.get(0)));
-        assertFalse(allTerritories.get(0).isAdjacent(allTerritories.get(4)));
-    }
-
-    @Test
-    public void testIndonesiaAdjacency(){
-        List<Territory> allTerritories = GameSetup.initTerritories();
-        assertTrue(allTerritories.get(19).isAdjacent(allTerritories.get(20)));
-        assertTrue(allTerritories.get(19).isAdjacent(allTerritories.get(22)));
-        assertTrue(allTerritories.get(19).isAdjacent(allTerritories.get(34)));
-        assertFalse(allTerritories.get(19).isAdjacent(allTerritories.get(19)));
-        assertFalse(allTerritories.get(19).isAdjacent(allTerritories.get(21)));
-    }
-
-    @Test
-    public void testRussiaAdjacency(){
-        List<Territory> allTerritories = GameSetup.initTerritories();
-        assertTrue(allTerritories.get(37).isAdjacent(allTerritories.get(26)));
-        assertTrue(allTerritories.get(37).isAdjacent(allTerritories.get(28)));
-        assertTrue(allTerritories.get(37).isAdjacent(allTerritories.get(32)));
-        assertTrue(allTerritories.get(37).isAdjacent(allTerritories.get(36)));
-        assertTrue(allTerritories.get(37).isAdjacent(allTerritories.get(39)));
-        assertTrue(allTerritories.get(37).isAdjacent(allTerritories.get(41)));
-        assertFalse(allTerritories.get(37).isAdjacent(allTerritories.get(40)));
-    }
-
 }

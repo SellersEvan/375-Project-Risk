@@ -2,16 +2,26 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-
-import controller.GameSetup;
+import model.Map.MapLoader;
+import model.Map.MapLoaderYAML;
+import model.Map.Territory;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 class CardTraderTest {
+
+
+	List<Territory> initTerritories() {
+		File map = MapLoader.getMapFiles().get("Earth");
+		MapLoader mapLoader = new MapLoaderYAML(map);
+		return mapLoader.getTerritories();
+	}
+
 
 	@Test
 	void testCalculateValueNoSetsTurnedIn() {
@@ -84,8 +94,8 @@ class CardTraderTest {
 		player.giveArmies(numTerritories);
 		for(int i = 0; i < numTerritories; i++) {
 			Territory alreadyOwnsMock = EasyMock.strictMock(Territory.class);
-			EasyMock.expect(alreadyOwnsMock.isOccupied()).andReturn(false);
-			alreadyOwnsMock.setController(player);
+			EasyMock.expect(alreadyOwnsMock.hasOccupant()).andReturn(false);
+			alreadyOwnsMock.setOccupant(player);
 			alreadyOwnsMock.addArmies(1);
 			EasyMock.replay(alreadyOwnsMock);
 			player.occupyTerritory(alreadyOwnsMock);
@@ -451,7 +461,7 @@ class CardTraderTest {
 	@Test
 	void testGenerateInfantryCard() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = GameSetup.initTerritories();
+		List<Territory> territories = this.initTerritories();
 		CardTrader cardTrader = new CardTrader(randomMock, territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(0);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
@@ -466,7 +476,7 @@ class CardTraderTest {
 	@Test
 	void testGenerateCavalryCard() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = GameSetup.initTerritories();
+		List<Territory> territories = this.initTerritories();
 		CardTrader cardTrader = new CardTrader(randomMock, territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
@@ -481,7 +491,7 @@ class CardTraderTest {
 	@Test
 	void testGenerateArtilleryCard() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = GameSetup.initTerritories();
+		List<Territory> territories = this.initTerritories();
 		CardTrader cardTrader = new CardTrader(randomMock, territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
@@ -496,7 +506,7 @@ class CardTraderTest {
 	@Test
 	void testAllTerritoriesCanBeGenerated() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = GameSetup.initTerritories();
+		List<Territory> territories = this.initTerritories();
 		Set<Territory> generated = new HashSet<Territory>();
 		CardTrader cardTrader = new CardTrader(randomMock, territories);
 		for (int i = 0; i < 14; i++) {

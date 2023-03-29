@@ -1,5 +1,8 @@
 package model;
 
+import model.Map.Continent;
+import model.Map.Territory;
+
 import java.util.*;
 
 public class Player {
@@ -50,7 +53,7 @@ public class Player {
 	}
 
 	public boolean occupyTerritory(Territory territory) {
-		if (territory.isOccupied() || this.armiesAvailable < 1) {
+		if (territory.hasOccupant() || this.armiesAvailable < 1) {
 			return false;
 		}
 		addOccupiedTerritory(territory);
@@ -74,12 +77,12 @@ public class Player {
 
 	private void addOccupiedTerritory(Territory territory) {
 		this.occupiedTerritories.add(territory);
-		territory.setController(this);
+		territory.setOccupant(this);
 	}
 
-	public void addNewTurnArmies() {
+	public void addNewTurnArmies(List<Continent> continents) {
 		giveArmies(calculateArmiesGainedFromTerritoryCount()
-				+ Territory.calculateArmiesFromContinentBonus(occupiedTerritories));
+				+ Continent.calculateContinentBonus(this.occupiedTerritories, continents));
 	}
 
 	public int calculateArmiesGainedFromTerritoryCount() {
@@ -102,8 +105,8 @@ public class Player {
 	
 	public int attackTerritory(Territory attacking, Territory defending, 
 			int[] attackerRolls, int[] defenderRolls) throws InvalidAttackException {
-		Player attackingPlayer = attacking.getController();
-		Player defendingPlayer = defending.getController();
+		Player attackingPlayer = attacking.getOccupant();
+		Player defendingPlayer = defending.getOccupant();
 		if (attackingPlayer.getColor() != this.color) {
 			throw new InvalidAttackException("Cannot attack with a Territory in another's control.");
 		} else if (attackingPlayer.getColor() == defendingPlayer.getColor()) {
@@ -119,7 +122,7 @@ public class Player {
 	void captureDefeatedTerritory(Player defendingPlayer,
 			Territory attacking, Territory defending) {
 		defendingPlayer.occupiedTerritories.remove(defending);
-		defending.setController(this);
+		defending.setOccupant(this);
 		this.occupiedTerritories.add(defending);
 		this.capturedThisTurn = true;
 		attacking.fortifyTerritory(defending, 1);

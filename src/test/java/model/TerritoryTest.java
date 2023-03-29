@@ -1,8 +1,14 @@
 package model;
 
 import controller.GameSetup;
+import model.Map.Continent;
+import model.Map.MapLoader;
+import model.Map.MapLoaderYAML;
+import model.Map.Territory;
+import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,65 +16,72 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TerritoryTest {
 
+
     @Test
     public void testInvalidTerritoryIdNotAdjacent(){
-        Territory mainTerritory = new Territory("Test", "Test");
-        Territory toCheck = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory mainTerritory = new Territory("Test", continent);
+        Territory toCheck = new Territory("Test", continent);
 
-        assertFalse(mainTerritory.isAdjacent(toCheck));
+        assertFalse(mainTerritory.isAdjacentTerritory(toCheck));
     }
 
     @Test
     public void testValidTerritoryIdNotAdjacent(){
-        Territory mainTerritory = new Territory("Test", "Test");
-        Territory adjTerritory = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory mainTerritory = new Territory("Test", continent);
+        Territory adjTerritory = new Territory("Test", continent);
         mainTerritory.addAdjacentTerritory(adjTerritory);
-        Territory toCheck = new Territory("Test", "Test");
+        Territory toCheck = new Territory("Test", continent);
 
-        assertFalse(mainTerritory.isAdjacent(toCheck));
+        assertFalse(mainTerritory.isAdjacentTerritory(toCheck));
     }
 
     @Test
     public void testValidTerritoryIdIsAdjacent(){
-        Territory mainTerritory = new Territory("Test", "Test");
-        Territory toCheck = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory mainTerritory = new Territory("Test", continent);
+        Territory toCheck = new Territory("Test", continent);
         mainTerritory.addAdjacentTerritory(toCheck);
 
-        assertTrue(mainTerritory.isAdjacent(toCheck));
+        assertTrue(mainTerritory.isAdjacentTerritory(toCheck));
     }
 
     @Test
     public void testValidTerritoryIdIsAdjacentLargerList(){
-        Territory mainTerritory = new Territory("Test", "Test");
-        Territory toCheck = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory mainTerritory = new Territory("Test", continent);
+        Territory toCheck = new Territory("Test", continent);
         mainTerritory.addAdjacentTerritory(toCheck);
-        Territory adjTerritory = new Territory("Test", "Test");
+        Territory adjTerritory = new Territory("Test", continent);
         mainTerritory.addAdjacentTerritory(adjTerritory);
 
-        assertTrue(mainTerritory.isAdjacent(toCheck));
+        assertTrue(mainTerritory.isAdjacentTerritory(toCheck));
     }
 
     @Test
     public void testInvalidTerritoryIdIsAdjacentLargerList(){
-        Territory mainTerritory = new Territory("Test", "Test");
-        Territory adjTerritory1 = new Territory("Test", "Test");
-        Territory adjTerritory2 = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory mainTerritory = new Territory("Test", continent);
+        Territory adjTerritory1 = new Territory("Test", continent);
+        Territory adjTerritory2 = new Territory("Test", continent);
         mainTerritory.addAdjacentTerritory(adjTerritory1);
         mainTerritory.addAdjacentTerritory(adjTerritory2);
 
-        Territory toCheck = new Territory("Test", "Test");
+        Territory toCheck = new Territory("Test", continent);
 
-        assertFalse(mainTerritory.isAdjacent(toCheck));
+        assertFalse(mainTerritory.isAdjacentTerritory(toCheck));
     }
 
     @Test
     public void testMultipleValidAdjacentTerritories(){
-        Territory mainTerritory = new Territory("Test", "Test");
-        Territory adjTerritory = new Territory("Test", "Test");
-        Territory firstTrue = new Territory("Test", "Test");
-        Territory secondTrue = new Territory("Test", "Test");
-        Territory firstFalse = new Territory("Test", "Test");
-        Territory secondFalse = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory mainTerritory = new Territory("Test", continent);
+        Territory adjTerritory = new Territory("Test", continent);
+        Territory firstTrue = new Territory("Test", continent);
+        Territory secondTrue = new Territory("Test", continent);
+        Territory firstFalse = new Territory("Test", continent);
+        Territory secondFalse = new Territory("Test", continent);
 
 
         mainTerritory.addAdjacentTerritory(firstTrue);
@@ -77,19 +90,20 @@ class TerritoryTest {
 
 
 
-        assertTrue(mainTerritory.isAdjacent(firstTrue));
-        assertTrue(mainTerritory.isAdjacent(secondTrue));
-        assertFalse(mainTerritory.isAdjacent(firstFalse));
-        assertFalse(mainTerritory.isAdjacent(secondFalse));
+        assertTrue(mainTerritory.isAdjacentTerritory(firstTrue));
+        assertTrue(mainTerritory.isAdjacentTerritory(secondTrue));
+        assertFalse(mainTerritory.isAdjacentTerritory(firstFalse));
+        assertFalse(mainTerritory.isAdjacentTerritory(secondFalse));
     }
 
     @Test
     public void test20ValidAdjacentTerritories(){
-        Territory mainTerritory = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory mainTerritory = new Territory("Test", continent);
         Territory[] territories = new Territory[20];
 
         for (int i = 0; i < 20; i++) {
-            territories[i] = new Territory("Test", "Test");
+            territories[i] = new Territory("Test", continent);
         }
         for (int i = 0; i < 10; i++) {
             mainTerritory.addAdjacentTerritory(territories[i]);
@@ -97,17 +111,18 @@ class TerritoryTest {
 
         for (int i = 0; i < 20; i++) {
             if (i < 10){
-                assertTrue(mainTerritory.isAdjacent(territories[i]));
+                assertTrue(mainTerritory.isAdjacentTerritory(territories[i]));
             } else {
-                assertFalse(mainTerritory.isAdjacent(territories[i]));
+                assertFalse(mainTerritory.isAdjacentTerritory(territories[i]));
             }
         }
     }
 
     @Test
     public void testAttackTerritoryAttackerHas0Armies(){
-        Territory attacker = new Territory("Test", "Test");
-        Territory defender = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(2);
         int[] attackerRolls = new int[]{1};
         int[] defenderRolls = new int[]{1};
@@ -121,9 +136,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryDefenderHas0Armies(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(2);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         int[] attackerRolls = new int[]{1};
         int[] defenderRolls = new int[]{1};
 
@@ -136,9 +152,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryInvalidRolls(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(1);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         int[] attackerRolls = new int[]{};
         int[] defenderRolls = new int[]{};
 
@@ -151,9 +168,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryDefenderInvalidRoll(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(1);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(1);
         int[] attackerRolls = new int[]{1};
         int[] defenderRolls = new int[]{};
@@ -166,9 +184,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryDefenderLoses1AndIsEmpty(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(2);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(1);
         int[] attackerRolls = new int[]{5};
         int[] defenderRolls = new int[]{2};
@@ -186,9 +205,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryDefenderLoses1(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(2);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(4);
         int[] attackerRolls = new int[]{5};
         int[] defenderRolls = new int[]{2};
@@ -206,9 +226,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryAttackerLoses1(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(2);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(4);
         int[] attackerRolls = new int[]{2};
         int[] defenderRolls = new int[]{5};
@@ -226,9 +247,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryDefenderLoses2(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(4);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(4);
         int[] attackerRolls = new int[]{2,5,6};
         int[] defenderRolls = new int[]{3,4};
@@ -246,9 +268,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryAttackerLoses1DefenderLoses1(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(4);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(4);
         int[] attackerRolls = new int[]{2,2,6};
         int[] defenderRolls = new int[]{3,4};
@@ -267,9 +290,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryAttackerLoses1DefenderLoses1OrderMatters(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(4);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(4);
         int[] attackerRolls = new int[]{6,2,2};
         int[] defenderRolls = new int[]{3,4};
@@ -287,9 +311,10 @@ class TerritoryTest {
     }
     @Test
     public void testAttackTerritoryDefenderLoses1OrderMatters(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(4);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(4);
         int[] attackerRolls = new int[]{6,3};
         int[] defenderRolls = new int[]{4};
@@ -308,9 +333,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryAttackerLoses1OrderMatters(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(4);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(4);
         int[] attackerRolls = new int[]{5};
         int[] defenderRolls = new int[]{6,3};
@@ -329,9 +355,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryTooManyRollValues(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(4);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(4);
         int[] attackerRolls = new int[]{2,2,6,8};
         int[] defenderRolls = new int[]{3,4};
@@ -344,9 +371,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryDefenderTooManyRollValues(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(4);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(4);
         int[] attackerRolls = new int[]{2,2};
         int[] defenderRolls = new int[]{3,4,3};
@@ -359,9 +387,10 @@ class TerritoryTest {
 
     @Test
     public void testAttackTerritoryOneArmyShort(){
-        Territory attacker = new Territory("Test", "Test");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory attacker = new Territory("Test", continent);
         attacker.addArmies(1);
-        Territory defender = new Territory("Test", "Test");
+        Territory defender = new Territory("Test", continent);
         defender.addArmies(2);
         int[] attackerRolls = new int[]{2};
         int[] defenderRolls = new int[]{3};
@@ -374,11 +403,12 @@ class TerritoryTest {
 
     @Test
     public void testFortifyTerritoryMove5Units(){
+        Continent continent = EasyMock.mock(Continent.class);
         Player red = new Player(PlayerColor.RED, null, null);
-        Territory moveFrom = new Territory("Test", "Test");
-        moveFrom.setController(red);
-        Territory moveTo = new Territory("Test", "Test");
-        moveTo.setController(red);
+        Territory moveFrom = new Territory("Test", continent);
+        moveFrom.setOccupant(red);
+        Territory moveTo = new Territory("Test", continent);
+        moveTo.setOccupant(red);
         moveFrom.addArmies(10);
         moveTo.addArmies(5);
 
@@ -389,11 +419,12 @@ class TerritoryTest {
 
     @Test
     public void testFortifyTerritoryMove20Units(){
+        Continent continent = EasyMock.mock(Continent.class);
         Player red = new Player(PlayerColor.RED, null, null);
-        Territory moveFrom = new Territory("Test", "Test");
-        moveFrom.setController(red);
-        Territory moveTo = new Territory("Test", "Test");
-        moveTo.setController(red);
+        Territory moveFrom = new Territory("Test", continent);
+        moveFrom.setOccupant(red);
+        Territory moveTo = new Territory("Test", continent);
+        moveTo.setOccupant(red);
         moveFrom.addArmies(30);
         moveTo.addArmies(5);
 
@@ -404,11 +435,12 @@ class TerritoryTest {
 
     @Test
     public void testFortifyTerritoryCallerDoesntHaveEnoughUnits(){
+        Continent continent = EasyMock.mock(Continent.class);
         Player red = new Player(PlayerColor.RED, null, null);
-        Territory moveFrom = new Territory("Test", "Test");
-        moveFrom.setController(red);
-        Territory moveTo = new Territory("Test", "Test");
-        moveTo.setController(red);
+        Territory moveFrom = new Territory("Test", continent);
+        moveFrom.setOccupant(red);
+        Territory moveTo = new Territory("Test", continent);
+        moveTo.setOccupant(red);
         moveFrom.addArmies(1);
         moveTo.addArmies(5);
 
@@ -419,11 +451,12 @@ class TerritoryTest {
 
     @Test
     public void testFortifyTerritoryInvalidNumberOfUnits(){
+        Continent continent = EasyMock.mock(Continent.class);
         Player red = new Player(PlayerColor.RED, null, null);
-        Territory moveFrom = new Territory("Test", "Test");
-        moveFrom.setController(red);
-        Territory moveTo = new Territory("Test", "Test");
-        moveTo.setController(red);
+        Territory moveFrom = new Territory("Test", continent);
+        moveFrom.setOccupant(red);
+        Territory moveTo = new Territory("Test", continent);
+        moveTo.setOccupant(red);
         moveFrom.addArmies(1);
         moveTo.addArmies(5);
 
@@ -434,11 +467,12 @@ class TerritoryTest {
 
     @Test
     public void testFortifyTerritoryInvalidNumberOfUnits2(){
+        Continent continent = EasyMock.mock(Continent.class);
         Player red = new Player(PlayerColor.RED, null, null);
-        Territory moveFrom = new Territory("Test", "Test");
-        moveFrom.setController(red);
-        Territory moveTo = new Territory("Test", "Test");
-        moveTo.setController(red);
+        Territory moveFrom = new Territory("Test", continent);
+        moveFrom.setOccupant(red);
+        Territory moveTo = new Territory("Test", continent);
+        moveTo.setOccupant(red);
         moveFrom.addArmies(1);
         moveTo.addArmies(5);
 
@@ -449,11 +483,12 @@ class TerritoryTest {
 
     @Test
     public void testFortifyTerritoryMoveAllUnitsFromTerritory(){
+        Continent continent = EasyMock.mock(Continent.class);
         Player red = new Player(PlayerColor.RED, null, null);
-        Territory moveFrom = new Territory("Test", "Test");
-        moveFrom.setController(red);
-        Territory moveTo = new Territory("Test", "Test");
-        moveTo.setController(red);
+        Territory moveFrom = new Territory("Test", continent);
+        moveFrom.setOccupant(red);
+        Territory moveTo = new Territory("Test", continent);
+        moveTo.setOccupant(red);
         moveFrom.addArmies(10);
         moveTo.addArmies(1);
 
@@ -464,12 +499,13 @@ class TerritoryTest {
 
     @Test
     public void testFortifyUnownedTerritory(){
+        Continent continent = EasyMock.mock(Continent.class);
         Player red = new Player(PlayerColor.RED, null, null);
         Player blue = new Player(PlayerColor.BLUE, null, null);
-        Territory moveFrom = new Territory("Test", "Test");
-        moveFrom.setController(red);
-        Territory moveTo = new Territory("Test", "Test");
-        moveTo.setController(blue);
+        Territory moveFrom = new Territory("Test", continent);
+        moveFrom.setOccupant(red);
+        Territory moveTo = new Territory("Test", continent);
+        moveTo.setOccupant(blue);
         moveFrom.addArmies(5);
         moveTo.addArmies(5);
 
@@ -477,14 +513,15 @@ class TerritoryTest {
         assertEquals(5, moveFrom.getArmies());
         assertEquals(5, moveTo.getArmies());
     }
-    
+
     @Test
     public void testFortifyTerritoryInvalidNumberOfUnits3(){
+        Continent continent = EasyMock.mock(Continent.class);
         Player red = new Player(PlayerColor.RED, null, null);
-        Territory moveFrom = new Territory("Test", "Test");
-        moveFrom.setController(red);
-        Territory moveTo = new Territory("Test", "Test");
-        moveTo.setController(red);
+        Territory moveFrom = new Territory("Test", continent);
+        moveFrom.setOccupant(red);
+        Territory moveTo = new Territory("Test", continent);
+        moveTo.setOccupant(red);
         moveFrom.addArmies(1);
         moveTo.addArmies(5);
 
@@ -494,75 +531,27 @@ class TerritoryTest {
     }
 
     @Test
-    public void testCalculateContinentBonusWithEmptyList(){
-        List<Territory> territoryList = new ArrayList<>();
-        assertEquals(0, Territory.calculateArmiesFromContinentBonus(territoryList));
-    }
-
-    @Test
-    public void testCalculateContinentBonusWithAllTerritories(){
-        GameSetup gameSetup = new GameSetup(6);
-        List<Territory> territoryList = gameSetup.initTerritories();
-        assertEquals(24, Territory.calculateArmiesFromContinentBonus(territoryList));
-    }
-
-    @Test
-    public void testCalculateContinentBonusMissingOneTerritoryFromEachContinent(){
-        GameSetup gameSetup = new GameSetup(6);
-        List<Territory> territoryList = gameSetup.initTerritories();
-        territoryList.remove(41);
-        territoryList.remove(34);
-        territoryList.remove(22);
-        territoryList.remove(18);
-        territoryList.remove(12);
-        territoryList.remove(8);
-
-        assertEquals(0, Territory.calculateArmiesFromContinentBonus(territoryList));
-    }
-
-    @Test
-    public void testCalculateContinentBonusWithAllNorthAmericanTerritories(){
-        GameSetup gameSetup = new GameSetup(6);
-        List<Territory> allTerritories = gameSetup.initTerritories();
-        List<Territory> territoryList = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
-            territoryList.add(allTerritories.get(i));
-        }
-
-        assertEquals(5, Territory.calculateArmiesFromContinentBonus(territoryList));
-    }
-
-    @Test
-    public void testCalculateContinentBonusWithAllNorthAndSouthAmericanTerritories(){
-        GameSetup gameSetup = new GameSetup(6);
-        List<Territory> allTerritories = gameSetup.initTerritories();
-        List<Territory> territoryList = new ArrayList<>();
-        for (int i = 0; i < 13; i++) {
-            territoryList.add(allTerritories.get(i));
-        }
-
-        assertEquals(7, Territory.calculateArmiesFromContinentBonus(territoryList));
-    }
-
-    @Test
     public void testIsOccupiedNotOccupied(){
-        Territory territory = new Territory("Test", "Test");
-        assertFalse(territory.isOccupied());
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory territory = new Territory("Test", continent);
+        assertFalse(territory.hasOccupant());
     }
 
     @Test
     public void testIsOccupiedIsOccupied(){
+        Continent continent = EasyMock.mock(Continent.class);
         Player red = new Player(PlayerColor.RED, null, null);
-        Territory territory = new Territory("Test", "Test");
-        territory.setController(red);
-        assertTrue(territory.isOccupied());
-        assertEquals(red, territory.getController());
+        Territory territory = new Territory("Test", continent);
+        territory.setOccupant(red);
+        assertTrue(territory.hasOccupant());
+        assertEquals(red, territory.getOccupant());
     }
 
     @Test
     public void testGetters(){
-        Territory territory = new Territory("Name", "Continent");
+        Continent continent = EasyMock.mock(Continent.class);
+        Territory territory = new Territory("Name", continent);
         assertEquals("Name", territory.getName());
-        assertEquals("Continent", territory.getContinent());
+        assertEquals(continent, territory.getContinent());
     }
 }

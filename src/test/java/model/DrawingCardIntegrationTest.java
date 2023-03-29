@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import model.Map.Continent;
+import model.Map.Territory;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
@@ -14,11 +16,13 @@ class DrawingCardIntegrationTest {
 	@Test
 	void testPlayerCapturesAndDrawsNoDefeat() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		
+		Continent asia = new Continent("Asia", 5, 1);
+		Continent northAmerica = new Continent("North America", 5, 1);
+
 		List<Territory> instanceTerritories = new ArrayList<Territory>();
-		Territory attackingTerritory = new Territory("attackingTerritory", "Asia");
-		Territory attackedTerritory = new Territory("attackedTerritory", "Asia");
-		Territory otherTerritory = new Territory("otherTerritory", "North America");
+		Territory attackingTerritory = new Territory("attackingTerritory", asia);
+		Territory attackedTerritory = new Territory("attackedTerritory", asia);
+		Territory otherTerritory = new Territory("otherTerritory", northAmerica);
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
 		instanceTerritories.add(attackingTerritory);
 		instanceTerritories.add(attackedTerritory);
@@ -64,11 +68,12 @@ class DrawingCardIntegrationTest {
 	@Test
 	void testPlayerDoesNotCaptureNoDraw() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		
+		Continent asia = new Continent("Asia", 5, 1);
+
 		List<Territory> instanceTerritories = new ArrayList<Territory>();
-		Territory attackingTerritory = new Territory("attackingTerritory", "Asia");
-		Territory attackedTerritory = new Territory("attackedTerritory", "Asia");
-		Territory otherTerritory = new Territory("otherTerritory", "Asia");
+		Territory attackingTerritory = new Territory("attackingTerritory", asia);
+		Territory attackedTerritory = new Territory("attackedTerritory", asia);
+		Territory otherTerritory = new Territory("otherTerritory", asia);
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
 		instanceTerritories.add(attackingTerritory);
 		instanceTerritories.add(attackedTerritory);
@@ -110,10 +115,11 @@ class DrawingCardIntegrationTest {
 	@Test
 	void testPlayerCapturesAndDrawsAndTakesDefeatedCard() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		
+		Continent asia = new Continent("Asia", 5, 1);
+
 		List<Territory> instanceTerritories = new ArrayList<Territory>();
-		Territory attackingTerritory = new Territory("attackingTerritory", "Asia");
-		Territory attackedTerritory = new Territory("attackedTerritory", "Asia");
+		Territory attackingTerritory = new Territory("attackingTerritory", asia);
+		Territory attackedTerritory = new Territory("attackedTerritory", asia);
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
 		instanceTerritories.add(attackingTerritory);
 		instanceTerritories.add(attackedTerritory);
@@ -169,10 +175,11 @@ class DrawingCardIntegrationTest {
 	@Test
 	void testPlayerWinsAttackButDoesNotCaptureNoDraw() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		
+		Continent asia = new Continent("Asia", 5, 1);
+
 		List<Territory> instanceTerritories = new ArrayList<Territory>();
-		Territory attackingTerritory = new Territory("attackingTerritory", "Asia");
-		Territory attackedTerritory = new Territory("attackedTerritory", "Asia");
+		Territory attackingTerritory = new Territory("attackingTerritory", asia);
+		Territory attackedTerritory = new Territory("attackedTerritory", asia);
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
 		instanceTerritories.add(attackingTerritory);
 		instanceTerritories.add(attackedTerritory);

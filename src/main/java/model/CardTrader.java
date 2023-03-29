@@ -1,5 +1,7 @@
 package model;
 
+import model.Map.Territory;
+
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
