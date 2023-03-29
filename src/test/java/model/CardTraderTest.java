@@ -2,6 +2,8 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
+
+import model.Map.MapManager;
 import model.Map.Territory;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
@@ -453,12 +455,12 @@ class CardTraderTest {
 			add(EasyMock.mock(Territory.class));
 			add(EasyMock.mock(Territory.class));
 		}};
-		CardTrader cardTrader = new CardTrader(randomMock, territories);
+		MapManager.setTerritories(territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(0);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
 		
-		Card newCard = cardTrader.generateNewCard();
+		Card newCard = new Card(randomMock);
 		assertEquals(newCard.getSymbol(), CardSymbol.INFANTRY);
 		EasyMock.verify(randomMock);
 	}
@@ -471,12 +473,12 @@ class CardTraderTest {
 			add(EasyMock.mock(Territory.class));
 			add(EasyMock.mock(Territory.class));
 		}};
-		CardTrader cardTrader = new CardTrader(randomMock, territories);
+		MapManager.setTerritories(territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
 		
-		Card newCard = cardTrader.generateNewCard();
+		Card newCard = new Card(randomMock);
 		assertEquals(newCard.getSymbol(), CardSymbol.CAVALRY);
 		EasyMock.verify(randomMock);
 	}
@@ -489,12 +491,12 @@ class CardTraderTest {
 			add(EasyMock.mock(Territory.class));
 			add(EasyMock.mock(Territory.class));
 		}};
-		CardTrader cardTrader = new CardTrader(randomMock, territories);
+		MapManager.setTerritories(territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
 		
-		Card newCard = cardTrader.generateNewCard();
+		Card newCard = new Card(randomMock);
 		assertEquals(newCard.getSymbol(), CardSymbol.ARTILLERY);
 		EasyMock.verify(randomMock);
 	}
@@ -506,6 +508,7 @@ class CardTraderTest {
 		for (int i = 0; i < 42; i++) {
 			territories.add(EasyMock.mock(Territory.class));
 		}
+		MapManager.setTerritories(territories);
 
 		Set<Territory> generated = new HashSet<Territory>();
 		for (int i = 0; i < 14; i++) {

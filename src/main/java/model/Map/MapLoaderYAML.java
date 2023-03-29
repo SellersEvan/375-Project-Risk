@@ -31,6 +31,7 @@ public class MapLoaderYAML implements MapLoader {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        MapManager.setTerritories(this.territories);
     }
 
 

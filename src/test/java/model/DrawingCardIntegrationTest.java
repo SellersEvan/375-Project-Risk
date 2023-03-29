@@ -2,9 +2,12 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import model.Map.Continent;
+import model.Map.MapManager;
 import model.Map.Territory;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
@@ -17,7 +20,6 @@ class DrawingCardIntegrationTest {
 		Continent asia = new Continent("Asia", 5, 1);
 		Continent northAmerica = new Continent("North America", 5, 1);
 
-		List<Territory> instanceTerritories = new ArrayList<Territory>();
 		Territory attackingTerritory = new Territory("attackingTerritory", asia);
 		Territory attackedTerritory = new Territory("attackedTerritory", asia);
 		Territory otherTerritory = new Territory("otherTerritory", northAmerica);

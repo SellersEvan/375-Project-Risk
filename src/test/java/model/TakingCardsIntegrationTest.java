@@ -2,9 +2,12 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import model.Map.Continent;
+import model.Map.MapManager;
 import model.Map.Territory;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
@@ -15,15 +18,12 @@ public class TakingCardsIntegrationTest {
 	void testPlayerDefeatsAndNoCardsToTake() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
 
-		List<Territory> instanceTerritories = new ArrayList<>();
         Continent asia = EasyMock.mock(Continent.class);
 		Territory attackingTerritory = new Territory("attackingTerritory", asia);
 		Territory attackedTerritory = new Territory("attackedTerritory", asia);
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
-		instanceTerritories.add(attackingTerritory);
-		instanceTerritories.add(attackedTerritory);
 
-		CardTrader cardTrader = new CardTrader(randomMock, instanceTerritories);
+		CardTrader cardTrader = new CardTrader();
 
 		Player aggressor = new Player(PlayerColor.GREEN, randomMock, cardTrader);
 		Player defender = new Player(PlayerColor.BLUE, randomMock, cardTrader);
@@ -66,14 +66,11 @@ public class TakingCardsIntegrationTest {
 		Random randomMock = EasyMock.strictMock(Random.class);
         Continent asia = EasyMock.mock(Continent.class);
 
-		List<Territory> instanceTerritories = new ArrayList<>();
 		Territory attackingTerritory = new Territory("attackingTerritory", asia);
 		Territory attackedTerritory = new Territory("attackedTerritory", asia);
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
-		instanceTerritories.add(attackingTerritory);
-		instanceTerritories.add(attackedTerritory);
 
-		CardTrader cardTrader = new CardTrader(randomMock, instanceTerritories);
+		CardTrader cardTrader = new CardTrader();
 
 		Player aggressor = new Player(PlayerColor.GREEN, randomMock, cardTrader);
 		Player defender = new Player(PlayerColor.BLUE, randomMock, cardTrader);
@@ -126,17 +123,13 @@ public class TakingCardsIntegrationTest {
         Continent asia = EasyMock.mock(Continent.class);
         Continent northAmerica = EasyMock.mock(Continent.class);
 
-		List<Territory> instanceTerritories = new ArrayList<>();
 		Territory attackingTerritory = new Territory("attackingTerritory", asia);
 		Territory attackedTerritory = new Territory("attackedTerritory", asia);
 		Territory otherTerritory = new Territory("otherTerritory", northAmerica);
 
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
-		instanceTerritories.add(attackingTerritory);
-		instanceTerritories.add(attackedTerritory);
-		instanceTerritories.add(otherTerritory);
 
-		CardTrader cardTrader = new CardTrader(randomMock, instanceTerritories);
+		CardTrader cardTrader = new CardTrader();
 
 		Player aggressor = new Player(PlayerColor.YELLOW, randomMock, cardTrader);
 		Player defender = new Player(PlayerColor.RED, randomMock, cardTrader);
@@ -191,14 +184,11 @@ public class TakingCardsIntegrationTest {
 		Random randomMock = EasyMock.strictMock(Random.class);
         Continent asia = EasyMock.mock(Continent.class);
 
-		List<Territory> instanceTerritories = new ArrayList<>();
 		Territory attackingTerritory = new Territory("attackingTerritory", asia);
 		Territory attackedTerritory = new Territory("attackedTerritory", asia);
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
-		instanceTerritories.add(attackingTerritory);
-		instanceTerritories.add(attackedTerritory);
 
-		CardTrader cardTrader = new CardTrader(randomMock, instanceTerritories);
+		CardTrader cardTrader = new CardTrader();
 
 		Player aggressor = new Player(PlayerColor.GREEN, randomMock, cardTrader);
 		Player defender = new Player(PlayerColor.BLUE, randomMock, cardTrader);

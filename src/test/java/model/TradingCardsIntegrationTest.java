@@ -3,6 +3,8 @@ package model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
+
+import model.Map.MapManager;
 import model.Map.Territory;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
@@ -20,7 +22,8 @@ public class TradingCardsIntegrationTest {
 			territories.add(EasyMock.mock(Territory.class));
 		}
 		territories.set(3, territory4);
-		CardTrader cardTrader = new CardTrader(randomMock, territories);
+		MapManager.setTerritories(territories);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.BLUE, randomMock, cardTrader);
 		EasyMock.expect(territory4.hasOccupant()).andReturn(false);
 		territory4.addArmies(1);
@@ -63,7 +66,8 @@ public class TradingCardsIntegrationTest {
 		}
 		territories.set(0, territory1);
 		territories.set(3, territory4);
-		CardTrader cardTrader = new CardTrader(null, territories);
+		MapManager.setTerritories(territories);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, cardTrader);
 		EasyMock.expect(territory4.hasOccupant()).andReturn(false);
 		territory4.addArmies(1);
@@ -115,7 +119,8 @@ public class TradingCardsIntegrationTest {
 		}
 		territories.set(1, territory2);
 		territories.set(2, territory3);
-		CardTrader cardTrader = new CardTrader(null, territories);
+		MapManager.setTerritories(territories);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, cardTrader);
 		EasyMock.expect(territory2.hasOccupant()).andReturn(false);
 		territory2.addArmies(1);
@@ -163,7 +168,8 @@ public class TradingCardsIntegrationTest {
 		}
 		territories.set(1, territory2);
 		territories.set(2, territory3);
-		CardTrader cardTrader = new CardTrader(null, territories);
+		MapManager.setTerritories(territories);
+		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, cardTrader);
 		EasyMock.expect(territory2.hasOccupant()).andReturn(false);
 		territory2.addArmies(1);
@@ -236,7 +242,8 @@ public class TradingCardsIntegrationTest {
 		territories.set(1, territory2);
 		territories.set(2, territory3);
 		territories.set(41, territory42);
-		CardTrader cardTrader = new CardTrader(null, territories);
+		MapManager.setTerritories(territories);
+		CardTrader cardTrader = new CardTrader();
 		Player player1 = new Player(PlayerColor.RED, null, cardTrader);
 		Player player2 = new Player(PlayerColor.GREEN, null, cardTrader);
 		EasyMock.expect(territory2.hasOccupant()).andReturn(false);

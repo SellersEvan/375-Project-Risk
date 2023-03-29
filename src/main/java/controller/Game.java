@@ -1,9 +1,8 @@
 package controller;
 
 import model.InvalidAttackException;
-import model.MapManager;
+import model.Map.*;
 import model.Player;
-import model.Map.Territory;
 import view.GameView;
 import view.TerritoryButton;
 
@@ -13,8 +12,8 @@ import java.util.*;
 public class Game {
     protected Phase currentPhase;
     private GameView gameView;
-    private List<Territory> territories;
-    private List<Continent> continents;
+    private final List<Territory> territories;
+    private final List<Continent> continents;
     private Territory selectedTerritory;
     protected TerritoryButton selectedButton;
 
@@ -29,7 +28,12 @@ public class Game {
         this.numberOfPlayers = numberOfPlayers;
         gameSetup = new GameSetup(numberOfPlayers);
         gameSetup.setInitialArmies();
-        territories = MapManager.getTerritories();
+
+        File map = MapLoader.getMapFiles().get("Earth");
+        MapLoader mapLoader = new MapLoaderYAML(map);
+        this.territories = mapLoader.getTerritories();
+        this.continents  = mapLoader.getContinents();
+
         playerArray = gameSetup.fillPlayerArray(territories);
         setFirstPlayer(new Random());
 
