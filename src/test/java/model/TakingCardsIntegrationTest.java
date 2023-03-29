@@ -2,8 +2,6 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import org.easymock.EasyMock;
@@ -14,13 +12,10 @@ public class TakingCardsIntegrationTest {
 	@Test
 	void testPlayerDefeatsAndNoCardsToTake() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		
-		List<Territory> instanceTerritories = new ArrayList<Territory>();
+
 		Territory attackingTerritory = new Territory("attackingTerritory", "Asia");
 		Territory attackedTerritory = new Territory("attackedTerritory", "Asia");
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
-		instanceTerritories.add(attackingTerritory);
-		instanceTerritories.add(attackedTerritory);
 		
 		CardTrader cardTrader = new CardTrader();
 		
@@ -63,13 +58,10 @@ public class TakingCardsIntegrationTest {
 	@Test
 	void testPlayerDefeatsAndTakesTenCards() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		
-		List<Territory> instanceTerritories = new ArrayList<Territory>();
+
 		Territory attackingTerritory = new Territory("attackingTerritory", "Asia");
 		Territory attackedTerritory = new Territory("attackedTerritory", "Asia");
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
-		instanceTerritories.add(attackingTerritory);
-		instanceTerritories.add(attackedTerritory);
 		
 		CardTrader cardTrader = new CardTrader();
 		
@@ -121,16 +113,12 @@ public class TakingCardsIntegrationTest {
 	@Test
 	void testPlayerCapturesButNotDefeatTakesNoCards() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		
-		List<Territory> instanceTerritories = new ArrayList<Territory>();
+
 		Territory attackingTerritory = new Territory("attackingTerritory", "Asia");
 		Territory attackedTerritory = new Territory("attackedTerritory", "Asia");
 		Territory otherTerritory = new Territory("otherTerritory", "North America");
 		
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
-		instanceTerritories.add(attackingTerritory);
-		instanceTerritories.add(attackedTerritory);
-		instanceTerritories.add(otherTerritory);
 		
 		CardTrader cardTrader = new CardTrader();
 		
@@ -185,13 +173,10 @@ public class TakingCardsIntegrationTest {
 	@Test
 	void testPlayerDefeatsAndTakesThreeCards() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		
-		List<Territory> instanceTerritories = new ArrayList<Territory>();
+
 		Territory attackingTerritory = new Territory("attackingTerritory", "Asia");
 		Territory attackedTerritory = new Territory("attackedTerritory", "Asia");
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
-		instanceTerritories.add(attackingTerritory);
-		instanceTerritories.add(attackedTerritory);
 		
 		CardTrader cardTrader = new CardTrader();
 		
