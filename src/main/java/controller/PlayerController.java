@@ -1,9 +1,12 @@
 package controller;
 
+import model.Map.Continent;
+import model.Map.Territory;
 import model.Player;
 import model.PlayerColor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerController {
     protected ArrayList<Player> playerArray;
@@ -15,7 +18,7 @@ public class PlayerController {
         this.playerArray = playerArray;
     }
 
-    public PlayerColor getPlayerColor() {
+    public PlayerColor getCurrentPlayerColor() {
         return getCurrentPlayer().getColor();
     }
 
@@ -50,6 +53,26 @@ public class PlayerController {
         if (++currentPlayer == playerArray.size()) {
             currentPlayer = 0;
         }
+    }
+
+    public int getNumberOfCardForCurrentPlayer() {
+        return getCurrentPlayer().getCards().size();
+    }
+
+    public int getArmiesAvailableForCurrentPlayer() {
+        return getCurrentPlayer().getArmiesAvailable();
+    }
+
+    public void addNewTurnArmiesForCurrentPlayer(List<Continent> continents) {
+        getCurrentPlayer().addNewTurnArmies(continents);
+    }
+
+    public boolean addArmiesToTerritoryForCurrentPlayer(Territory territory, int amount) {
+        return getCurrentPlayer().addArmiesToTerritory(territory, amount);
+    }
+
+    public boolean doesPlayerOccupyTerritory(Territory territory) {
+        return getCurrentPlayer().occupyTerritory(territory);
     }
 
     public int getIndexOfPlayer(Player defender) {
