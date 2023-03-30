@@ -8,6 +8,7 @@ public class Player {
 	static final int GAIN_DIVISOR = 3;
 
 	private PlayerColor color;
+	private String name;
 	private List<Territory> occupiedTerritories;
 	private Set<Card> cards;
 	private int armiesAvailable;
@@ -17,6 +18,17 @@ public class Player {
 	
 	public Player(PlayerColor color, Random random, CardTrader cardTrader) {
 		this.color = color;
+		this.name = color.toString();
+		this.random = random;
+		this.cardTrader = cardTrader;
+		this.occupiedTerritories = new ArrayList<Territory>();
+		this.cards = new HashSet<Card>();
+		this.armiesAvailable = 0;
+		this.capturedThisTurn = false;
+	}
+	public Player(PlayerColor color, String name, Random random, CardTrader cardTrader) {
+		this.color = color;
+		this.name = name;
 		this.random = random;
 		this.cardTrader = cardTrader;
 		this.occupiedTerritories = new ArrayList<Territory>();
@@ -27,6 +39,9 @@ public class Player {
 	
 	public PlayerColor getColor() {
 		return this.color;
+	}
+	public String getName() {
+		return this.name;
 	}
 	
 	public List<Territory> getOccupiedTerritories() {
