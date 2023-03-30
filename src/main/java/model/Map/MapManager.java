@@ -1,23 +1,20 @@
 package model.Map;
 
-import controller.GameSetup;
-import model.Map.Territory;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class MapManager {
-    private static List<Territory> TERRITORIES = new ArrayList<>();
+    private static List<Territory> territories = new ArrayList<>();
 
 
     public static List<Territory> getTerritories() {
-        return Collections.unmodifiableList(TERRITORIES);
+        return Collections.unmodifiableList(territories);
     }
 
 
     public static void setTerritories(List<Territory> territories) {
-        TERRITORIES = territories;
+        MapManager.territories = territories;
     }
 
 }
