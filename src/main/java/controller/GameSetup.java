@@ -3,9 +3,7 @@ package controller;
 import model.CardTrader;
 import model.Player;
 import model.PlayerColor;
-import model.Map.Territory;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class GameSetup {
@@ -14,7 +12,6 @@ public class GameSetup {
     private static final int MAX_PLAYERS = 6;
     private static final int BASE_ARMIES = 40;
     private static final int EXTRA_PLAYER_MULTIPLIER = 5;
-    private static final PlayerColor[] PLAYER_COLORS = PlayerColor.values();
 
     protected int numberOfPlayers;
 
@@ -34,18 +31,6 @@ public class GameSetup {
         return armiesPerPlayer;
     }
 
-    public ArrayList<Player> fillPlayerArray(List<Territory> territories) {
-        ArrayList<Player> playerArray = new ArrayList<>();
-    	Random random = new Random();
-    	CardTrader cardTrader = new CardTrader();
-        for (int i = 0; i < numberOfPlayers; i++) {
-            PlayerColor playerColor = PLAYER_COLORS[i];
-            Player p = new Player(playerColor, random, cardTrader);
-            p.giveArmies(armiesPerPlayer);
-            playerArray.add(p);
-        }
-        return playerArray;
-    }
 
     public int getPlayerWhoGoesFirst(int highestRoller) throws IllegalArgumentException {
         if (highestRoller >= 1 && highestRoller <= 6) {
@@ -55,5 +40,24 @@ public class GameSetup {
         }
     }
 
-
+    private ArrayList<Player> defaultPlayers() {
+        ArrayList<Player> defaultPlayers = new ArrayList<Player>();
+        Random random = new Random();
+        CardTrader cardTrader = new CardTrader();
+        defaultPlayers.add(new Player(PlayerColor.YELLOW, "Colonel Mustard", random, cardTrader));
+        defaultPlayers.add(new Player(PlayerColor.GREEN, "Mr. Green", random, cardTrader));
+        defaultPlayers.add(new Player(PlayerColor.BLUE, "Mrs. Peacock", random, cardTrader));
+        defaultPlayers.add(new Player(PlayerColor.PURPLE, "Professor Plum", random, cardTrader));
+        defaultPlayers.add(new Player(PlayerColor.RED, "Miss Scarlet", random, cardTrader));
+        defaultPlayers.add(new Player(PlayerColor.BLACK, "Mrs. White", random, cardTrader));
+        return defaultPlayers;
+    }
+    public ArrayList<Player> fillPlayerArray(int numberOfPlayers) {
+        ArrayList<Player> usualSuspects = defaultPlayers();
+        ArrayList<Player> results = new ArrayList<Player>();
+        for (int count = 0; count < numberOfPlayers; count++) {
+            results.add(usualSuspects.get(count));
+        }
+        return results;
+    }
 }

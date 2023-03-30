@@ -1,5 +1,6 @@
 package controller;
 
+import model.*;
 import model.InvalidAttackException;
 import model.Map.*;
 import model.Player;
@@ -20,20 +21,35 @@ public class Game {
     protected int numberOfPlayers;
     protected int current;
     protected GameSetup gameSetup;
-
     protected ResourceBundle messages;
 
-
-    public Game(int numberOfPlayers, MapLoader map) {
+    public Game(int numberOfPlayers, MapLoader map, ArrayList<Player> players) {
         this.numberOfPlayers = numberOfPlayers;
         gameSetup = new GameSetup(numberOfPlayers);
-        gameSetup.setInitialArmies();
+        playerArray = players;
+        initArmies();
         this.map         = map;
         this.territories = this.map.getTerritories();
         this.continents  = this.map.getContinents();
-        playerArray = gameSetup.fillPlayerArray(territories);
         setFirstPlayer(new Random());
         currentPhase = Phase.territoryClaim;
+    }
+    public Game(int numberOfPlayers, MapLoader map) {
+        this.numberOfPlayers = numberOfPlayers;
+        gameSetup = new GameSetup(numberOfPlayers);
+        playerArray = gameSetup.fillPlayerArray(numberOfPlayers);
+        initArmies();
+        this.map         = map;
+        this.territories = this.map.getTerritories();
+        this.continents  = this.map.getContinents();
+        setFirstPlayer(new Random());
+        currentPhase = Phase.territoryClaim;
+    }
+    public void initArmies() {
+        gameSetup.setInitialArmies();
+        for (Player p: playerArray) {
+            p.giveArmies(gameSetup.getArmiesPerPlayer());
+        }
     }
 
 
@@ -45,7 +61,7 @@ public class Game {
     public void initWindow() {
         gameView = new GameView(this, this.map);
         updateGameView();
-        gameView.showMessage(messages.getString(playerArray.get(current).getName()) + " "
+        gameView.showMessage(playerArray.get(current).getName() + " "
                 + messages.getString("playerWillStartFirstMessage"));
     }
 

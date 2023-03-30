@@ -77,7 +77,7 @@ public class GameView {
 
     public void setPlayer(String player, int armies) {
 
-        this.player.setText(messages.getString("currentPlayerMessage") + " " + messages.getString(player)
+        this.player.setText(messages.getString("currentPlayerMessage") + " " + player
                 + "    " + messages.getString("currentArmiesMessage") + " " + armies);
         frame.repaint();
     }
@@ -118,6 +118,7 @@ public class GameView {
             return 0;
         }
     }
+
 
     public int getNumberOfDice(int armies, String player, boolean attacking) {
         JComboBox<String> comboBox = new JComboBox<>();

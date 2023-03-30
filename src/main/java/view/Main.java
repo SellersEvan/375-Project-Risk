@@ -1,10 +1,17 @@
 package view;
 
 import controller.Game;
-import model.Map.MapLoader;
-import model.Map.MapLoaderYAML;
+import model.CardTrader;
+import model.Player;
+import model.PlayerColor;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import model.Map.MapLoader;
+import model.Map.MapLoaderYAML;
 import java.io.File;
 
 public class Main {
@@ -23,8 +30,7 @@ public class Main {
         }
         JOptionPane.showMessageDialog(null, numberOfPlayers,
                 "Number of Players", JOptionPane.INFORMATION_MESSAGE);
-
-
+        ArrayList<Player> players = fillPlayerArray(numberOfPlayers.getSelectedIndex() + 2);
         JComboBox<String> mapOptions = new JComboBox<>();
         for (String mapName : MapLoader.getMapFiles().keySet())
             mapOptions.addItem(mapName);
@@ -33,8 +39,42 @@ public class Main {
         File mapFile = (File) MapLoader.getMapFiles().values().toArray()[mapOptions.getSelectedIndex()];
         MapLoader map = new MapLoaderYAML(mapFile);
 
-        Game gameController = new Game(numberOfPlayers.getSelectedIndex() + 2, map);
+        Game gameController = new Game(numberOfPlayers.getSelectedIndex() + 2, map, players);
         gameController.setLanguageBundle(bundleName);
         gameController.initWindow();
     }
+    private static ArrayList<Player> fillPlayerArray(int numberOfPlayers) {
+        PlayerColor[] playerColors = PlayerColor.values();
+        ArrayList<Player> playerArray = new ArrayList<>();
+        Random random = new Random();
+        CardTrader cardTrader = new CardTrader();
+        List<PlayerColor> availableColors = new ArrayList<PlayerColor>();
+        availableColors.addAll(Arrays.asList(playerColors));
+        for (int i = 0; i < numberOfPlayers; i++) {
+            String playerName = getString();
+            PlayerColor playerColor = getColor(availableColors);
+            Player p = new Player(playerColor, playerName, random, cardTrader);
+            availableColors.remove(playerColor);
+            playerArray.add(p);
+        }
+        return playerArray;
+    }
+    private static String getString() {
+        JTextArea nameInput = new JTextArea();
+        nameInput.setText("");
+        JOptionPane.showMessageDialog(null, nameInput,
+                "What is your name, commander?", JOptionPane.INFORMATION_MESSAGE);
+        return nameInput.getText();
+    }
+    private static PlayerColor getColor(List<PlayerColor> opt) {
+        JComboBox<PlayerColor> playerColors = new JComboBox<>();
+        for (int count = 0; count < opt.size(); count++) {
+            playerColors.addItem(opt.get(count));
+        }
+        playerColors.setSelectedIndex(0);
+        JOptionPane.showMessageDialog(null, playerColors,
+                "Select your color.", JOptionPane.INFORMATION_MESSAGE);
+        return playerColors.getItemAt(playerColors.getSelectedIndex());
+    }
+
 }

@@ -56,13 +56,13 @@ public class GameSetupTest {
     void testFillPlayerArray3() {
         GameSetup g = new GameSetup(6);
 
-        assertFalse(g.fillPlayerArray(null).isEmpty());
+        assertFalse(g.fillPlayerArray(6).isEmpty());
     }
 
     @Test
     void testDistinctPlayerColors() {
         GameSetup g = new GameSetup(6);
-        ArrayList<Player> playerArray = g.fillPlayerArray(null);
+        ArrayList<Player> playerArray = g.fillPlayerArray(6);
         assertNotEquals(playerArray.get(1).getColor(), playerArray.get(2).getColor());
     }
 
