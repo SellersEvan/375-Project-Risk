@@ -31,28 +31,40 @@ public class CardTrader {
 		}
 		return false;
 	}
-	
-	public boolean tradeInCardSet(Player player, Set<Card> cardSet) {
-		int numInfantry = 0;
-		int numCavalry = 0;
-		int numArtillery = 0;
-		
-		for (Card card : cardSet) {
-			switch (card.getSymbol()) {
-				case INFANTRY:
-					numInfantry++;
-					break;
-				case CAVALRY:
-					numCavalry++;
-					break;
-				case ARTILLERY:
-					numArtillery++;
-					break;
-			}
+
+	private boolean cardSetIsValid(Set<Card> cardSet) {
+		if (cardSet.size() != 3) {
+			return false;
 		}
-		
-		if ((numInfantry == 3 || numArtillery == 3 || numCavalry == 3) 
-				|| (numInfantry == 1 && numCavalry == 1 && numArtillery == 1)) {
+		CardSymbol[] setSymbols = new CardSymbol[3];
+
+		int index = 0;
+		for (Card card : cardSet) {
+			CardSymbol currentSymbol = card.getSymbol();
+			if (currentSymbol == CardSymbol.WILD) {
+				return true;
+			}
+			setSymbols[index] = currentSymbol;
+			index++;
+		}
+		boolean isValid = cardSetIsThreeOfAKind(setSymbols) || cardSetIsOneOfEach(setSymbols);
+		return isValid;
+	}
+
+	private boolean cardSetIsThreeOfAKind(CardSymbol[] setSymbols) {
+		boolean allSame = (setSymbols[0] == setSymbols[1]) && (setSymbols[1] == setSymbols[2]);
+		return allSame;
+	}
+
+	private boolean cardSetIsOneOfEach(CardSymbol[] setSymbols) {
+		boolean oneOfEach = (setSymbols[0] != setSymbols[1])
+				&& (setSymbols[1] != setSymbols[2])
+				&& (setSymbols[0] != setSymbols[2]);
+		return oneOfEach;
+	}
+
+	public boolean tradeInCardSet(Player player, Set<Card> cardSet) {
+		if (this.cardSetIsValid(cardSet)) {
 			if (this.getsTerritoryBonus(player, cardSet)) {
 				player.giveArmies(2);
 			}
@@ -60,7 +72,6 @@ public class CardTrader {
 			this.numSetsTurnedIn++;
 			return true;
 		}
-		
 		return false;
 	}
 }
