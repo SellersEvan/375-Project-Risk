@@ -43,7 +43,10 @@ public class Game {
         gameSetup = new GameSetup(numberOfPlayers);
         playerArray = players;
         initArmies();
-        territories = MapManager.getTerritories();
+        File map = MapLoader.getMapFiles().get("Earth");
+        MapLoader mapLoader = new MapLoaderYAML(map);
+        this.territories = mapLoader.getTerritories();
+        this.continents  = mapLoader.getContinents();
         setFirstPlayer(new Random());
 
         currentPhase = Phase.territoryClaim;

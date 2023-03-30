@@ -4,7 +4,6 @@ import controller.Game;
 import model.CardTrader;
 import model.Player;
 import model.PlayerColor;
-import model.Territory;
 
 import javax.swing.*;
 import java.util.ArrayList;

@@ -3,7 +3,6 @@ package controller;
 import model.CardTrader;
 import model.Player;
 import model.PlayerColor;
-import model.Territory;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -44,20 +43,6 @@ public class GameSetup {
             return highestRoller - 1;
         } else {
             throw new IllegalArgumentException();
-        }
-    }
-
-    private static void addAdjacentTerritories(List<Territory> territories) {
-        String[][] adjacentData =
-                readCSVFile("/adjacentTerritoriesData.csv", 42, 6);
-        for (int i = 0; i < adjacentData.length; i++) {
-            for (int j = 0; j < adjacentData[i].length; j++) {
-                if (adjacentData[i][j] == null) {
-                    continue;
-                }
-                territories.get(i).addAdjacentTerritory(
-                        territories.get(Integer.parseInt(adjacentData[i][j])));
-            }
         }
     }
 
