@@ -1,9 +1,13 @@
 package controller;
 
 
+import model.CardTrader;
+import model.Player;
+import model.PlayerColor;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -80,4 +84,19 @@ public class GameTest {
         assertEquals(g.gameSetup.getArmiesPerPlayer(), g.playerController.playerArray.get(0).getArmiesAvailable());
     }
 
+    @Test
+    void testSetPlayers() {
+        Player p1 = new Player(PlayerColor.BLACK, "AAAAAAAAAAAAAAAAA", new Random(), new CardTrader());
+        Player p2 = new Player(PlayerColor.BLACK, "Marbo", new Random(), new CardTrader());
+        ArrayList<Player> playerList = new ArrayList<Player>();
+        playerList.add(p1);
+        playerList.add(p2);
+        Game g = new Game(2, playerList);
+        assertEquals("AAAAAAAAAAAAAAAAA", g.playerController.playerArray.get(0).getName());
+    }
+    @Test
+    void testDefaultPlayers(){
+        Game g = new Game(2);
+        assertEquals("Colonel Mustard", g.playerController.playerArray.get(0).getName());
+    }
 }
