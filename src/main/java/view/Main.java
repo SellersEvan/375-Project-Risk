@@ -57,7 +57,7 @@ public class Main {
     }
     private static PlayerColor getColor(List<PlayerColor> opt) {
         JComboBox<PlayerColor> playerColors = new JComboBox<>();
-        for(int count = 0; count < opt.size(); count++) {
+        for (int count = 0; count < opt.size(); count++) {
             playerColors.addItem(opt.get(count));
         }
         playerColors.setSelectedIndex(0);
