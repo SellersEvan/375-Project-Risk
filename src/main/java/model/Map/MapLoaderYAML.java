@@ -33,6 +33,7 @@ public class MapLoaderYAML implements MapLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.loadBackground(map);
         MapManager.getInstance().setTerritories(this.territories);
     }
 
