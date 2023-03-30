@@ -106,12 +106,12 @@ public class Game {
                         playerController.getCurrentPlayer().getName(), true);
                 int defend = gameView.getNumberOfDice(territory.getArmies(),
                         territory.getOccupant().getName(), false);
-                int[] attackRolls = playerController.getCurrentPlayer().rollDice(attack);
-                int[] defendRolls = territory.getOccupant().rollDice(defend);
+                AttackData data = new AttackData(territoryController.getSelectedTerritory(), territory, attack, defend);
+                int[] attackRolls = data.getAttackerDice();
+                int[] defendRolls = data.getDefenderDice();
                 gameView.displayRolls(attackRolls, defendRolls);
                 int attemptAttack = playerController.getCurrentPlayer().
-                        attackTerritory(territoryController.getSelectedTerritory(),
-                        territory, attackRolls, defendRolls);
+                        attackTerritory(data);
                 if (attemptAttack != 0) {
                     int additional = -1;
                     while (additional < 0 || additional > attemptAttack) {
