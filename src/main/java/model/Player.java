@@ -40,7 +40,9 @@ public class Player {
 	public PlayerColor getColor() {
 		return this.color;
 	}
-	public String getName(){return this.name;}
+	public String getName() {
+		return this.name;
+	}
 	
 	public List<Territory> getOccupiedTerritories() {
 		return this.occupiedTerritories;
