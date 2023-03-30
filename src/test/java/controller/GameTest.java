@@ -54,7 +54,7 @@ public class GameTest {
     void testNextTurn() {
         Game game = new Game(6);
         game.playerController.setCurrentPlayer(0);
-        game.nextPlayer();
+        game.playerController.nextPlayer();
         assertEquals(game.playerController.currentPlayer, 1);
     }
 
@@ -62,7 +62,7 @@ public class GameTest {
     void testNextTurn1() {
         Game game = new Game(6);
         game.playerController.currentPlayer = 1;
-        game.nextPlayer();
+        game.playerController.nextPlayer();
         assertEquals(game.playerController.currentPlayer, 2);
     }
 
@@ -70,7 +70,7 @@ public class GameTest {
     void testNextTurn5() {
         Game game = new Game(6);
         game.playerController.currentPlayer = 5;
-        game.nextPlayer();
+        game.playerController.nextPlayer();
         assertEquals(game.playerController.currentPlayer, 0);
     }
 
