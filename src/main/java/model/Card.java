@@ -1,5 +1,8 @@
 package model;
 
+import model.Map.MapManager;
+import model.Map.Territory;
+
 import java.util.List;
 import java.util.Random;
 
@@ -8,6 +11,12 @@ public class Card {
 	private Random random;
 	private final Territory picturedTerritory;
 	private final CardSymbol symbol;
+
+	public Card() {
+		this.random = new Random();
+		this.symbol = pickRandomSymbol();
+		this.picturedTerritory = pickRandomTerritory();
+	}
 
 	public Card(Random random) {
 		this.random = random;

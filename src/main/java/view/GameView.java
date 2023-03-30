@@ -2,7 +2,7 @@ package view;
 
 import controller.Game;
 
-import model.Territory;
+import model.Map.Territory;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

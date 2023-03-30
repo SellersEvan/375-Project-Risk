@@ -3,7 +3,7 @@ package view;
 import controller.Game;
 import model.InvalidAttackException;
 import model.PlayerColor;
-import model.Territory;
+import model.Map.Territory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,7 +60,7 @@ public class TerritoryButton extends JButton {
     }
 
     public void updateDisplay() {
-        setPlayer(territory.getController().getColor());
+        setPlayer(territory.getOccupant().getColor());
         setText(gameController.getLanguageBundle().getString("armies") + " " + territory.getArmies());
     }
 }
