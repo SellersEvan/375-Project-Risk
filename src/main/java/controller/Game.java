@@ -107,8 +107,8 @@ public class Game {
                 int defend = gameView.getNumberOfDice(territory.getArmies(),
                         territory.getOccupant().getName(), false);
                 AttackData data = new AttackData(territoryController.getSelectedTerritory(), territory, attack, defend);
-                int[] attackRolls = data.getAttackerDice();
-                int[] defendRolls = data.getDefenderDice();
+                int[] attackRolls = data.getADice();
+                int[] defendRolls = data.getDDice();
                 gameView.displayRolls(attackRolls, defendRolls);
                 int attemptAttack = playerController.getCurrentPlayer().
                         attackTerritory(data);

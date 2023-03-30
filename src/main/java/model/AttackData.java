@@ -7,13 +7,13 @@ public class AttackData {
     private Territory attacker;
     private int[] defenderDice;
     private int[] attackerDice;
-    public AttackData(Territory attacker, Territory defender,int attackerDice, int defenderDice){
+    public AttackData(Territory attacker, Territory defender, int attackerDice, int defenderDice) {
         this.attacker = attacker;
         this.defender = defender;
         this.attackerDice = attacker.getOccupant().rollDice(attackerDice);
         this.defenderDice = defender.getOccupant().rollDice(defenderDice);
     }
-    public AttackData(Territory attacker, Territory defender,int[] attackerDice, int[] defenderDice){
+    public AttackData(Territory attacker, Territory defender, int[] attackerDice, int[] defenderDice) {
         this.attacker = attacker;
         this.defender = defender;
         this.attackerDice = attackerDice;
@@ -25,10 +25,10 @@ public class AttackData {
     public Territory getDefender() {
         return defender;
     }
-    public int[] getAttackerDice() {
+    public int[] getADice() {
         return attackerDice;
     }
-    public int[] getDefenderDice() {
+    public int[] getDDice() {
         return defenderDice;
     }
 }
