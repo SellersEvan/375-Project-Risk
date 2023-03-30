@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Random;
 import model.Map.MapLoader;
 import model.Map.MapLoaderYAML;
-
-import javax.swing.*;
 import java.io.File;
 
 public class Main {
