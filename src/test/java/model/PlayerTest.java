@@ -628,9 +628,8 @@ class PlayerTest {
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
-
-		assertEquals(0, attackingPlayer.attackTerritory(attackingMock,
-				defendingMock, attackerRolls, defenderRolls));
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
+		assertEquals(0, attackingPlayer.attackTerritory(data));
 
 		EasyMock.verify(attackingPlayer);
 		EasyMock.verify(attackingMock);
@@ -651,8 +650,8 @@ class PlayerTest {
 		defendingPlayer.occupyTerritory(defendT);
 		int [] attackerRolls = {2};
 		int [] defenderRolls = {1};
-		assertEquals(0, attackingPlayer.attackTerritory(attackT,
-				defendT, attackerRolls, defenderRolls));
+		AttackData data = new AttackData(attackT, defendT, attackerRolls, defenderRolls);
+		assertEquals(0, attackingPlayer.attackTerritory(data));
 	}
 
 	@Test
@@ -680,9 +679,8 @@ class PlayerTest {
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
-
-		assertEquals(0, attackingPlayer.attackTerritory(attackingMock,
-				defendingMock, attackerRolls, defenderRolls));
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
+		assertEquals(0, attackingPlayer.attackTerritory(data));
 
 		EasyMock.verify(attackingPlayer);
 		EasyMock.verify(attackingMock);
@@ -704,8 +702,9 @@ class PlayerTest {
 		defendingPlayer.occupyTerritory(defendT);
 		int [] attackerRolls = {2};
 		int [] defenderRolls = {1};
-		assertEquals(0, attackingPlayer.attackTerritory(attackT,
-				defendT, attackerRolls, defenderRolls));
+		AttackData data = new AttackData(attackT, defendT, attackerRolls, defenderRolls);
+
+		assertEquals(0, attackingPlayer.attackTerritory(data));
 		assertNotEquals(attackingPlayer, defendT.getOccupant());
 	}
 
@@ -736,9 +735,9 @@ class PlayerTest {
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
-		assertEquals(2, attackingPlayer.attackTerritory(attackingMock,
-				defendingMock, attackerRolls, defenderRolls));
+		assertEquals(2, attackingPlayer.attackTerritory(data));
 
 		EasyMock.verify(attackingPlayer);
 		EasyMock.verify(attackingMock);
@@ -759,8 +758,9 @@ class PlayerTest {
 		defendingPlayer.occupyTerritory(defendT);
 		int [] attackerRolls = {2};
 		int [] defenderRolls = {1};
-		assertEquals(2, attackingPlayer.attackTerritory(attackT,
-				defendT, attackerRolls, defenderRolls));
+		AttackData data = new AttackData(attackT, defendT, attackerRolls, defenderRolls);
+
+		assertEquals(2, attackingPlayer.attackTerritory(data));
 	}
 
 	@Test
@@ -784,9 +784,10 @@ class PlayerTest {
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		InvalidAttackException e = assertThrows(InvalidAttackException.class,
-				() -> {attackingPlayer.attackTerritory(attackingMock, defendingMock, attackerRolls, defenderRolls);});
+				() -> {attackingPlayer.attackTerritory(data);});
 		assertEquals("Cannot attack own Territory.", e.getMessage());
 
 		EasyMock.verify(attackingPlayer);
@@ -806,8 +807,10 @@ class PlayerTest {
 		attackT.addArmies(1);
 		int [] attackerRolls = {2};
 		int [] defenderRolls = {1};
+		AttackData data = new AttackData(attackT, defendT, attackerRolls, defenderRolls);
+
 		InvalidAttackException e = assertThrows(InvalidAttackException.class,
-				() -> {attackingPlayer.attackTerritory(attackT, defendT, attackerRolls, defenderRolls);});
+				() -> {attackingPlayer.attackTerritory(data);});
 		assertEquals("Cannot attack own Territory.", e.getMessage());
 	}
 
@@ -832,9 +835,10 @@ class PlayerTest {
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		InvalidAttackException e = assertThrows(InvalidAttackException.class,
-				() -> {attackingPlayer.attackTerritory(attackingMock, defendingMock, attackerRolls, defenderRolls);});
+				() -> {attackingPlayer.attackTerritory(data);});
 		assertEquals("Cannot attack with a Territory in another's control.", e.getMessage());
 
 		EasyMock.verify(attackingPlayer);
@@ -857,8 +861,10 @@ class PlayerTest {
 		attackT.addArmies(1);
 		int [] attackerRolls = {2};
 		int [] defenderRolls = {1};
+		AttackData data = new AttackData(attackT, defendT, attackerRolls, defenderRolls);
+
 		InvalidAttackException e = assertThrows(InvalidAttackException.class,
-				() -> {attackingPlayer.attackTerritory(attackT, defendT, attackerRolls, defenderRolls);});
+				() -> {attackingPlayer.attackTerritory(data);});
 		assertEquals("Cannot attack with a Territory in another's control.", e.getMessage());
 	}
 
@@ -882,9 +888,10 @@ class PlayerTest {
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		InvalidAttackException e = assertThrows(InvalidAttackException.class,
-				() -> {attackingPlayer.attackTerritory(attackingMock, defendingMock, attackerRolls, defenderRolls);});
+				() -> {attackingPlayer.attackTerritory(data);});
 		assertEquals("Cannot attack with a Territory in another's control.", e.getMessage());
 
 		EasyMock.verify(attackingPlayer);
@@ -905,8 +912,10 @@ class PlayerTest {
 		attackT.addArmies(1);
 		int [] attackerRolls = {2};
 		int [] defenderRolls = {1};
+		AttackData data = new AttackData(attackT, defendT, attackerRolls, defenderRolls);
+
 		InvalidAttackException e = assertThrows(InvalidAttackException.class,
-				() -> {attackingPlayer.attackTerritory(attackT, defendT, attackerRolls, defenderRolls);});
+				() -> {attackingPlayer.attackTerritory(data);});
 		assertEquals("Cannot attack with a Territory in another's control.", e.getMessage());
 	}
 
@@ -935,9 +944,9 @@ class PlayerTest {
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
-		assertEquals(0, attackingPlayer.attackTerritory(attackingMock,
-				defendingMock, attackerRolls, defenderRolls));
+		assertEquals(0, attackingPlayer.attackTerritory(data));
 
 		EasyMock.verify(attackingPlayer);
 		EasyMock.verify(attackingMock);
@@ -959,9 +968,9 @@ class PlayerTest {
 		defendingPlayer.occupyTerritory(defendT);
 		int [] attackerRolls = {2};
 		int [] defenderRolls = {1};
+		AttackData data = new AttackData(attackT, defendT, attackerRolls, defenderRolls);
 		assertEquals(3, attackT.getArmies());
-		assertEquals(0, attackingPlayer.attackTerritory(attackT,
-				defendT, attackerRolls, defenderRolls));
+		assertEquals(0, attackingPlayer.attackTerritory(data));
 		assertEquals(2, defendT.getArmies());
 		assertNotEquals(attackingPlayer, defendT.getOccupant());
 	}
@@ -992,9 +1001,10 @@ class PlayerTest {
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		InvalidAttackException e = assertThrows(InvalidAttackException.class,
-				() -> {attackingPlayer.attackTerritory(attackingMock, defendingMock, attackerRolls, defenderRolls);});
+				() -> {attackingPlayer.attackTerritory(data);});
 
 		assertEquals(e.getMessage(), "Attacker does not possess enough troops for that many rolls");
 
@@ -1016,8 +1026,10 @@ class PlayerTest {
 		defendingPlayer.occupyTerritory(defendT);
 		int [] attackerRolls = {2};
 		int [] defenderRolls = {1};
+		AttackData data = new AttackData(attackT, defendT, attackerRolls, defenderRolls);
+
 		InvalidAttackException e = assertThrows(InvalidAttackException.class,
-				() -> {attackingPlayer.attackTerritory(attackT, defendT, attackerRolls, defenderRolls);});
+				() -> {attackingPlayer.attackTerritory(data);});
 		assertEquals(e.getMessage(), "Attacker does not possess enough troops for that many rolls");
 	}
 
@@ -1047,9 +1059,10 @@ class PlayerTest {
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		InvalidAttackException e = assertThrows(InvalidAttackException.class,
-				() -> {attackingPlayer.attackTerritory(attackingMock, defendingMock, attackerRolls, defenderRolls);});
+				() -> {attackingPlayer.attackTerritory(data);});
 
 		assertEquals(e.getMessage(), "Defender does not possess enough troops for that many rolls");
 
@@ -1072,8 +1085,10 @@ class PlayerTest {
 		attackT.addArmies(1);
 		int [] attackerRolls = {2};
 		int [] defenderRolls = {1, 1};
+		AttackData data = new AttackData(attackT, defendT, attackerRolls, defenderRolls);
+
 		InvalidAttackException e = assertThrows(InvalidAttackException.class,
-				() -> {attackingPlayer.attackTerritory(attackT, defendT, attackerRolls, defenderRolls);});
+				() -> {attackingPlayer.attackTerritory(data);});
 		assertEquals(e.getMessage(), "Defender does not possess enough troops for that many rolls");
 	}
 

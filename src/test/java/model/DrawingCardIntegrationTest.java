@@ -47,8 +47,9 @@ class DrawingCardIntegrationTest {
 		
 		int [] attackerRolls = aggressor.rollDice(1);
 		int [] defenderRolls = defender.rollDice(1);
+		AttackData data = new AttackData(attackingTerritory, attackedTerritory, attackerRolls, defenderRolls);
 
-		assertEquals(0, aggressor.attackTerritory(attackingTerritory, attackedTerritory, attackerRolls, defenderRolls));
+		assertEquals(0, aggressor.attackTerritory(data));
 		assertTrue(aggressor.getOccupiedTerritories().contains(attackedTerritory));
 		assertEquals(2, aggressor.getOccupiedTerritories().size());
 		assertEquals(1, defender.getOccupiedTerritories().size());
@@ -90,8 +91,9 @@ class DrawingCardIntegrationTest {
 		
 		int [] attackerRolls = aggressor.rollDice(1);
 		int [] defenderRolls = defender.rollDice(1);
+		AttackData data = new AttackData(attackingTerritory, attackedTerritory, attackerRolls, defenderRolls);
 
-		assertEquals(0, aggressor.attackTerritory(attackingTerritory, attackedTerritory, attackerRolls, defenderRolls));
+		assertEquals(0, aggressor.attackTerritory(data));
 		assertFalse(aggressor.getOccupiedTerritories().contains(attackedTerritory));
 		assertEquals(1, aggressor.getOccupiedTerritories().size());
 		assertEquals(2, defender.getOccupiedTerritories().size());
@@ -147,8 +149,9 @@ class DrawingCardIntegrationTest {
 		
 		int [] attackerRolls = aggressor.rollDice(3);
 		int [] defenderRolls = defender.rollDice(1);
+		AttackData data = new AttackData(attackingTerritory, attackedTerritory, attackerRolls, defenderRolls);
 
-		assertEquals(2, aggressor.attackTerritory(attackingTerritory, attackedTerritory, attackerRolls, defenderRolls));
+		assertEquals(2, aggressor.attackTerritory(data));
 		assertTrue(aggressor.getOccupiedTerritories().contains(attackedTerritory));
 		assertEquals(2, aggressor.getOccupiedTerritories().size());
 		assertEquals(0, defender.getOccupiedTerritories().size());
@@ -201,8 +204,9 @@ class DrawingCardIntegrationTest {
 		aggressor.drawCard();
 		int [] attackerRolls = aggressor.rollDice(2);
 		int [] defenderRolls = defender.rollDice(2);
+		AttackData data = new AttackData(attackingTerritory, attackedTerritory, attackerRolls, defenderRolls);
 
-		assertEquals(0, aggressor.attackTerritory(attackingTerritory, attackedTerritory, attackerRolls, defenderRolls));
+		assertEquals(0, aggressor.attackTerritory(data));
 		assertFalse(aggressor.getOccupiedTerritories().contains(attackedTerritory));
 		assertEquals(1, aggressor.getOccupiedTerritories().size());
 		assertEquals(1, defender.getOccupiedTerritories().size());

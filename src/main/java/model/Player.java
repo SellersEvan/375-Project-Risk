@@ -118,18 +118,18 @@ public class Player {
 		return results;
 	}
 	
-	public int attackTerritory(Territory attacking, Territory defending, 
-			int[] attackerRolls, int[] defenderRolls) throws InvalidAttackException {
-		Player attackingPlayer = attacking.getOccupant();
-		Player defendingPlayer = defending.getOccupant();
+	public int attackTerritory(AttackData data) throws InvalidAttackException {
+		Player attackingPlayer = data.getAttacker().getOccupant();
+		Player defendingPlayer = data.getDefender().getOccupant();
 		if (attackingPlayer.getColor() != this.color) {
 			throw new InvalidAttackException("Cannot attack with a Territory in another's control.");
 		} else if (attackingPlayer.getColor() == defendingPlayer.getColor()) {
 			throw new InvalidAttackException("Cannot attack own Territory.");
 		}
-		if (attacking.attackTerritory(defending, attackerRolls, defenderRolls)) {
-			this.captureDefeatedTerritory(defendingPlayer, attacking, defending);
-			return attacking.getArmies() - 1;
+
+		if (data.getAttacker().attackTerritory(data.getDefender(), data.getADice(), data.getDDice())) {
+			this.captureDefeatedTerritory(defendingPlayer, data.getAttacker(), data.getDefender());
+			return data.getAttacker().getArmies() - 1;
 		}
 		return 0;
 	}
