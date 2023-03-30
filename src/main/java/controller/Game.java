@@ -167,7 +167,7 @@ public class Game {
                 playerController.getCurrentPlayer().addNewTurnArmies(continentController.getContinents());
                 updateGameView();
                 gameView.showMessage(messages.getString("tradeCardGainMessage") + " "
-                        + playerController.getCurrentPlayer().getArmiesAvailable()
+                        + playerController.getCurrentPlayerArmiesAvailable()
                         + " " + messages.getString("tradeCardArmiesMessage"));
                 break;
             case placeArmies:
@@ -221,16 +221,17 @@ public class Game {
 
 
     private void checkIfAllArmiesPlaced() {
-        int armiesAvailable = playerController.getArmiesAvailable();
         switch (currentPhase) {
             case initialArmies:
-                if (armiesAvailable == 0) {
+                if (playerController.getCurrentPlayerArmiesAvailable() == 0) {
                     changeTurn();
+                }
+                if(playerController.getCurrentPlayerArmiesAvailable() == 0){
                     currentPhase = Phase.tradeCards;
                 }
                 break;
             case placeArmies:
-                if (armiesAvailable == 0) {
+                if (playerController.getCurrentPlayerArmiesAvailable() == 0) {
                     currentPhase = Phase.attacking;
                 }
         }
@@ -244,12 +245,8 @@ public class Game {
     }
 
     private void changeTurn() {
-        nextPlayer();
-        updateGameView();
-    }
-
-    void nextPlayer() {
         playerController.nextPlayer();
+        updateGameView();
     }
 
     public void setFirstPlayer(Random r) {

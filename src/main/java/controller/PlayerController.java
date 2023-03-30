@@ -23,8 +23,8 @@ public class PlayerController {
         return this.numberOfPlayers;
     }
 
-    public void setCurrentPlayer(int playerWhoGoesFirst){
-        this.currentPlayer = playerWhoGoesFirst;
+    public void setCurrentPlayer(int player){
+        this.currentPlayer = player;
     }
 
     public Player getCurrentPlayer(){
@@ -48,7 +48,7 @@ public class PlayerController {
         }
     }
 
-    public int getArmiesAvailable(){
+    public int getCurrentPlayerArmiesAvailable(){
         return playerArray.get(currentPlayer).getArmiesAvailable();
     }
 

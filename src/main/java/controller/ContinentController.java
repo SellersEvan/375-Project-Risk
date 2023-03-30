@@ -12,6 +12,6 @@ public class ContinentController {
     }
 
     public List<Continent> getContinents(){
-        return this.getContinents();
+        return this.continents;
     }
 }
