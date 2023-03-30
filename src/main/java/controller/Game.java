@@ -92,7 +92,7 @@ public class Game {
                 int attack = gameView.getNumberOfDice(selectedTerritory.getArmies(),
                         playerArray.get(current).getName(), true);
                 int defend = gameView.getNumberOfDice(territory.getArmies(),
-                        territory.getController().getName(), false);
+                        territory.getOccupant().getName(), false);
                 int[] attackRolls = playerArray.get(current).rollDice(attack);
                 int[] defendRolls = territory.getOccupant().rollDice(defend);
                 gameView.displayRolls(attackRolls, defendRolls);
