@@ -5,8 +5,6 @@ import model.Map.*;
 import model.Player;
 import view.GameView;
 import view.TerritoryButton;
-
-import java.io.File;
 import java.util.*;
 
 public class Game {
@@ -25,21 +23,24 @@ public class Game {
 
     protected ResourceBundle messages;
 
-    public Game(int numberOfPlayers) {
+
+    public Game(int numberOfPlayers, MapLoader map) {
         this.numberOfPlayers = numberOfPlayers;
         gameSetup = new GameSetup(numberOfPlayers);
         gameSetup.setInitialArmies();
-
-        File map = MapLoader.getMapFiles().get("Earth");
-        this.map = new MapLoaderYAML(map);
+        this.map         = map;
         this.territories = this.map.getTerritories();
         this.continents  = this.map.getContinents();
-
         playerArray = gameSetup.fillPlayerArray(territories);
         setFirstPlayer(new Random());
-
         currentPhase = Phase.territoryClaim;
     }
+
+
+    public Game(int numberOfPlayers) {
+        this(numberOfPlayers, new MapLoaderYAML(MapLoader.getMapFiles().get("Earth")));
+    }
+
 
     public void initWindow() {
         gameView = new GameView(this, this.map);
