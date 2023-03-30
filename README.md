@@ -3,7 +3,8 @@
 **Original 376 Code**: Andrew Sullivan, Aidan Mazany, Dixon Ramey, and Jadon Brutcher
 
 ## Assets
-[Trello Board](https://trello.com/b/sk6E8u3f/schedule)
+[Trello Board](https://trello.com/b/sk6E8u3f/schedule) \
+[Orginal Codebase](https://github.com/SellersEvan/375-Project-Risk/tree/be735fef9072abc9651f811f5ac86df7feb8801a)
 
 ## Potential Features 
 - Updated User Interfaces
