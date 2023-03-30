@@ -24,29 +24,25 @@ public class Game {
     public Game(int numberOfPlayers, MapLoader map, ArrayList<Player> players) {
         gameSetup = new GameSetup(numberOfPlayers);
         playerController = new PlayerController(numberOfPlayers, players);
-        initArmies();
         setupMap(map);
-        setFirstPlayer(new Random());
-        currentPhase = Phase.territoryClaim;
     }
     public Game(int numberOfPlayers, MapLoader map) {
         gameSetup = new GameSetup(numberOfPlayers);
         playerController = new PlayerController(numberOfPlayers, gameSetup.fillPlayerArray(numberOfPlayers));
-        initArmies();
         setupMap(map);
-        setFirstPlayer(new Random());
-        currentPhase = Phase.territoryClaim;
+
     }
     public void setupMap(MapLoader map) {
-        this.map         = map;
-        territoryController = new TerritoryController(this.map.getTerritories());
-        continentController = new ContinentController(this.map.getContinents());
-    }
-    public void initArmies() {
         gameSetup.setInitialArmies();
         for (Player p: playerController.getPlayerArray()) {
             p.giveArmies(gameSetup.getArmiesPerPlayer());
         }
+        this.map         = map;
+        territoryController = new TerritoryController(this.map.getTerritories());
+        continentController = new ContinentController(this.map.getContinents());
+
+        setFirstPlayer(new Random());
+        currentPhase = Phase.territoryClaim;
     }
 
 
