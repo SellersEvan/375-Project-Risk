@@ -1528,6 +1528,8 @@ class PlayerTest {
 		Set<Card> tradeInSet = new HashSet<>();
 		tradeInSet.add(card1);
 
+		EasyMock.expect(cardTraderMock.tradeInCardSet(player, tradeInSet)).andReturn(false);
+
 		EasyMock.replay(cardTraderMock);
 
 		assertFalse(player.tradeInCards(tradeInSet));
@@ -1666,6 +1668,8 @@ class PlayerTest {
 		tradeInSet.add(card2);
 		tradeInSet.add(card3);
 		tradeInSet.add(card4);
+
+		EasyMock.expect(cardTraderMock.tradeInCardSet(player, tradeInSet)).andReturn(false);
 
 		EasyMock.replay(cardTraderMock);
 

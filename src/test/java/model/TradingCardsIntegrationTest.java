@@ -38,6 +38,7 @@ public class TradingCardsIntegrationTest {
 		// Card 2: (Territory 1, Cavalry)
 		// Card 3: (Territory 2, Artillery)
 		for (int i = 0; i < 3; i++) {
+			EasyMock.expect(randomMock.nextInt(22)).andReturn(10);
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(i);
 			EasyMock.expect(randomMock.nextInt(42)).andReturn(i);
 		}

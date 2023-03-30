@@ -173,9 +173,6 @@ public class Player {
 	}
 
 	public boolean tradeInCards(Set<Card> cardSet) {
-		if (cardSet.size() != 3) {
-			return false;
-		}
 		for (Card card : cardSet) {
 			if (!this.cards.contains(card)) {
 				return false;

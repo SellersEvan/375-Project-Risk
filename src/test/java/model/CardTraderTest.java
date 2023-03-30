@@ -456,6 +456,7 @@ class CardTraderTest {
 			add(EasyMock.mock(Territory.class));
 		}};
 		MapManager.getInstance().setTerritories(territories);
+		EasyMock.expect(randomMock.nextInt(22)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(0);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
@@ -474,6 +475,7 @@ class CardTraderTest {
 			add(EasyMock.mock(Territory.class));
 		}};
 		MapManager.getInstance().setTerritories(territories);
+		EasyMock.expect(randomMock.nextInt(22)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
@@ -492,6 +494,7 @@ class CardTraderTest {
 			add(EasyMock.mock(Territory.class));
 		}};
 		MapManager.getInstance().setTerritories(territories);
+		EasyMock.expect(randomMock.nextInt(22)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
@@ -512,6 +515,7 @@ class CardTraderTest {
 
 		Set<Territory> generated = new HashSet<Territory>();
 		for (int i = 0; i < 14; i++) {
+			EasyMock.expect(randomMock.nextInt(22)).andReturn(1);
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(0);
 			EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(i);
 			EasyMock.replay(randomMock);
@@ -524,6 +528,7 @@ class CardTraderTest {
 			EasyMock.reset(randomMock);
 		}
 		for (int i = 14; i < 28; i++) {
+			EasyMock.expect(randomMock.nextInt(22)).andReturn(1);
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(1);
 			EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(i);
 			EasyMock.replay(randomMock);
@@ -536,6 +541,7 @@ class CardTraderTest {
 			EasyMock.reset(randomMock);
 		}
 		for (int i = 28; i < 42; i++) {
+			EasyMock.expect(randomMock.nextInt(22)).andReturn(1);
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
 			EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(i);
 			EasyMock.replay(randomMock);
@@ -550,5 +556,114 @@ class CardTraderTest {
 		for (Territory territory : territories) {
 			assertTrue(generated.contains(territory));
 		}
+	}
+
+	@Test
+	void testGenerateWildCard() {
+		Random randomMock = EasyMock.strictMock(Random.class);
+		List<Territory> territories = new ArrayList<Territory>(){{
+			add(EasyMock.mock(Territory.class));
+			add(EasyMock.mock(Territory.class));
+			add(EasyMock.mock(Territory.class));
+		}};
+		MapManager.getInstance().setTerritories(territories);
+		EasyMock.expect(randomMock.nextInt(22)).andReturn(0);
+		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
+		EasyMock.replay(randomMock);
+
+		Card newCard = new Card(randomMock);
+		assertEquals(newCard.getSymbol(), CardSymbol.WILD);
+		EasyMock.verify(randomMock);
+	}
+	
+	@Test
+	void testValidCombinationAllOneWithWildCard() {
+		CardTrader cardTrader = EasyMock.partialMockBuilder(CardTrader.class)
+				.addMockedMethod("getCurrentSetValue")
+				.addMockedMethod("getsTerritoryBonus")
+				.createStrictMock();
+		Territory picturedTerritoryMock = EasyMock.strictMock(Territory.class);
+		Player player = new Player(PlayerColor.RED, null, null);
+		Set<Card> cardSet = new HashSet<Card>();
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.INFANTRY));
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.INFANTRY));
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.WILD));
+		EasyMock.expect(cardTrader.getsTerritoryBonus(player, cardSet)).andReturn(false);
+		EasyMock.expect(cardTrader.getCurrentSetValue()).andReturn(4);
+
+		EasyMock.replay(cardTrader);
+
+		assertTrue(cardTrader.tradeInCardSet(player, cardSet));
+		assertEquals(4, player.getArmiesAvailable());
+		assertEquals(1, cardTrader.numSetsTurnedIn);
+		EasyMock.verify(cardTrader);
+	}
+
+	@Test
+	void testValidCombinationOneEachWithWildCard() {
+		CardTrader cardTrader = EasyMock.partialMockBuilder(CardTrader.class)
+				.addMockedMethod("getCurrentSetValue")
+				.addMockedMethod("getsTerritoryBonus")
+				.createStrictMock();
+		Territory picturedTerritoryMock = EasyMock.strictMock(Territory.class);
+		Player player = new Player(PlayerColor.RED, null, null);
+		Set<Card> cardSet = new HashSet<Card>();
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.INFANTRY));
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.CAVALRY));
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.WILD));
+		EasyMock.expect(cardTrader.getsTerritoryBonus(player, cardSet)).andReturn(false);
+		EasyMock.expect(cardTrader.getCurrentSetValue()).andReturn(4);
+
+		EasyMock.replay(cardTrader);
+
+		assertTrue(cardTrader.tradeInCardSet(player, cardSet));
+		assertEquals(4, player.getArmiesAvailable());
+		assertEquals(1, cardTrader.numSetsTurnedIn);
+		EasyMock.verify(cardTrader);
+	}
+
+	@Test
+	void testValidCombinationMultipleWildCards() {
+		CardTrader cardTrader = EasyMock.partialMockBuilder(CardTrader.class)
+				.addMockedMethod("getCurrentSetValue")
+				.addMockedMethod("getsTerritoryBonus")
+				.createStrictMock();
+		Territory picturedTerritoryMock = EasyMock.strictMock(Territory.class);
+		Player player = new Player(PlayerColor.RED, null, null);
+		Set<Card> cardSet = new HashSet<Card>();
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.WILD));
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.ARTILLERY));
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.WILD));
+		EasyMock.expect(cardTrader.getsTerritoryBonus(player, cardSet)).andReturn(false);
+		EasyMock.expect(cardTrader.getCurrentSetValue()).andReturn(4);
+
+		EasyMock.replay(cardTrader);
+
+		assertTrue(cardTrader.tradeInCardSet(player, cardSet));
+		assertEquals(4, player.getArmiesAvailable());
+		assertEquals(1, cardTrader.numSetsTurnedIn);
+		EasyMock.verify(cardTrader);
+	}
+
+	@Test
+	void testInvalidSizeIncludingWildCard() {
+		CardTrader cardTrader = EasyMock.partialMockBuilder(CardTrader.class)
+				.addMockedMethod("getCurrentSetValue")
+				.addMockedMethod("getsTerritoryBonus")
+				.createStrictMock();
+		Territory picturedTerritoryMock = EasyMock.strictMock(Territory.class);
+		Player player = new Player(PlayerColor.RED, null, null);
+		Set<Card> cardSet = new HashSet<Card>();
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.ARTILLERY));
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.WILD));
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.WILD));
+		cardSet.add(new Card(picturedTerritoryMock, CardSymbol.INFANTRY));
+
+		EasyMock.replay(cardTrader);
+
+		assertFalse(cardTrader.tradeInCardSet(player, cardSet));
+		assertEquals(0, player.getArmiesAvailable());
+		assertEquals(0, cardTrader.numSetsTurnedIn);
+		EasyMock.verify(cardTrader);
 	}
 }

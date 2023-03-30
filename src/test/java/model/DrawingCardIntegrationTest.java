@@ -2,8 +2,6 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import model.Map.Continent;
@@ -41,6 +39,7 @@ class DrawingCardIntegrationTest {
 		EasyMock.expect(randomMock.nextInt(6)).andReturn(4);
 		
 		// Generation of new card
+		EasyMock.expect(randomMock.nextInt(22)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
 		EasyMock.expect(randomMock.nextInt(MapManager.getInstance().getTerritories().size())).andReturn(0);
 		
@@ -125,6 +124,7 @@ class DrawingCardIntegrationTest {
 		defender.occupyTerritory(attackedTerritory);
 		
 		// Generation of defender's already owned card
+		EasyMock.expect(randomMock.nextInt(22)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(0);
 		EasyMock.expect(randomMock.nextInt(MapManager.getInstance().getTerritories().size())).andReturn(1);
 		
@@ -137,6 +137,7 @@ class DrawingCardIntegrationTest {
 		EasyMock.expect(randomMock.nextInt(6)).andReturn(4);
 		
 		// Generation of new card
+		EasyMock.expect(randomMock.nextInt(22)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(MapManager.getInstance().getTerritories().size())).andReturn(1);
 		
@@ -183,6 +184,7 @@ class DrawingCardIntegrationTest {
 		defender.addArmiesToTerritory(attackedTerritory, 2);
 		
 		// Generation of attacker's already owned card
+		EasyMock.expect(randomMock.nextInt(22)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
 		EasyMock.expect(randomMock.nextInt(MapManager.getInstance().getTerritories().size())).andReturn(0);
 		
