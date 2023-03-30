@@ -60,7 +60,7 @@ public class Main {
         return playerArray;
     }
     private static String getString() {
-        JTextArea nameInput = new JTextArea();
+        JTextField nameInput = new JTextField();
         nameInput.setText("");
         JOptionPane.showMessageDialog(null, nameInput,
                 "What is your name, commander?", JOptionPane.INFORMATION_MESSAGE);

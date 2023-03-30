@@ -11,7 +11,7 @@ import java.util.*;
 public class Game {
     protected Phase currentPhase;
     private GameView gameView;
-    private final MapLoader map;
+    private MapLoader map;
     protected TerritoryButton selectedButton;
 
     protected PlayerController playerController;
@@ -24,33 +24,33 @@ public class Game {
     public Game(int numberOfPlayers, MapLoader map, ArrayList<Player> players) {
         gameSetup = new GameSetup(numberOfPlayers);
         playerController = new PlayerController(numberOfPlayers, players);
-        initArmies();
-        this.map         = map;
-        territoryController = new TerritoryController(this.map.getTerritories());
-        continentController = new ContinentController(this.map.getContinents());
-        setFirstPlayer(new Random());
-        currentPhase = Phase.territoryClaim;
+        setupMap(map);
     }
     public Game(int numberOfPlayers, MapLoader map) {
         gameSetup = new GameSetup(numberOfPlayers);
         playerController = new PlayerController(numberOfPlayers, gameSetup.fillPlayerArray(numberOfPlayers));
-        initArmies();
-        this.map         = map;
-        territoryController = new TerritoryController(this.map.getTerritories());
-        continentController = new ContinentController(this.map.getContinents());
-        setFirstPlayer(new Random());
-        currentPhase = Phase.territoryClaim;
+        setupMap(map);
+
     }
-    public void initArmies() {
+    public void setupMap(MapLoader map) {
         gameSetup.setInitialArmies();
         for (Player p: playerController.getPlayerArray()) {
             p.giveArmies(gameSetup.getArmiesPerPlayer());
         }
+        this.map         = map;
+        territoryController = new TerritoryController(this.map.getTerritories());
+        continentController = new ContinentController(this.map.getContinents());
+
+        setFirstPlayer(new Random());
+        currentPhase = Phase.territoryClaim;
     }
 
 
     public Game(int numberOfPlayers) {
         this(numberOfPlayers, new MapLoaderYAML(MapLoader.getMapFiles().get("Earth")));
+    }
+    public Game(int numberOfPlayers, ArrayList<Player> players) {
+        this(numberOfPlayers, new MapLoaderYAML(MapLoader.getMapFiles().get("Earth")), players);
     }
 
 

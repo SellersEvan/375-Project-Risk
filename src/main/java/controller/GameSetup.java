@@ -40,7 +40,7 @@ public class GameSetup {
         }
     }
 
-    private ArrayList<Player> defaultPlayers() {
+    public ArrayList<Player> defaultPlayers() {
         ArrayList<Player> defaultPlayers = new ArrayList<Player>();
         Random random = new Random();
         CardTrader cardTrader = new CardTrader();
