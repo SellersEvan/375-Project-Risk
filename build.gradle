@@ -24,6 +24,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.easymock/easymock
     testImplementation 'org.easymock:easymock:4.2'
+    implementation 'org.yaml:snakeyaml:2.0'
 }
 
 test {

@@ -1,16 +1,16 @@
 package model;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
+import model.Map.MapManager;
+import model.Map.Territory;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
+
 class CardTraderTest {
+
 
 	@Test
 	void testCalculateValueNoSetsTurnedIn() {
@@ -83,8 +83,8 @@ class CardTraderTest {
 		player.giveArmies(numTerritories);
 		for(int i = 0; i < numTerritories; i++) {
 			Territory alreadyOwnsMock = EasyMock.strictMock(Territory.class);
-			EasyMock.expect(alreadyOwnsMock.isOccupied()).andReturn(false);
-			alreadyOwnsMock.setController(player);
+			EasyMock.expect(alreadyOwnsMock.hasOccupant()).andReturn(false);
+			alreadyOwnsMock.setOccupant(player);
 			alreadyOwnsMock.addArmies(1);
 			EasyMock.replay(alreadyOwnsMock);
 			player.occupyTerritory(alreadyOwnsMock);
@@ -450,49 +450,66 @@ class CardTraderTest {
 	@Test
 	void testGenerateInfantryCard() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = MapManager.getTerritories();
+		List<Territory> territories = new ArrayList<Territory>(){{
+			add(EasyMock.mock(Territory.class));
+			add(EasyMock.mock(Territory.class));
+			add(EasyMock.mock(Territory.class));
+		}};
+		MapManager.getInstance().setTerritories(territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(0);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
-
+		
 		Card newCard = new Card(randomMock);
-
-		assertTrue(newCard.getSymbol() == CardSymbol.INFANTRY);
+		assertEquals(newCard.getSymbol(), CardSymbol.INFANTRY);
 		EasyMock.verify(randomMock);
 	}
 	
 	@Test
 	void testGenerateCavalryCard() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = MapManager.getTerritories();
+		List<Territory> territories = new ArrayList<Territory>(){{
+			add(EasyMock.mock(Territory.class));
+			add(EasyMock.mock(Territory.class));
+			add(EasyMock.mock(Territory.class));
+		}};
+		MapManager.getInstance().setTerritories(territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
-
+		
 		Card newCard = new Card(randomMock);
-
-		assertTrue(newCard.getSymbol() == CardSymbol.CAVALRY);
+		assertEquals(newCard.getSymbol(), CardSymbol.CAVALRY);
 		EasyMock.verify(randomMock);
 	}
 	
 	@Test
 	void testGenerateArtilleryCard() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = MapManager.getTerritories();
+		List<Territory> territories = new ArrayList<Territory>(){{
+			add(EasyMock.mock(Territory.class));
+			add(EasyMock.mock(Territory.class));
+			add(EasyMock.mock(Territory.class));
+		}};
+		MapManager.getInstance().setTerritories(territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
-
+		
 		Card newCard = new Card(randomMock);
-
-		assertTrue(newCard.getSymbol() == CardSymbol.ARTILLERY);
+		assertEquals(newCard.getSymbol(), CardSymbol.ARTILLERY);
 		EasyMock.verify(randomMock);
 	}
 	
 	@Test
 	void testAllTerritoriesCanBeGenerated() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = MapManager.getTerritories();
+		List<Territory> territories = new ArrayList<>();
+		for (int i = 0; i < 42; i++) {
+			territories.add(EasyMock.mock(Territory.class));
+		}
+		MapManager.getInstance().setTerritories(territories);
+
 		Set<Territory> generated = new HashSet<Territory>();
 		for (int i = 0; i < 14; i++) {
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(0);
@@ -502,7 +519,7 @@ class CardTraderTest {
 			Card newCard = new Card(randomMock);
 
 			assertTrue(generated.add(newCard.getPicturedTerritory()));
-			assertTrue(newCard.getSymbol() == CardSymbol.INFANTRY);
+			assertEquals(newCard.getSymbol(), CardSymbol.INFANTRY);
 			EasyMock.verify(randomMock);
 			EasyMock.reset(randomMock);
 		}
@@ -514,7 +531,7 @@ class CardTraderTest {
 			Card newCard = new Card(randomMock);
 
 			assertTrue(generated.add(newCard.getPicturedTerritory()));
-			assertTrue(newCard.getSymbol() == CardSymbol.CAVALRY);
+			assertEquals(newCard.getSymbol(), CardSymbol.CAVALRY);
 			EasyMock.verify(randomMock);
 			EasyMock.reset(randomMock);
 		}
@@ -526,7 +543,7 @@ class CardTraderTest {
 			Card newCard = new Card(randomMock);
 
 			assertTrue(generated.add(newCard.getPicturedTerritory()));
-			assertTrue(newCard.getSymbol() == CardSymbol.ARTILLERY);
+			assertEquals(newCard.getSymbol(), CardSymbol.ARTILLERY);
 			EasyMock.verify(randomMock);
 			EasyMock.reset(randomMock);
 		}

@@ -4,7 +4,6 @@ import model.CardTrader;
 import model.Player;
 import model.PlayerColor;
 import model.Territory;
-
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -48,22 +47,6 @@ public class GameSetup {
         }
     }
 
-    public static List<Territory> initTerritories() {
-        List<Territory> territories = new ArrayList<>();
-
-        String[][] territoryData = readCSVFile("/territoryData.csv", 6, 13);
-        for (int i = 0; i < territoryData.length; i++) {
-            for (int j = 1; j < territoryData[i].length; j++) {
-                if (territoryData[i][j] == null) {
-                    continue;
-                }
-                territories.add(new Territory(territoryData[i][j], territoryData[i][0]));
-            }
-        }
-        addAdjacentTerritories(territories);
-        return territories;
-    }
-
     private static void addAdjacentTerritories(List<Territory> territories) {
         String[][] adjacentData =
                 readCSVFile("/adjacentTerritoriesData.csv", 42, 6);
@@ -97,27 +80,5 @@ public class GameSetup {
             results.add(usualSuspects.get(count));
         }
         return results;
-    }
-    private static String[][] readCSVFile(String filePath, int fileRows, int fileCols) {
-        String[][] toReturn = new String[fileRows][fileCols];
-        try {
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader(GameSetup.class.getResourceAsStream(filePath),
-                            StandardCharsets.UTF_8));
-            String line;
-            for (int i = 0; i < fileRows; i++) {
-                if ((line = br.readLine()) == null) {
-                    throw new Exception("Incorrect File Size");
-                }
-                String[] values = line.split(",");
-                for (int j = 0; j < values.length; j++) {
-                    toReturn[i][j] = values[j];
-                }
-            }
-            br.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return toReturn;
     }
 }

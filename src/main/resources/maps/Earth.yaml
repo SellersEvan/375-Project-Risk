@@ -1,0 +1,269 @@
+continents:
+    - name: North America
+      bonus: 5
+      territories:
+          - name: Alaska
+            neighbors:
+                - Kamchatka
+                - Northwest_Terr
+                - Alberta
+          - name: Northwest_Terr
+            neighbors:
+                - Alaska
+                - Alberta
+                - Ontario
+                - Greenland
+          - name: Greenland
+            neighbors:
+                - Northwest_Terr
+                - Ontario
+                - Quebec
+                - Iceland
+          - name: Alberta
+            neighbors:
+                - Alaska
+                - Northwest_Terr
+                - Ontario
+                - Western_US
+          - name: Ontario
+            neighbors:
+                - Northwest_Terr
+                - Alberta
+                - Western_US
+                - Eastern_US
+                - Quebec
+                - Greenland
+          - name: Quebec
+            neighbors:
+                - Greenland
+                - Ontario
+                - Eastern_US
+          - name: Western_US
+            neighbors:
+                - Alberta
+                - Ontario
+                - Eastern_US
+                - Central_America
+          - name: Eastern_US
+            neighbors:
+                - Ontario
+                - Quebec
+                - Western_US
+                - Central_America
+          - name: Central_America
+            neighbors:
+                - Western_US
+                - Eastern_US
+                - Venezuela
+    - name: South America
+      bonus: 2
+      territories:
+          - name: Venezuela
+            neighbors:
+                - Central_America
+                - Peru
+                - Brazil
+          - name: Peru
+            neighbors:
+                - Venezuela
+                - Brazil
+                - Argentina
+          - name: Argentina
+            neighbors:
+                - Peru
+                - Brazil
+          - name: Brazil
+            neighbors:
+                - Venezuela
+                - Peru
+                - Argentina
+                - North_Africa
+    - name: Africa
+      bonus: 3
+      territories:
+          - name: North_Africa
+            neighbors:
+                - W_Europe
+                - S_Europe
+                - Egypt
+                - E_Africa
+                - Congo
+                - Brazil
+          - name: Congo
+            neighbors:
+                - North_Africa
+                - E_Africa
+                - South_Africa
+          - name: South_Africa
+            neighbors:
+                - Congo
+                - Madagascar
+                - E_Africa
+          - name: Madagascar
+            neighbors:
+                - South_Africa
+                - E_Africa
+          - name: E_Africa
+            neighbors:
+                - North_Africa
+                - Egypt
+                - Middle_East
+                - Madagascar
+                - South_Africa
+                - Congo
+          - name: Egypt
+            neighbors:
+                - North_Africa
+                - E_Africa
+                - Middle_East
+                - S_Europe
+    - name: Europe
+      bonus: 5
+      territories:
+          - name: Iceland
+            neighbors:
+                - Greenland
+                - Britain
+                - Scandinavia
+          - name: Britain
+            neighbors:
+                - Iceland
+                - W_Europe
+                - N_Europe
+                - Scandinavia
+          - name: W_Europe
+            neighbors:
+                - Britain
+                - N_Europe
+                - S_Europe
+                - North_Africa
+          - name: S_Europe
+            neighbors:
+                - Egypt
+                - North_Africa
+                - W_Europe
+                - N_Europe
+                - Ukraine
+                - Middle_East
+          - name: N_Europe
+            neighbors:
+                - Scandinavia
+                - Ukraine
+                - S_Europe
+                - W_Europe
+                - Britain
+          - name: Scandinavia
+            neighbors:
+                - Iceland
+                - Britain
+                - N_Europe
+                - Ukraine
+          - name: Ukraine
+            neighbors:
+                - Scandinavia
+                - N_Europe
+                - S_Europe
+                - Middle_East
+                - Kazakhstan
+                - Ural
+    - name: Asia
+      bonus: 7
+      territories:
+          - name: Middle_East
+            neighbors:
+                - Ukraine
+                - S_Europe
+                - Egypt
+                - E_Africa
+                - India
+                - Kazakhstan
+          - name: Kazakhstan
+            neighbors:
+                - Ukraine
+                - Middle_East
+                - India
+                - China
+                - Ural
+          - name: Ural
+            neighbors:
+                - Ukraine
+                - Kazakhstan
+                - China
+                - Siberia
+          - name: Siberia
+            neighbors:
+                - Ural
+                - China
+                - Mongolia
+                - Irkutsk
+                - Yakutsk
+          - name: Yakutsk
+            neighbors:
+                - Siberia
+                - Irkutsk
+                - Kamchatka
+          - name: Kamchatka
+            neighbors:
+                - Yakutsk
+                - Irkutsk
+                - Mongolia
+                - Japan
+                - Alaska
+          - name: Irkutsk
+            neighbors:
+                - Yakutsk
+                - Siberia
+                - Mongolia
+                - Kamchatka
+          - name: Japan
+            neighbors:
+                - Kamchatka
+                - Mongolia
+          - name: Mongolia
+            neighbors:
+                - Irkutsk
+                - Kamchatka
+                - Japan
+                - China
+                - Siberia
+          - name: China
+            neighbors:
+                - Mongolia
+                - Siberia
+                - Ural
+                - Kazakhstan
+                - India
+                - Siam
+          - name: India
+            neighbors:
+                - Middle_East
+                - Kazakhstan
+                - China
+                - Siam
+          - name: Siam
+            neighbors:
+                - India
+                - China
+                - Indonesia
+    - name: Australia
+      bonus: 2
+      territories:
+          - name: Indonesia
+            neighbors:
+                - Siam
+                - Papua_New_Guinea
+                - W_Australia
+          - name: W_Australia
+            neighbors:
+                - Indonesia
+                - Papua_New_Guinea
+                - E_Australia
+          - name: E_Australia
+            neighbors:
+                - Papua_New_Guinea
+                - W_Australia
+          - name: Papua_New_Guinea
+            neighbors:
+                - Indonesia
+                - W_Australia
+                - E_Australia
