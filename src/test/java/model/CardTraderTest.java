@@ -450,7 +450,7 @@ class CardTraderTest {
 	@Test
 	void testGenerateInfantryCard() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = MapManager.getTerritories();
+		List<Territory> territories = MapManager.getInstance().getTerritories();
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(0);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
@@ -464,7 +464,7 @@ class CardTraderTest {
 	@Test
 	void testGenerateCavalryCard() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = MapManager.getTerritories();
+		List<Territory> territories = MapManager.getInstance().getTerritories();
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
@@ -478,7 +478,7 @@ class CardTraderTest {
 	@Test
 	void testGenerateArtilleryCard() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = MapManager.getTerritories();
+		List<Territory> territories = MapManager.getInstance().getTerritories();
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
@@ -492,7 +492,7 @@ class CardTraderTest {
 	@Test
 	void testAllTerritoriesCanBeGenerated() {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		List<Territory> territories = MapManager.getTerritories();
+		List<Territory> territories = MapManager.getInstance().getTerritories();
 		Set<Territory> generated = new HashSet<Territory>();
 		for (int i = 0; i < 14; i++) {
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(0);

@@ -28,7 +28,7 @@ public class Game {
         this.numberOfPlayers = numberOfPlayers;
         gameSetup = new GameSetup(numberOfPlayers);
         gameSetup.setInitialArmies();
-        territories = MapManager.getTerritories();
+        territories = MapManager.getInstance().getTerritories();
         playerArray = gameSetup.fillPlayerArray(territories);
         setFirstPlayer(new Random());
 

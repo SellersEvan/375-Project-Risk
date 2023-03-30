@@ -9,11 +9,6 @@ public class Card {
 	private final Territory picturedTerritory;
 	private final CardSymbol symbol;
 
-	public Card() {
-		this.random = new Random();
-		this.symbol = pickRandomSymbol();
-		this.picturedTerritory = pickRandomTerritory();
-	}
 	public Card(Random random) {
 		this.random = random;
 		this.symbol = pickRandomSymbol();
@@ -30,7 +25,7 @@ public class Card {
 	}
 
 	private Territory pickRandomTerritory() {
-		List<Territory> choices = MapManager.getTerritories();
+		List<Territory> choices = MapManager.getInstance().getTerritories();
 		return choices.get(this.random.nextInt(choices.size()));
 	}
 

@@ -6,9 +6,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class MapManager {
-    private static final List<Territory> TERRITORIES = GameSetup.initTerritories();
+    private final List<Territory> territories = GameSetup.initTerritories();
+    private static final MapManager instance = new MapManager();
 
-    public static List<Territory> getTerritories() {
-        return Collections.unmodifiableList(TERRITORIES);
+    public static MapManager getInstance() {
+        return instance;
+    }
+
+    public List<Territory> getTerritories() {
+        return Collections.unmodifiableList(this.territories);
     }
 }

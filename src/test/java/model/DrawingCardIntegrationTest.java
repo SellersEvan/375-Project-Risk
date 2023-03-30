@@ -35,7 +35,7 @@ class DrawingCardIntegrationTest {
 		
 		// Generation of new card
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
-		EasyMock.expect(randomMock.nextInt(MapManager.getTerritories().size())).andReturn(0);
+		EasyMock.expect(randomMock.nextInt(MapManager.getInstance().getTerritories().size())).andReturn(0);
 		
 		EasyMock.replay(randomMock);
 		
@@ -117,7 +117,7 @@ class DrawingCardIntegrationTest {
 		
 		// Generation of defender's already owned card
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(0);
-		EasyMock.expect(randomMock.nextInt(MapManager.getTerritories().size())).andReturn(1);
+		EasyMock.expect(randomMock.nextInt(MapManager.getInstance().getTerritories().size())).andReturn(1);
 		
 		// Rolls for the attack
 		EasyMock.expect(randomMock.nextInt(6)).andReturn(1);
@@ -129,7 +129,7 @@ class DrawingCardIntegrationTest {
 		
 		// Generation of new card
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(1);
-		EasyMock.expect(randomMock.nextInt(MapManager.getTerritories().size())).andReturn(1);
+		EasyMock.expect(randomMock.nextInt(MapManager.getInstance().getTerritories().size())).andReturn(1);
 		
 		EasyMock.replay(randomMock);
 		
@@ -174,7 +174,7 @@ class DrawingCardIntegrationTest {
 		
 		// Generation of attacker's already owned card
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
-		EasyMock.expect(randomMock.nextInt(MapManager.getTerritories().size())).andReturn(0);
+		EasyMock.expect(randomMock.nextInt(MapManager.getInstance().getTerritories().size())).andReturn(0);
 		
 		// Rolls for the attack
 		EasyMock.expect(randomMock.nextInt(6)).andReturn(4);
