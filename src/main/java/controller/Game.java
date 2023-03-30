@@ -11,7 +11,7 @@ import java.util.*;
 public class Game {
     protected Phase currentPhase;
     private GameView gameView;
-    private final MapLoader map;
+    private MapLoader map;
     protected TerritoryButton selectedButton;
 
     protected PlayerController playerController;
@@ -25,9 +25,7 @@ public class Game {
         gameSetup = new GameSetup(numberOfPlayers);
         playerController = new PlayerController(numberOfPlayers, players);
         initArmies();
-        this.map         = map;
-        territoryController = new TerritoryController(this.map.getTerritories());
-        continentController = new ContinentController(this.map.getContinents());
+        setupMap(map);
         setFirstPlayer(new Random());
         currentPhase = Phase.territoryClaim;
     }
@@ -35,11 +33,14 @@ public class Game {
         gameSetup = new GameSetup(numberOfPlayers);
         playerController = new PlayerController(numberOfPlayers, gameSetup.fillPlayerArray(numberOfPlayers));
         initArmies();
+        setupMap(map);
+        setFirstPlayer(new Random());
+        currentPhase = Phase.territoryClaim;
+    }
+    public void setupMap(MapLoader map){
         this.map         = map;
         territoryController = new TerritoryController(this.map.getTerritories());
         continentController = new ContinentController(this.map.getContinents());
-        setFirstPlayer(new Random());
-        currentPhase = Phase.territoryClaim;
     }
     public void initArmies() {
         gameSetup.setInitialArmies();
