@@ -34,7 +34,6 @@ public class MapLoaderYAML implements MapLoader {
             e.printStackTrace();
         }
         MapManager.getInstance().setTerritories(this.territories);
-        this.loadBackground(map);
     }
 
 
