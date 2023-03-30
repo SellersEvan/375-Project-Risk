@@ -37,7 +37,7 @@ public class Game {
         setFirstPlayer(new Random());
         currentPhase = Phase.territoryClaim;
     }
-    public void setupMap(MapLoader map){
+    public void setupMap(MapLoader map) {
         this.map         = map;
         territoryController = new TerritoryController(this.map.getTerritories());
         continentController = new ContinentController(this.map.getContinents());
