@@ -7,10 +7,10 @@ import java.util.List;
 
 public class MapManager {
     private final List<Territory> territories = GameSetup.initTerritories();
-    private static final MapManager instance = new MapManager();
+    private static final MapManager INSTANCE = new MapManager();
 
     public static MapManager getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     public List<Territory> getTerritories() {
