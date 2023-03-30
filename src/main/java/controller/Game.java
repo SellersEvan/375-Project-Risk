@@ -1,9 +1,6 @@
 package controller;
 
-import model.InvalidAttackException;
-import model.MapManager;
-import model.Player;
-import model.Territory;
+import model.*;
 import view.GameView;
 import view.TerritoryButton;
 
@@ -21,25 +18,41 @@ public class Game {
     protected int numberOfPlayers;
     protected int current;
     protected GameSetup gameSetup;
-
     protected ResourceBundle messages;
 
     public Game(int numberOfPlayers) {
+
         this.numberOfPlayers = numberOfPlayers;
         gameSetup = new GameSetup(numberOfPlayers);
-        gameSetup.setInitialArmies();
+        playerArray = gameSetup.fillPlayerArray(numberOfPlayers);
+        initArmies();
         territories = MapManager.getTerritories();
-        playerArray = gameSetup.fillPlayerArray(territories);
         setFirstPlayer(new Random());
 
         currentPhase = Phase.territoryClaim;
+    }
+    public Game(int numberOfPlayers, ArrayList<Player> players) {
+        this.numberOfPlayers = numberOfPlayers;
+        gameSetup = new GameSetup(numberOfPlayers);
+        playerArray = players;
+        initArmies();
+        territories = MapManager.getTerritories();
+        setFirstPlayer(new Random());
+
+        currentPhase = Phase.territoryClaim;
+    }
+    public void initArmies(){
+        gameSetup.setInitialArmies();
+        for(Player p: playerArray){
+            p.giveArmies(gameSetup.getArmiesPerPlayer());
+        }
     }
 
     public void initWindow() {
         gameView = new GameView(this);
         gameView.addButtons(territories, this);
         updateGameView();
-        gameView.showMessage(messages.getString(playerArray.get(current).getName()) + " "
+        gameView.showMessage(playerArray.get(current).getName() + " "
                 + messages.getString("playerWillStartFirstMessage"));
     }
 

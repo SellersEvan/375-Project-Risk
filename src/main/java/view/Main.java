@@ -1,8 +1,16 @@
 package view;
 
 import controller.Game;
+import model.CardTrader;
+import model.Player;
+import model.PlayerColor;
+import model.Territory;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,9 +28,43 @@ public class Main {
         }
         JOptionPane.showMessageDialog(null, numberOfPlayers,
                 "Number of Players", JOptionPane.INFORMATION_MESSAGE);
-
-        Game gameController = new Game(numberOfPlayers.getSelectedIndex() + 2);
+        ArrayList<Player> players = fillPlayerArray(numberOfPlayers.getSelectedIndex() + 2);
+        Game gameController = new Game(numberOfPlayers.getSelectedIndex() + 2, players);
         gameController.setLanguageBundle(bundleName);
         gameController.initWindow();
     }
+    private static ArrayList<Player> fillPlayerArray(int numberOfPlayers) {
+        PlayerColor[] PLAYER_COLORS = PlayerColor.values();
+        ArrayList<Player> playerArray = new ArrayList<>();
+        Random random = new Random();
+        CardTrader cardTrader = new CardTrader();
+        List<PlayerColor> availableColors = new ArrayList<PlayerColor>();
+        availableColors.addAll(Arrays.asList(PLAYER_COLORS));
+        for (int i = 0; i < numberOfPlayers; i++) {
+            String playerName = getString();
+            PlayerColor playerColor = getColor(availableColors);
+            Player p = new Player(playerColor, playerName, random, cardTrader);
+            availableColors.remove(playerColor);
+            playerArray.add(p);
+        }
+        return playerArray;
+    }
+    private static String getString(){
+        JTextArea nameInput = new JTextArea();
+        nameInput.setText("");
+        JOptionPane.showMessageDialog(null, nameInput,
+                "What is your name, commander?", JOptionPane.INFORMATION_MESSAGE);
+        return nameInput.getText();
+    }
+    private static PlayerColor getColor(List<PlayerColor> opt){
+        JComboBox<PlayerColor> playerColors = new JComboBox<>();
+        for(int count=0; count<opt.size(); count++){
+            playerColors.addItem(opt.get(count));
+        }
+        playerColors.setSelectedIndex(0);
+        JOptionPane.showMessageDialog(null, playerColors,
+                "Number of Players", JOptionPane.INFORMATION_MESSAGE);
+        return playerColors.getItemAt(playerColors.getSelectedIndex());
+    }
+
 }
