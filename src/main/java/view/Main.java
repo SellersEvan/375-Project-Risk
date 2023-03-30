@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import model.Map.MapLoader;
+import model.Map.MapLoaderYAML;
+
+import javax.swing.*;
+import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
@@ -28,7 +33,15 @@ public class Main {
         JOptionPane.showMessageDialog(null, numberOfPlayers,
                 "Number of Players", JOptionPane.INFORMATION_MESSAGE);
         ArrayList<Player> players = fillPlayerArray(numberOfPlayers.getSelectedIndex() + 2);
-        Game gameController = new Game(numberOfPlayers.getSelectedIndex() + 2, players);
+        JComboBox<String> mapOptions = new JComboBox<>();
+        for (String mapName : MapLoader.getMapFiles().keySet())
+            mapOptions.addItem(mapName);
+        JOptionPane.showMessageDialog(null, mapOptions,
+                "Which map would you like to play?", JOptionPane.INFORMATION_MESSAGE);
+        File mapFile = (File) MapLoader.getMapFiles().values().toArray()[mapOptions.getSelectedIndex()];
+        MapLoader map = new MapLoaderYAML(mapFile);
+
+        Game gameController = new Game(numberOfPlayers.getSelectedIndex() + 2, map, players);
         gameController.setLanguageBundle(bundleName);
         gameController.initWindow();
     }

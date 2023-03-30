@@ -1,5 +1,6 @@
 package model.Map;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
 
@@ -10,19 +11,19 @@ public interface MapLoader {
 
 
     class Coordinate {
-        private final int x;
-        private final int y;
+        private final double x;
+        private final double y;
 
-        Coordinate(int x, int y) {
+        Coordinate(double x, double y) {
             this.x = x;
             this.y = y;
         }
 
-        public int getX() {
+        public double getX() {
             return x;
         }
 
-        public int getY() {
+        public double getY() {
             return y;
         }
     }
@@ -43,7 +44,7 @@ public interface MapLoader {
     List<Continent> getContinents();
     List<Territory> getTerritories();
     List<Coordinate> getCoordinates();
-//    Image getBackground();
+    BufferedImage getBackground();
 
 
 }
