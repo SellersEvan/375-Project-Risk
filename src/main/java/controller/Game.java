@@ -31,7 +31,6 @@ public class Game {
         this.map         = map;
         this.territories = this.map.getTerritories();
         this.continents  = this.map.getContinents();
-        playerArray = gameSetup.fillPlayerArray(territories);
         setFirstPlayer(new Random());
         currentPhase = Phase.territoryClaim;
     }
@@ -43,7 +42,6 @@ public class Game {
         this.map         = map;
         this.territories = this.map.getTerritories();
         this.continents  = this.map.getContinents();
-        playerArray = gameSetup.fillPlayerArray(territories);
         setFirstPlayer(new Random());
         currentPhase = Phase.territoryClaim;
     }
