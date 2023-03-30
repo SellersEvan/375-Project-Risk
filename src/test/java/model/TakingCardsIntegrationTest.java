@@ -82,7 +82,7 @@ public class TakingCardsIntegrationTest {
 
 		for (int i = 0; i < 10; i++) {
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(i % 3);
-			EasyMock.expect(randomMock.nextInt(MapManager.getTerritories().size())).andReturn(i % 2);
+			EasyMock.expect(randomMock.nextInt(MapManager.getInstance().getTerritories().size())).andReturn(i % 2);
 		}
 
 		// Attacker rolls
@@ -143,7 +143,7 @@ public class TakingCardsIntegrationTest {
 
 		for (int i = 0; i < 7; i++) {
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(i % 3);
-			EasyMock.expect(randomMock.nextInt(MapManager.getTerritories().size())).andReturn(i % 2);
+			EasyMock.expect(randomMock.nextInt(MapManager.getInstance().getTerritories().size())).andReturn(i % 2);
 		}
 
 		// Attacker rolls
@@ -200,7 +200,7 @@ public class TakingCardsIntegrationTest {
 
 		for (int i = 0; i < 6; i++) {
 			EasyMock.expect(randomMock.nextInt(3)).andReturn(i % 3);
-			EasyMock.expect(randomMock.nextInt(MapManager.getTerritories().size())).andReturn(i % 2);
+			EasyMock.expect(randomMock.nextInt(MapManager.getInstance().getTerritories().size())).andReturn(i % 2);
 		}
 
 		// Attacker rolls

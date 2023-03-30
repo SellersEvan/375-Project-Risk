@@ -34,7 +34,7 @@ public class Card {
 	}
 
 	private Territory pickRandomTerritory() {
-		List<Territory> choices = MapManager.getTerritories();
+		List<Territory> choices = MapManager.getInstance().getTerritories();
 		return choices.get(this.random.nextInt(choices.size()));
 	}
 
