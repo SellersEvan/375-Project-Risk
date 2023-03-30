@@ -30,8 +30,8 @@ public class MapLoaderYAML implements MapLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (this.territories != null)
-            MapManager.setTerritories(this.territories);
+        MapManager.getInstance().setTerritories(this.territories);
+        this.loadBackground(map);
     }
 
 

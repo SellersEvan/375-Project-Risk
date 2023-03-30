@@ -455,7 +455,7 @@ class CardTraderTest {
 			add(EasyMock.mock(Territory.class));
 			add(EasyMock.mock(Territory.class));
 		}};
-		MapManager.setTerritories(territories);
+		MapManager.getInstance().setTerritories(territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(0);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
@@ -473,7 +473,7 @@ class CardTraderTest {
 			add(EasyMock.mock(Territory.class));
 			add(EasyMock.mock(Territory.class));
 		}};
-		MapManager.setTerritories(territories);
+		MapManager.getInstance().setTerritories(territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(1);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
@@ -491,7 +491,7 @@ class CardTraderTest {
 			add(EasyMock.mock(Territory.class));
 			add(EasyMock.mock(Territory.class));
 		}};
-		MapManager.setTerritories(territories);
+		MapManager.getInstance().setTerritories(territories);
 		EasyMock.expect(randomMock.nextInt(3)).andReturn(2);
 		EasyMock.expect(randomMock.nextInt(territories.size())).andReturn(0);
 		EasyMock.replay(randomMock);
@@ -508,7 +508,7 @@ class CardTraderTest {
 		for (int i = 0; i < 42; i++) {
 			territories.add(EasyMock.mock(Territory.class));
 		}
-		MapManager.setTerritories(territories);
+		MapManager.getInstance().setTerritories(territories);
 
 		Set<Territory> generated = new HashSet<Territory>();
 		for (int i = 0; i < 14; i++) {

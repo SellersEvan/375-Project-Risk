@@ -1,20 +1,23 @@
 package model.Map;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class MapManager {
-    private static List<Territory> territories = new ArrayList<>();
+    private List<Territory> territories;
+    private static final MapManager INSTANCE = new MapManager();
 
+    public static MapManager getInstance() {
+        return INSTANCE;
+    }
 
-    public static List<Territory> getTerritories() {
-        return Collections.unmodifiableList(territories);
+    public List<Territory> getTerritories() {
+        return Collections.unmodifiableList(this.territories);
     }
 
 
-    public static void setTerritories(List<Territory> territories) {
-        MapManager.territories = territories;
+    public void setTerritories(List<Territory> territories) {
+        this.territories = territories;
     }
 
 }

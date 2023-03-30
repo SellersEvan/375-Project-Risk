@@ -67,7 +67,6 @@ class DrawingCardIntegrationTest {
 		Random randomMock = EasyMock.strictMock(Random.class);
 		Continent asia = new Continent("Asia", 5, 1);
 
-		List<Territory> instanceTerritories = new ArrayList<Territory>();
 		Territory attackingTerritory = new Territory("attackingTerritory", asia);
 		Territory attackedTerritory = new Territory("attackedTerritory", asia);
 		Territory otherTerritory = new Territory("otherTerritory", asia);
@@ -111,7 +110,6 @@ class DrawingCardIntegrationTest {
 		Random randomMock = EasyMock.strictMock(Random.class);
 		Continent asia = new Continent("Asia", 5, 1);
 
-		List<Territory> instanceTerritories = new ArrayList<Territory>();
 		Territory attackingTerritory = new Territory("attackingTerritory", asia);
 		Territory attackedTerritory = new Territory("attackedTerritory", asia);
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);
@@ -169,7 +167,6 @@ class DrawingCardIntegrationTest {
 		Random randomMock = EasyMock.strictMock(Random.class);
 		Continent asia = new Continent("Asia", 5, 1);
 
-		List<Territory> instanceTerritories = new ArrayList<Territory>();
 		Territory attackingTerritory = new Territory("attackingTerritory", asia);
 		Territory attackedTerritory = new Territory("attackedTerritory", asia);
 		attackingTerritory.addAdjacentTerritory(attackedTerritory);

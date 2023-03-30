@@ -22,7 +22,7 @@ public class TradingCardsIntegrationTest {
 			territories.add(EasyMock.mock(Territory.class));
 		}
 		territories.set(3, territory4);
-		MapManager.setTerritories(territories);
+		MapManager.getInstance().setTerritories(territories);
 		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.BLUE, randomMock, cardTrader);
 		EasyMock.expect(territory4.hasOccupant()).andReturn(false);
@@ -66,7 +66,7 @@ public class TradingCardsIntegrationTest {
 		}
 		territories.set(0, territory1);
 		territories.set(3, territory4);
-		MapManager.setTerritories(territories);
+		MapManager.getInstance().setTerritories(territories);
 		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, cardTrader);
 		EasyMock.expect(territory4.hasOccupant()).andReturn(false);
@@ -119,7 +119,7 @@ public class TradingCardsIntegrationTest {
 		}
 		territories.set(1, territory2);
 		territories.set(2, territory3);
-		MapManager.setTerritories(territories);
+		MapManager.getInstance().setTerritories(territories);
 		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, cardTrader);
 		EasyMock.expect(territory2.hasOccupant()).andReturn(false);
@@ -168,7 +168,7 @@ public class TradingCardsIntegrationTest {
 		}
 		territories.set(1, territory2);
 		territories.set(2, territory3);
-		MapManager.setTerritories(territories);
+		MapManager.getInstance().setTerritories(territories);
 		CardTrader cardTrader = new CardTrader();
 		Player player = new Player(PlayerColor.RED, null, cardTrader);
 		EasyMock.expect(territory2.hasOccupant()).andReturn(false);
@@ -242,7 +242,7 @@ public class TradingCardsIntegrationTest {
 		territories.set(1, territory2);
 		territories.set(2, territory3);
 		territories.set(41, territory42);
-		MapManager.setTerritories(territories);
+		MapManager.getInstance().setTerritories(territories);
 		CardTrader cardTrader = new CardTrader();
 		Player player1 = new Player(PlayerColor.RED, null, cardTrader);
 		Player player2 = new Player(PlayerColor.GREEN, null, cardTrader);
