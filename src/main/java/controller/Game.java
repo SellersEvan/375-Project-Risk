@@ -44,14 +44,14 @@ public class Game {
         gameView = new GameView(this);
         gameView.addButtons(territories, this);
         updateGameView();
-        gameView.showMessage(messages.getString(playerArray.get(current).getColor().toString()) + " "
+        gameView.showMessage(messages.getString(playerArray.get(current).getName()) + " "
                 + messages.getString("playerWillStartFirstMessage"));
     }
 
     public void updateGameView() {
         Player player = playerArray.get(current);
         gameView.setPhase(currentPhase.toString());
-        gameView.setPlayer(player.getColor().toString(), player.getArmiesAvailable());
+        gameView.setPlayer(player.getName(), player.getArmiesAvailable());
     }
 
     public void territoryAction(Territory territory, TerritoryButton button) throws InvalidAttackException {
@@ -90,9 +90,9 @@ public class Game {
             } else {
                 Player defender = territory.getOccupant();
                 int attack = gameView.getNumberOfDice(selectedTerritory.getArmies(),
-                        playerArray.get(current).getColor().toString(), true);
+                        playerArray.get(current).getName(), true);
                 int defend = gameView.getNumberOfDice(territory.getArmies(),
-                        territory.getOccupant().getColor().toString(), false);
+                        territory.getController().getName(), false);
                 int[] attackRolls = playerArray.get(current).rollDice(attack);
                 int[] defendRolls = territory.getOccupant().rollDice(defend);
                 gameView.displayRolls(attackRolls, defendRolls);
@@ -110,11 +110,11 @@ public class Game {
                     }
                 }
                 if (defender.hasLost()) {
-                    gameView.showMessage(defender.getColor().toString() + " " + messages.getString("hasLostMessage"));
+                    gameView.showMessage(defender.getName() + " " + messages.getString("hasLostMessage"));
                     removeDefeatedPlayer(playerArray.indexOf(defender));
                 }
                 if (playerArray.get(current).hasWon()) {
-                    gameView.showMessage(playerArray.get(current).getColor().toString()
+                    gameView.showMessage(playerArray.get(current).getName()
                             + " " + messages.getString("hasWonMessage"));
                     currentPhase = Phase.gameOver;
                     updateGameView();
