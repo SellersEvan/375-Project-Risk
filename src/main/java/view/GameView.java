@@ -3,8 +3,6 @@ package view;
 import controller.Game;
 
 import model.Map.Territory;
-import model.Player;
-import model.PlayerColor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

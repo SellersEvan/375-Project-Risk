@@ -33,12 +33,12 @@ public class Main {
         gameController.initWindow();
     }
     private static ArrayList<Player> fillPlayerArray(int numberOfPlayers) {
-        PlayerColor[] PLAYER_COLORS = PlayerColor.values();
+        PlayerColor[] playerColors = PlayerColor.values();
         ArrayList<Player> playerArray = new ArrayList<>();
         Random random = new Random();
         CardTrader cardTrader = new CardTrader();
         List<PlayerColor> availableColors = new ArrayList<PlayerColor>();
-        availableColors.addAll(Arrays.asList(PLAYER_COLORS));
+        availableColors.addAll(Arrays.asList(playerColors));
         for (int i = 0; i < numberOfPlayers; i++) {
             String playerName = getString();
             PlayerColor playerColor = getColor(availableColors);
@@ -48,16 +48,16 @@ public class Main {
         }
         return playerArray;
     }
-    private static String getString(){
+    private static String getString() {
         JTextArea nameInput = new JTextArea();
         nameInput.setText("");
         JOptionPane.showMessageDialog(null, nameInput,
                 "What is your name, commander?", JOptionPane.INFORMATION_MESSAGE);
         return nameInput.getText();
     }
-    private static PlayerColor getColor(List<PlayerColor> opt){
+    private static PlayerColor getColor(List<PlayerColor> opt) {
         JComboBox<PlayerColor> playerColors = new JComboBox<>();
-        for(int count=0; count<opt.size(); count++){
+        for(int count = 0; count < opt.size(); count++) {
             playerColors.addItem(opt.get(count));
         }
         playerColors.setSelectedIndex(0);

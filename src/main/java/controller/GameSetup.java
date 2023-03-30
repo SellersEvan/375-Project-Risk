@@ -3,13 +3,7 @@ package controller;
 import model.CardTrader;
 import model.Player;
 import model.PlayerColor;
-import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class GameSetup {
@@ -46,7 +40,7 @@ public class GameSetup {
         }
     }
 
-    private ArrayList<Player> defaultPlayers(){
+    private ArrayList<Player> defaultPlayers() {
         ArrayList<Player> defaultPlayers = new ArrayList<Player>();
         Random random = new Random();
         CardTrader cardTrader = new CardTrader();
@@ -61,7 +55,7 @@ public class GameSetup {
     public ArrayList<Player> fillPlayerArray(int numberOfPlayers) {
         ArrayList<Player> usualSuspects = defaultPlayers();
         ArrayList<Player> results = new ArrayList<Player>();
-        for(int count=0; count<numberOfPlayers; count++){
+        for (int count = 0; count < numberOfPlayers; count++) {
             results.add(usualSuspects.get(count));
         }
         return results;

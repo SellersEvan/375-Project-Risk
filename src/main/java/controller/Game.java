@@ -51,9 +51,9 @@ public class Game {
 
         currentPhase = Phase.territoryClaim;
     }
-    public void initArmies(){
+    public void initArmies() {
         gameSetup.setInitialArmies();
-        for(Player p: playerArray){
+        for (Player p: playerArray) {
             p.giveArmies(gameSetup.getArmiesPerPlayer());
         }
     }
