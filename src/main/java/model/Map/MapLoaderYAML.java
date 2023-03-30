@@ -1,10 +1,8 @@
 package model.Map;
 
 import org.yaml.snakeyaml.Yaml;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +26,12 @@ public class MapLoaderYAML implements MapLoader {
             Map<String, Object> mapData = (new Yaml()).load(stream);
             this.parse(mapData);
             this.parseAdjacent(mapData);
-        } catch (FileNotFoundException e) {
+            stream.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        MapManager.setTerritories(this.territories);
+        if (this.territories != null)
+            MapManager.setTerritories(this.territories);
     }
 
 
