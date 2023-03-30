@@ -53,7 +53,7 @@ public class Game {
     public Game(int numberOfPlayers) {
         this(numberOfPlayers, new MapLoaderYAML(MapLoader.getMapFiles().get("Earth")));
     }
-    public Game(int numberOfPlayers, ArrayList<Player> players){
+    public Game(int numberOfPlayers, ArrayList<Player> players) {
         this(numberOfPlayers, new MapLoaderYAML(MapLoader.getMapFiles().get("Earth")), players);
     }
 
