@@ -3,29 +3,34 @@ continents:
       bonus: 5
       territories:
           - name: Alaska
+            coordinates: [ 0.02813, 0.16667 ]
             neighbors:
                 - Kamchatka
                 - Northwest_Terr
                 - Alberta
           - name: Northwest_Terr
+            coordinates: [ 0.11875, 0.15556 ]
             neighbors:
                 - Alaska
                 - Alberta
                 - Ontario
                 - Greenland
           - name: Greenland
+            coordinates: [ 0.30625, 0.1 ]
             neighbors:
                 - Northwest_Terr
                 - Ontario
                 - Quebec
                 - Iceland
           - name: Alberta
+            coordinates: [ 0.10625, 0.24444 ]
             neighbors:
                 - Alaska
                 - Northwest_Terr
                 - Ontario
                 - Western_US
           - name: Ontario
+            coordinates: [ 0.175, 0.22222 ]
             neighbors:
                 - Northwest_Terr
                 - Alberta
@@ -34,23 +39,27 @@ continents:
                 - Quebec
                 - Greenland
           - name: Quebec
+            coordinates: [ 0.24375, 0.26667 ]
             neighbors:
                 - Greenland
                 - Ontario
                 - Eastern_US
           - name: Western_US
+            coordinates: [ 0.1125, 0.35556 ]
             neighbors:
                 - Alberta
                 - Ontario
                 - Eastern_US
                 - Central_America
           - name: Eastern_US
+            coordinates: [ 0.18125, 0.4 ]
             neighbors:
                 - Ontario
                 - Quebec
                 - Western_US
                 - Central_America
           - name: Central_America
+            coordinates: [ 0.16875, 0.47778 ]
             neighbors:
                 - Western_US
                 - Eastern_US
@@ -59,20 +68,24 @@ continents:
       bonus: 2
       territories:
           - name: Venezuela
+            coordinates: [ 0.18125, 0.57778 ]
             neighbors:
                 - Central_America
                 - Peru
                 - Brazil
           - name: Peru
+            coordinates: [ 0.26875, 0.67222 ]
             neighbors:
                 - Venezuela
                 - Brazil
                 - Argentina
           - name: Argentina
+            coordinates: [ 0.19375, 0.67778 ]
             neighbors:
                 - Peru
                 - Brazil
           - name: Brazil
+            coordinates: [ 0.21875, 0.82222 ]
             neighbors:
                 - Venezuela
                 - Peru
@@ -82,6 +95,7 @@ continents:
       bonus: 3
       territories:
           - name: North_Africa
+            coordinates: [ 0.5125, 0.6 ]
             neighbors:
                 - W_Europe
                 - S_Europe
@@ -90,20 +104,24 @@ continents:
                 - Congo
                 - Brazil
           - name: Congo
+            coordinates: [ 0.43125, 0.65556 ]
             neighbors:
                 - North_Africa
                 - E_Africa
                 - South_Africa
           - name: South_Africa
+            coordinates: [ 0.5375, 0.65556 ]
             neighbors:
                 - Congo
                 - Madagascar
                 - E_Africa
           - name: Madagascar
+            coordinates: [ 0.49375, 0.77222 ]
             neighbors:
                 - South_Africa
                 - E_Africa
           - name: E_Africa
+            coordinates: [ 0.50625, 0.91111 ]
             neighbors:
                 - North_Africa
                 - Egypt
@@ -112,6 +130,7 @@ continents:
                 - South_Africa
                 - Congo
           - name: Egypt
+            coordinates: [ 0.6375, 0.88889 ]
             neighbors:
                 - North_Africa
                 - E_Africa
@@ -121,23 +140,27 @@ continents:
       bonus: 5
       territories:
           - name: Iceland
+            coordinates: [ 0.7875, 0.7 ]
             neighbors:
                 - Greenland
                 - Britain
                 - Scandinavia
           - name: Britain
+            coordinates: [ 0.8875, 0.72222 ]
             neighbors:
                 - Iceland
                 - W_Europe
                 - N_Europe
                 - Scandinavia
           - name: W_Europe
+            coordinates: [ 0.925, 0.86667 ]
             neighbors:
                 - Britain
                 - N_Europe
                 - S_Europe
                 - North_Africa
           - name: S_Europe
+            coordinates: [ 0.825, 0.84444 ]
             neighbors:
                 - Egypt
                 - North_Africa
@@ -146,6 +169,7 @@ continents:
                 - Ukraine
                 - Middle_East
           - name: N_Europe
+            coordinates: [ 0.7, 0.11111 ]
             neighbors:
                 - Scandinavia
                 - Ukraine
@@ -153,12 +177,14 @@ continents:
                 - W_Europe
                 - Britain
           - name: Scandinavia
+            coordinates: [ 0.78125, 0.12222 ]
             neighbors:
                 - Iceland
                 - Britain
                 - N_Europe
                 - Ukraine
           - name: Ukraine
+            coordinates: [ 0.875, 0.12222 ]
             neighbors:
                 - Scandinavia
                 - N_Europe
@@ -170,6 +196,7 @@ continents:
       bonus: 7
       territories:
           - name: Middle_East
+            coordinates: [ 0.6625, 0.24444 ]
             neighbors:
                 - Ukraine
                 - S_Europe
@@ -178,6 +205,7 @@ continents:
                 - India
                 - Kazakhstan
           - name: Kazakhstan
+            coordinates: [ 0.7625, 0.25 ]
             neighbors:
                 - Ukraine
                 - Middle_East
@@ -185,12 +213,14 @@ continents:
                 - China
                 - Ural
           - name: Ural
+            coordinates: [ 0.6375, 0.37778 ]
             neighbors:
                 - Ukraine
                 - Kazakhstan
                 - China
                 - Siberia
           - name: Siberia
+            coordinates: [ 0.78125, 0.35556 ]
             neighbors:
                 - Ural
                 - China
@@ -198,11 +228,13 @@ continents:
                 - Irkutsk
                 - Yakutsk
           - name: Yakutsk
+            coordinates: [ 0.8875, 0.36667 ]
             neighbors:
                 - Siberia
                 - Irkutsk
                 - Kamchatka
           - name: Kamchatka
+            coordinates: [ 0.75625, 0.45556 ]
             neighbors:
                 - Yakutsk
                 - Irkutsk
@@ -210,16 +242,19 @@ continents:
                 - Japan
                 - Alaska
           - name: Irkutsk
+            coordinates: [ 0.56875, 0.51111 ]
             neighbors:
                 - Yakutsk
                 - Siberia
                 - Mongolia
                 - Kamchatka
           - name: Japan
+            coordinates: [ 0.7, 0.53333 ]
             neighbors:
                 - Kamchatka
                 - Mongolia
           - name: Mongolia
+            coordinates: [ 0.7875, 0.57778 ]
             neighbors:
                 - Irkutsk
                 - Kamchatka
@@ -227,6 +262,7 @@ continents:
                 - China
                 - Siberia
           - name: China
+            coordinates: [ 0.3875, 0.15556 ]
             neighbors:
                 - Mongolia
                 - Siberia
@@ -235,12 +271,14 @@ continents:
                 - India
                 - Siam
           - name: India
+            coordinates: [ 0.49375, 0.18889 ]
             neighbors:
                 - Middle_East
                 - Kazakhstan
                 - China
                 - Siam
           - name: Siam
+            coordinates: [ 0.55625, 0.25556 ]
             neighbors:
                 - India
                 - China
@@ -249,20 +287,24 @@ continents:
       bonus: 2
       territories:
           - name: Indonesia
+            coordinates: [ 0.3625, 0.32222 ]
             neighbors:
                 - Siam
                 - Papua_New_Guinea
                 - W_Australia
           - name: W_Australia
+            coordinates: [ 0.4625, 0.28889 ]
             neighbors:
                 - Indonesia
                 - Papua_New_Guinea
                 - E_Australia
           - name: E_Australia
+            coordinates: [ 0.34375, 0.44444 ]
             neighbors:
                 - Papua_New_Guinea
                 - W_Australia
           - name: Papua_New_Guinea
+            coordinates: [ 0.46875, 0.44444 ]
             neighbors:
                 - Indonesia
                 - W_Australia

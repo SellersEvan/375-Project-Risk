@@ -12,6 +12,7 @@ import java.util.*;
 public class Game {
     protected Phase currentPhase;
     private GameView gameView;
+    private final MapLoader map;
     private final List<Territory> territories;
     private final List<Continent> continents;
     private Territory selectedTerritory;
@@ -30,9 +31,9 @@ public class Game {
         gameSetup.setInitialArmies();
 
         File map = MapLoader.getMapFiles().get("Earth");
-        MapLoader mapLoader = new MapLoaderYAML(map);
-        this.territories = mapLoader.getTerritories();
-        this.continents  = mapLoader.getContinents();
+        this.map = new MapLoaderYAML(map);
+        this.territories = this.map.getTerritories();
+        this.continents  = this.map.getContinents();
 
         playerArray = gameSetup.fillPlayerArray(territories);
         setFirstPlayer(new Random());
@@ -41,8 +42,7 @@ public class Game {
     }
 
     public void initWindow() {
-        gameView = new GameView(this);
-        gameView.addButtons(territories, this);
+        gameView = new GameView(this, this.map);
         updateGameView();
         gameView.showMessage(messages.getString(playerArray.get(current).getName()) + " "
                 + messages.getString("playerWillStartFirstMessage"));
