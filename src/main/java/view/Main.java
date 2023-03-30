@@ -62,7 +62,7 @@ public class Main {
         }
         playerColors.setSelectedIndex(0);
         JOptionPane.showMessageDialog(null, playerColors,
-                "Number of Players", JOptionPane.INFORMATION_MESSAGE);
+                "Select your color.", JOptionPane.INFORMATION_MESSAGE);
         return playerColors.getItemAt(playerColors.getSelectedIndex());
     }
 
