@@ -2,13 +2,12 @@ package view;
 
 import controller.Game;
 
+import model.Map.MapLoader;
 import model.Map.Territory;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -24,7 +23,7 @@ public class GameView {
     private CardButton cardButton;
     private ResourceBundle messages;
 
-    public GameView(Game game) {
+    public GameView(Game game, MapLoader map) {
         this.messages = game.getLanguageBundle();
         frame = new JFrame(messages.getString("Risk"));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -33,7 +32,11 @@ public class GameView {
         pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
         boardContainer = new JPanel();
         boardContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
-        createBoard();
+        this.createBoard(map.getBackground());
+        int width = map.getBackground().getWidth();
+        int height = map.getBackground().getHeight();
+        this.addButtons(map.getTerritories(), map.getCoordinates(),
+                width, height, game);
         boardContainer.add(board);
 
         phase = new JLabel(" ");
@@ -79,34 +82,27 @@ public class GameView {
         frame.repaint();
     }
 
-    private void createBoard() {
+
+    private void createBoard(BufferedImage background) {
         try {
-            File file = new File(getClass().getResource("/RiskExampleMap.jpg").toURI());
-            BufferedImage image = ImageIO.read(file);
-            ImageIcon icon = new ImageIcon(image.getScaledInstance(1600, 900, Image.SCALE_SMOOTH));
+            ImageIcon icon = new ImageIcon(background);
             board = new JLabel(icon);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void addButtons(List<Territory> territoryList, Game game) {
-        // CHECKSTYLE:OFF
-        int[] buttonXValues = new int[]{45,190,490,170,280,390,180,290,
-                270,290,430,310,350,820,690,860,790,810, 1020,1260,1420,
-                1480,1320,1120,1250,1400,1060,1220,1020,1250,1420,1210,910,
-                1120,1260,620,790,890,580,740,550,750};
-        int[] buttonYValues = new int[]{150,140,90,220,200,240,320,360,
-                430,520,605,610,740,540,590,590,695,820, 800,630,650,780,
-                760,100,110,110,220,225,340,320,330,410,460,480,520,
-                140,170,230,290,260,400,400};
-        // CHECKSTYLE:ON
+
+    private void addButtons(List<Territory> territoryList,
+                            List<MapLoader.Coordinate> coordinates,
+                            int width, int height, Game game) {
         for (int i = 0; i < territoryList.size(); i++) {
             JButton button = new TerritoryButton(messages.getString("armies") + " 0", territoryList.get(i), game);
-            button.setBounds(buttonXValues[i], buttonYValues[i],  100, 20);
+            int buttonWidth  = (int) (width * coordinates.get(i).getX());
+            int buttonHeight = (int) (height * coordinates.get(i).getY());
+            button.setBounds(buttonWidth, buttonHeight,  100, 20);
             board.add(button);
         }
-
         frame.setVisible(true);
     }
 

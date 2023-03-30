@@ -2,6 +2,8 @@ package model.Map;
 
 import org.yaml.snakeyaml.Yaml;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class MapLoaderYAML implements MapLoader {
     private final ArrayList<Continent> continents;
     private final ArrayList<Territory> territories;
     private final ArrayList<Coordinate> coordinates;
+    private BufferedImage background;
 
 
     public MapLoaderYAML(File map) {
@@ -34,6 +37,17 @@ public class MapLoaderYAML implements MapLoader {
     }
 
 
+    private void loadBackground(File mapFile) {
+        String filename = mapFile.getPath().replace(".yaml", ".jpg");
+        File file = new File(filename);
+        try {
+            this.background = ImageIO.read(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @SuppressWarnings("unchecked")
     private void parse(Map<String, Object> data) {
         if (!(data.get("continents") instanceof List)) return;
@@ -41,12 +55,14 @@ public class MapLoaderYAML implements MapLoader {
             Continent continent = parseContinent(continentData);
             if (continent == null) continue;
             continents.add(continent);
-            // FIXME Parse Coordinates
             if (!(continentData.get("territories") instanceof List)) return;
             for (Map<String, Object> territoryData : (List<Map<String, Object>>) continentData.get("territories")) {
-                Territory territory = parseTerritory(territoryData, continent);
+                Territory territory   = parseTerritory(territoryData, continent);
+                Coordinate coordinate = parseCoordinate(territoryData);
                 if (territory == null) continue;
+                if (coordinate == null) continue;
                 territories.add(territory);
+                coordinates.add(coordinate);
             }
         }
     }
@@ -68,6 +84,15 @@ public class MapLoaderYAML implements MapLoader {
         if (!(territory.get("name") instanceof String)) return null;
         String name = (String) territory.get("name");
         return new Territory(name, continent);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private Coordinate parseCoordinate(Map<String, Object> territory) {
+        if (!(territory.get("coordinates") instanceof List)) return null;
+        ArrayList<Double> coordinates = (ArrayList<Double>) territory.get("coordinates");
+        if (coordinates.size() != 2) return null;
+        return new Coordinate(coordinates.get(0), coordinates.get(1));
     }
 
 
@@ -114,6 +139,12 @@ public class MapLoaderYAML implements MapLoader {
     @Override
     public List<Coordinate> getCoordinates() {
         return this.coordinates;
+    }
+
+
+    @Override
+    public BufferedImage getBackground() {
+        return this.background;
     }
 
 
