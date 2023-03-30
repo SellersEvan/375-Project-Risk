@@ -34,6 +34,7 @@ public class MapLoaderYAML implements MapLoader {
     }
 
 
+    @SuppressWarnings("unchecked")
     private void parse(Map<String, Object> data) {
         if (!(data.get("continents") instanceof List)) return;
         for (Map<String, Object> continentData : (List<Map<String, Object>>) data.get("continents")) {
@@ -51,6 +52,7 @@ public class MapLoaderYAML implements MapLoader {
     }
 
 
+    @SuppressWarnings("unchecked")
     private Continent parseContinent(Map<String, Object> continent) {
         if (!(continent.get("name") instanceof String)) return null;
         if (!(continent.get("bonus") instanceof Integer)) return null;
@@ -69,6 +71,7 @@ public class MapLoaderYAML implements MapLoader {
     }
 
 
+    @SuppressWarnings("unchecked")
     private void parseAdjacent(Map<String, Object> data) {
         if (!(data.get("continents") instanceof List)) return;
         for (Map<String, Object> continentData : (List<Map<String, Object>>) data.get("continents")) {
