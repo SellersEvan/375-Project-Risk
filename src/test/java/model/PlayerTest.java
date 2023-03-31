@@ -617,18 +617,17 @@ class PlayerTest {
 		int [] defenderRolls = {1};
 		EasyMock.reset(attackingMock);
 		EasyMock.reset(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		EasyMock.expect(attackingMock.getOccupant()).andReturn(attackingPlayer);
 		EasyMock.expect(defendingMock.getOccupant()).andReturn(defendingPlayer);
-		EasyMock.expect(attackingMock.attackTerritory(defendingMock,
-				attackerRolls, defenderRolls)).andReturn(true);
+		EasyMock.expect(attackingMock.attackTerritory(data)).andReturn(true);
 		attackingPlayer.captureDefeatedTerritory(defendingPlayer, attackingMock, defendingMock);
 		EasyMock.expect(attackingMock.getArmies()).andReturn(1);
 
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
-		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 		assertEquals(0, attackingPlayer.attackTerritory(data));
 
 		EasyMock.verify(attackingPlayer);
@@ -670,16 +669,15 @@ class PlayerTest {
 		int [] defenderRolls = {1};
 		EasyMock.reset(attackingMock);
 		EasyMock.reset(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		EasyMock.expect(attackingMock.getOccupant()).andReturn(attackingPlayer);
 		EasyMock.expect(defendingMock.getOccupant()).andReturn(defendingPlayer);
-		EasyMock.expect(attackingMock.attackTerritory(defendingMock,
-				attackerRolls, defenderRolls)).andReturn(false);
+		EasyMock.expect(attackingMock.attackTerritory(data)).andReturn(false);
 
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
-		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 		assertEquals(0, attackingPlayer.attackTerritory(data));
 
 		EasyMock.verify(attackingPlayer);
@@ -724,18 +722,17 @@ class PlayerTest {
 		int [] defenderRolls = {1};
 		EasyMock.reset(attackingMock);
 		EasyMock.reset(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		EasyMock.expect(attackingMock.getOccupant()).andReturn(attackingPlayer);
 		EasyMock.expect(defendingMock.getOccupant()).andReturn(defendingPlayer);
-		EasyMock.expect(attackingMock.attackTerritory(defendingMock,
-				attackerRolls, defenderRolls)).andReturn(true);
+		EasyMock.expect(attackingMock.attackTerritory(data)).andReturn(true);
 		attackingPlayer.captureDefeatedTerritory(defendingPlayer, attackingMock, defendingMock);
 		EasyMock.expect(attackingMock.getArmies()).andReturn(3);
 
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
-		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		assertEquals(2, attackingPlayer.attackTerritory(data));
 
@@ -935,16 +932,15 @@ class PlayerTest {
 		int [] defenderRolls = {1};
 		EasyMock.reset(attackingMock);
 		EasyMock.reset(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		EasyMock.expect(attackingMock.getOccupant()).andReturn(attackingPlayer);
 		EasyMock.expect(defendingMock.getOccupant()).andReturn(defendingPlayer);
-		EasyMock.expect(attackingMock.attackTerritory(defendingMock,
-				attackerRolls, defenderRolls)).andReturn(false);
+		EasyMock.expect(attackingMock.attackTerritory(data)).andReturn(false);
 
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
-		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		assertEquals(0, attackingPlayer.attackTerritory(data));
 
@@ -991,17 +987,16 @@ class PlayerTest {
 		int [] defenderRolls = {1};
 		EasyMock.reset(attackingMock);
 		EasyMock.reset(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		EasyMock.expect(attackingMock.getOccupant()).andReturn(attackingPlayer);
 		EasyMock.expect(defendingMock.getOccupant()).andReturn(defendingPlayer);
-		EasyMock.expect(attackingMock.attackTerritory(defendingMock,
-				attackerRolls, defenderRolls)).andThrow(
+		EasyMock.expect(attackingMock.attackTerritory(data)).andThrow(
 						new InvalidAttackException("Attacker does not possess enough troops for that many rolls"));
 
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
-		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		InvalidAttackException e = assertThrows(InvalidAttackException.class,
 				() -> {attackingPlayer.attackTerritory(data);});
@@ -1049,17 +1044,16 @@ class PlayerTest {
 		int [] defenderRolls = {1};
 		EasyMock.reset(attackingMock);
 		EasyMock.reset(defendingMock);
+		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		EasyMock.expect(attackingMock.getOccupant()).andReturn(attackingPlayer);
 		EasyMock.expect(defendingMock.getOccupant()).andReturn(defendingPlayer);
-		EasyMock.expect(attackingMock.attackTerritory(defendingMock,
-				attackerRolls, defenderRolls)).andThrow(
+		EasyMock.expect(attackingMock.attackTerritory(data)).andThrow(
 						new InvalidAttackException("Defender does not possess enough troops for that many rolls"));
 
 		EasyMock.replay(attackingPlayer);
 		EasyMock.replay(attackingMock);
 		EasyMock.replay(defendingMock);
-		AttackData data = new AttackData(attackingMock, defendingMock, attackerRolls, defenderRolls);
 
 		InvalidAttackException e = assertThrows(InvalidAttackException.class,
 				() -> {attackingPlayer.attackTerritory(data);});

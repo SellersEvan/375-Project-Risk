@@ -119,9 +119,9 @@ class TerritoryTest {
         int[] attackerRolls = new int[]{1};
         int[] defenderRolls = new int[]{1};
 
-
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
         InvalidAttackException thrown = assertThrows(InvalidAttackException.class,
-                () -> attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+                () -> attacker.attackTerritory(data));
 
         assertEquals("Attacker does not possess enough troops for that many rolls", thrown.getMessage());
     }
@@ -134,10 +134,11 @@ class TerritoryTest {
         Territory defender = new Territory("Test", continent);
         int[] attackerRolls = new int[]{1};
         int[] defenderRolls = new int[]{1};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
 
         InvalidAttackException thrown = assertThrows(InvalidAttackException.class,
-                () -> attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+                () -> attacker.attackTerritory(data));
 
         assertEquals("Defender does not possess enough troops for that many rolls", thrown.getMessage());
     }
@@ -150,10 +151,11 @@ class TerritoryTest {
         Territory defender = new Territory("Test", continent);
         int[] attackerRolls = new int[]{};
         int[] defenderRolls = new int[]{};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
 
         InvalidAttackException thrown = assertThrows(InvalidAttackException.class,
-                () -> attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+                () -> attacker.attackTerritory(data));
 
         assertEquals("Invalid roll values", thrown.getMessage());
     }
@@ -167,9 +169,10 @@ class TerritoryTest {
         defender.addArmies(1);
         int[] attackerRolls = new int[]{1};
         int[] defenderRolls = new int[]{};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
         InvalidAttackException thrown = assertThrows(InvalidAttackException.class,
-                () -> attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+                () -> attacker.attackTerritory(data));
 
         assertEquals("Invalid roll values", thrown.getMessage());
     }
@@ -183,10 +186,11 @@ class TerritoryTest {
         defender.addArmies(1);
         int[] attackerRolls = new int[]{5};
         int[] defenderRolls = new int[]{2};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
 
         try {
-            assertTrue(attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+            assertTrue(attacker.attackTerritory(data));
         } catch (InvalidAttackException e) {
             e.printStackTrace();
             fail("attackTerritory threw exception");
@@ -204,10 +208,11 @@ class TerritoryTest {
         defender.addArmies(4);
         int[] attackerRolls = new int[]{5};
         int[] defenderRolls = new int[]{2};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
 
         try {
-            assertFalse(attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+            assertFalse(attacker.attackTerritory(data));
         } catch (InvalidAttackException e) {
             e.printStackTrace();
             fail("attackTerritory threw exception");
@@ -225,10 +230,11 @@ class TerritoryTest {
         defender.addArmies(4);
         int[] attackerRolls = new int[]{2};
         int[] defenderRolls = new int[]{5};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
 
         try {
-            assertFalse(attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+            assertFalse(attacker.attackTerritory(data));
         } catch (InvalidAttackException e) {
             e.printStackTrace();
             fail("attackTerritory threw exception");
@@ -246,10 +252,11 @@ class TerritoryTest {
         defender.addArmies(4);
         int[] attackerRolls = new int[]{2,5,6};
         int[] defenderRolls = new int[]{3,4};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
 
         try {
-            assertFalse(attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+            assertFalse(attacker.attackTerritory(data));
         } catch (InvalidAttackException e) {
             e.printStackTrace();
             fail("attackTerritory threw exception");
@@ -267,10 +274,11 @@ class TerritoryTest {
         defender.addArmies(4);
         int[] attackerRolls = new int[]{2,2,6};
         int[] defenderRolls = new int[]{3,4};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
 
         try {
-            assertFalse(attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+            assertFalse(attacker.attackTerritory(data));
         } catch (InvalidAttackException e) {
             e.printStackTrace();
             fail("attackTerritory threw exception");
@@ -289,10 +297,11 @@ class TerritoryTest {
         defender.addArmies(4);
         int[] attackerRolls = new int[]{6,2,2};
         int[] defenderRolls = new int[]{3,4};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
 
         try {
-            assertFalse(attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+            assertFalse(attacker.attackTerritory(data));
         } catch (InvalidAttackException e) {
             e.printStackTrace();
             fail("attackTerritory threw exception");
@@ -310,10 +319,11 @@ class TerritoryTest {
         defender.addArmies(4);
         int[] attackerRolls = new int[]{6,3};
         int[] defenderRolls = new int[]{4};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
 
         try {
-            assertFalse(attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+            assertFalse(attacker.attackTerritory(data));
         } catch (InvalidAttackException e) {
             e.printStackTrace();
             fail("attackTerritory threw exception");
@@ -332,10 +342,11 @@ class TerritoryTest {
         defender.addArmies(4);
         int[] attackerRolls = new int[]{5};
         int[] defenderRolls = new int[]{6,3};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
 
         try {
-            assertFalse(attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+            assertFalse(attacker.attackTerritory(data));
         } catch (InvalidAttackException e) {
             e.printStackTrace();
             fail("attackTerritory threw exception");
@@ -354,9 +365,10 @@ class TerritoryTest {
         defender.addArmies(4);
         int[] attackerRolls = new int[]{2,2,6,8};
         int[] defenderRolls = new int[]{3,4};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
         InvalidAttackException thrown = assertThrows(InvalidAttackException.class,
-                () -> attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+                () -> attacker.attackTerritory(data));
 
         assertEquals("Invalid roll values", thrown.getMessage());
     }
@@ -370,9 +382,10 @@ class TerritoryTest {
         defender.addArmies(4);
         int[] attackerRolls = new int[]{2,2};
         int[] defenderRolls = new int[]{3,4,3};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
         InvalidAttackException thrown = assertThrows(InvalidAttackException.class,
-                () -> attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+                () -> attacker.attackTerritory(data));
 
         assertEquals("Invalid roll values", thrown.getMessage());
     }
@@ -386,9 +399,10 @@ class TerritoryTest {
         defender.addArmies(2);
         int[] attackerRolls = new int[]{2};
         int[] defenderRolls = new int[]{3};
+        AttackData data = new AttackData(attacker, defender, attackerRolls, defenderRolls);
 
         InvalidAttackException thrown = assertThrows(InvalidAttackException.class,
-                () -> attacker.attackTerritory(defender, attackerRolls, defenderRolls));
+                () -> attacker.attackTerritory(data));
 
         assertEquals("Attacker does not possess enough troops for that many rolls", thrown.getMessage());
     }
