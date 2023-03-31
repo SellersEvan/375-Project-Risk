@@ -121,19 +121,19 @@ public class Player {
 		}
 
 		if (data.getAttacker().attackTerritory(data)) {
-			this.captureDefeatedTerritory(defendingPlayer, data.getAttacker(), data.getDefender());
+			this.captureDefeatedTerritory(data);
 			return data.getAttacker().getArmies() - 1;
 		}
 		return 0;
 	}
 
-	void captureDefeatedTerritory(Player defendingPlayer,
-			Territory attacking, Territory defending) {
-		defendingPlayer.occupiedTerritories.remove(defending);
-		defending.setOccupant(this);
-		this.occupiedTerritories.add(defending);
+	void captureDefeatedTerritory(AttackData data) {
+		Player defendingPlayer = data.getDefender().getOccupant();
+		defendingPlayer.occupiedTerritories.remove(data.getDefender());
+		data.getDefender().setOccupant(this);
+		this.occupiedTerritories.add(data.getDefender());
 		this.capturedThisTurn = true;
-		attacking.fortifyTerritory(defending, 1);
+		data.getAttacker().fortifyTerritory(data.getDefender(), 1);
 		this.handlePossiblePlayerDefeat(defendingPlayer);
 	}
 	
