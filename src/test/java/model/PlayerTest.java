@@ -622,7 +622,7 @@ class PlayerTest {
 		EasyMock.expect(attackingMock.getOccupant()).andReturn(attackingPlayer);
 		EasyMock.expect(defendingMock.getOccupant()).andReturn(defendingPlayer);
 		EasyMock.expect(attackingMock.attackTerritory(data)).andReturn(true);
-		attackingPlayer.captureDefeatedTerritory(defendingPlayer, attackingMock, defendingMock);
+		attackingPlayer.captureDefeatedTerritory(data);
 		EasyMock.expect(attackingMock.getArmies()).andReturn(1);
 
 		EasyMock.replay(attackingPlayer);
@@ -727,7 +727,7 @@ class PlayerTest {
 		EasyMock.expect(attackingMock.getOccupant()).andReturn(attackingPlayer);
 		EasyMock.expect(defendingMock.getOccupant()).andReturn(defendingPlayer);
 		EasyMock.expect(attackingMock.attackTerritory(data)).andReturn(true);
-		attackingPlayer.captureDefeatedTerritory(defendingPlayer, attackingMock, defendingMock);
+		attackingPlayer.captureDefeatedTerritory(data);
 		EasyMock.expect(attackingMock.getArmies()).andReturn(3);
 
 		EasyMock.replay(attackingPlayer);
