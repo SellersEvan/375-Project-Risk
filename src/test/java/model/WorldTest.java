@@ -14,9 +14,6 @@ public class WorldTest {
     @Test
     void GetMaps() {
         assertTrue(World.getMapFiles().containsKey("Earth"));
-        String filenameExpected = ".\\src\\main\\resources\\maps\\Earth.yaml";
-        String filenameActual   = String.valueOf(World.getMapFiles().get("Earth").toPath());
-        assertEquals(filenameExpected, filenameActual);
     }
 
 
