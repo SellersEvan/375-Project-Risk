@@ -2,7 +2,7 @@ package view;
 
 import controller.Game;
 
-import model.Map.MapLoader;
+import model.Map.World;
 import model.Map.Territory;
 
 import javax.swing.*;
@@ -23,7 +23,7 @@ public class GameView {
     private CardButton cardButton;
     private ResourceBundle messages;
 
-    public GameView(Game game, MapLoader map) {
+    public GameView(Game game, World world) {
         this.messages = game.getLanguageBundle();
         frame = new JFrame(messages.getString("Risk"));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -32,10 +32,10 @@ public class GameView {
         pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
         boardContainer = new JPanel();
         boardContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.createBoard(map.getBackground());
-        int width = map.getBackground().getWidth();
-        int height = map.getBackground().getHeight();
-        this.addButtons(map.getTerritories(), map.getCoordinates(),
+        this.createBoard(world.getBackground());
+        int width = world.getWidth();
+        int height = world.getHeight();
+        this.addButtons(world.getTerritories(), world.getCoordinates(),
                 width, height, game);
         boardContainer.add(board);
 
@@ -94,7 +94,7 @@ public class GameView {
 
 
     private void addButtons(List<Territory> territoryList,
-                            List<MapLoader.Coordinate> coordinates,
+                            List<World.Coordinate> coordinates,
                             int width, int height, Game game) {
         for (int i = 0; i < territoryList.size(); i++) {
             JButton button = new TerritoryButton(messages.getString("armies") + " 0", territoryList.get(i), game);

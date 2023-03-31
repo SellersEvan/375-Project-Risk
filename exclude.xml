@@ -4,7 +4,7 @@
         <Bug code="EI, EI2, SF, RV" />
     </Match>
     <Match>
-        <Class name="model.Map.MapLoader" />
+        <Class name="model.Map.World" />
         <Bug code="M,D,NP" />
     </Match>
     <Match>

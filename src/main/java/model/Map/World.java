@@ -5,28 +5,45 @@ import org.yaml.snakeyaml.Yaml;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
-public class MapLoaderYAML implements MapLoader {
+public class World {
 
 
+    public static final String MAP_DIR = "./src/main/resources/maps";
     private final ArrayList<Continent> continents;
     private final ArrayList<Territory> territories;
     private final ArrayList<Coordinate> coordinates;
     private BufferedImage background;
 
 
-    public MapLoaderYAML(File map) {
+    public static class Coordinate {
+        private final double x;
+        private final double y;
+
+        Coordinate(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public double getX() {
+            return x;
+        }
+
+        public double getY() {
+            return y;
+        }
+    }
+
+
+    public World(File map) {
         this.continents  = new ArrayList<>();
         this.territories = new ArrayList<>();
         this.coordinates = new ArrayList<>();
         try {
             InputStream         stream  = new FileInputStream(map);
-            Map<String, Object> mapData = (new Yaml()).load(stream);
+            java.util.Map<String, Object> mapData = (new Yaml()).load(stream);
             this.parse(mapData);
             this.parseAdjacent(mapData);
             stream.close();
@@ -125,27 +142,45 @@ public class MapLoaderYAML implements MapLoader {
     }
 
 
-    @Override
     public List<Continent> getContinents() {
         return this.continents;
     }
 
 
-    @Override
     public List<Territory> getTerritories() {
         return this.territories;
     }
 
 
-    @Override
     public List<Coordinate> getCoordinates() {
         return this.coordinates;
     }
 
 
-    @Override
     public BufferedImage getBackground() {
         return this.background;
+    }
+
+
+    public int getWidth() {
+        return this.background.getWidth();
+    }
+
+
+    public int getHeight() {
+        return this.background.getHeight();
+    }
+
+
+    public static Map<String, File> getMapFiles() {
+        Map<String, File> maps = new HashMap<>();
+        Arrays.stream(Objects.requireNonNull((new File(MAP_DIR)).listFiles()))
+                .filter((File file) -> !file.toPath().endsWith(".yaml"))
+                .forEach((File file) -> {
+                    String mapName = file.getName().split("\\.")[0];
+                    maps.put(mapName, file);
+                });
+        return maps;
     }
 
 
