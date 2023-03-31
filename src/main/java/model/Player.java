@@ -20,14 +20,7 @@ public class Player {
 	boolean capturedThisTurn;
 	
 	public Player(PlayerColor color, Random random, CardTrader cardTrader) {
-		this.color = color;
-		this.name = color.toString();
-		this.random = random;
-		this.cardTrader = cardTrader;
-		this.occupiedTerritories = new ArrayList<Territory>();
-		this.cards = new HashSet<Card>();
-		this.armiesAvailable = 0;
-		this.capturedThisTurn = false;
+		this(color, color.toString(), random, cardTrader);
 	}
 	public Player(PlayerColor color, String name, Random random, CardTrader cardTrader) {
 		this.color = color;
