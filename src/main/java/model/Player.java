@@ -127,7 +127,7 @@ public class Player {
 			throw new InvalidAttackException("Cannot attack own Territory.");
 		}
 
-		if (data.getAttacker().attackTerritory(data.getDefender(), data.getADice(), data.getDDice())) {
+		if (data.getAttacker().attackTerritory(data)) {
 			this.captureDefeatedTerritory(defendingPlayer, data.getAttacker(), data.getDefender());
 			return data.getAttacker().getArmies() - 1;
 		}

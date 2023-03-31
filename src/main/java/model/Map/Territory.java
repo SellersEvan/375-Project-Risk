@@ -1,5 +1,6 @@
 package model.Map;
 
+import model.AttackData;
 import model.InvalidAttackException;
 import model.Player;
 
@@ -86,9 +87,11 @@ public class Territory {
 
 
     // Returns true if attacked territory has lost all troops
-    public boolean attackTerritory(Territory defender, int[] attackerRolls, int[] defenderRolls)
+    public boolean attackTerritory(AttackData data)
             throws InvalidAttackException {
-
+        int[] attackerRolls = data.getADice();
+        int[] defenderRolls = data.getDDice();
+        Territory defender = data.getDefender();
         if (attackerRolls.length == 0 || defenderRolls.length == 0
                 || attackerRolls.length > MAX_ATTACKS || defenderRolls.length > MAX_DEFENDS) {
             throw new InvalidAttackException("Invalid roll values");
@@ -102,12 +105,15 @@ public class Territory {
         }
         Arrays.sort(attackerRolls);
         Arrays.sort(defenderRolls);
-        handleAttackRolls(defender, attackerRolls, defenderRolls);
+        handleAttackRolls(data);
 
         return defender.armies == 0;
     }
 
-    private void handleAttackRolls(Territory defender, int[] attackerRolls, int[] defenderRolls) {
+    private void handleAttackRolls(AttackData data) {
+        Territory defender = data.getDefender();
+        int[] attackerRolls = data.getADice();
+        int[] defenderRolls = data.getDDice();
         removeLosingArmy(defender,
                 attackerRolls[attackerRolls.length - 1], defenderRolls[defenderRolls.length - 1]);
         if (attackerRolls.length > 1 && defenderRolls.length > 1) {
