@@ -71,7 +71,7 @@ public class PlayerController {
         return getCurrentPlayer().addArmiesToTerritory(territory, amount);
     }
 
-    public boolean doesPlayerOccupyTerritory(Territory territory) {
+    public boolean setPlayerOccupyTerritory(Territory territory) {
         return getCurrentPlayer().occupyTerritory(territory);
     }
 
