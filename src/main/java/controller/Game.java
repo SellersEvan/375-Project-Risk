@@ -220,7 +220,7 @@ public class Game {
     }
 
     private void territoryClaim(Territory territory, TerritoryButton button) {
-        if (playerController.doesPlayerOccupyTerritory(territory)) {
+        if (playerController.setPlayerOccupyTerritory(territory)) {
             button.setPlayer(playerController.getCurrentPlayerColor());
             changeTurn();
             checkIfAllClaimed();
