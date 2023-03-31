@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import model.Map.MapLoader;
-import model.Map.MapLoaderYAML;
+
+import model.Map.World;
 import java.io.File;
 
 public class Main {
@@ -32,12 +32,12 @@ public class Main {
                 "Number of Players", JOptionPane.INFORMATION_MESSAGE);
         ArrayList<Player> players = fillPlayerArray(numberOfPlayers.getSelectedIndex() + 2);
         JComboBox<String> mapOptions = new JComboBox<>();
-        for (String mapName : MapLoader.getMapFiles().keySet())
+        for (String mapName : World.getMapFiles().keySet())
             mapOptions.addItem(mapName);
         JOptionPane.showMessageDialog(null, mapOptions,
                 "Which map would you like to play?", JOptionPane.INFORMATION_MESSAGE);
-        File mapFile = (File) MapLoader.getMapFiles().values().toArray()[mapOptions.getSelectedIndex()];
-        MapLoader map = new MapLoaderYAML(mapFile);
+        File mapFile = (File) World.getMapFiles().values().toArray()[mapOptions.getSelectedIndex()];
+        World map = new World(mapFile);
 
         Game gameController = new Game(numberOfPlayers.getSelectedIndex() + 2, map, players);
         gameController.setLanguageBundle(bundleName);

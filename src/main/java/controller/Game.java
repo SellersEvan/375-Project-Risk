@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import model.InvalidAttackException;
 import model.Map.*;
+import model.Map.World;
 import model.Player;
 import view.GameView;
 import view.TerritoryButton;
@@ -11,7 +12,7 @@ import java.util.*;
 public class Game {
     protected Phase currentPhase;
     private GameView gameView;
-    private MapLoader map;
+    private World world;
     protected TerritoryButton selectedButton;
 
     protected PlayerController playerController;
@@ -21,41 +22,46 @@ public class Game {
     protected GameSetup gameSetup;
     protected ResourceBundle messages;
 
-    public Game(int numberOfPlayers, MapLoader map, ArrayList<Player> players) {
+    public Game(int numberOfPlayers, World world, ArrayList<Player> players) {
         gameSetup = new GameSetup(numberOfPlayers);
         playerController = new PlayerController(numberOfPlayers, players);
-        setupMap(map);
+        setupWorld(world);
     }
-    public Game(int numberOfPlayers, MapLoader map) {
+
+
+    public Game(int numberOfPlayers, World map) {
         gameSetup = new GameSetup(numberOfPlayers);
         playerController = new PlayerController(numberOfPlayers, gameSetup.fillPlayerArray(numberOfPlayers));
-        setupMap(map);
-
+        setupWorld(map);
     }
-    public void setupMap(MapLoader map) {
+
+
+    public void setupWorld(World world) {
         gameSetup.setInitialArmies();
         for (Player p: playerController.getPlayerArray()) {
             p.giveArmies(gameSetup.getArmiesPerPlayer());
         }
-        this.map         = map;
-        territoryController = new TerritoryController(this.map.getTerritories());
-        continentController = new ContinentController(this.map.getContinents());
-
+        this.world          = world;
+        territoryController = new TerritoryController(this.world.getTerritories());
+        continentController = new ContinentController(this.world.getContinents());
         setFirstPlayer(new Random());
         currentPhase = Phase.territoryClaim;
     }
 
 
     public Game(int numberOfPlayers) {
-        this(numberOfPlayers, new MapLoaderYAML(MapLoader.getMapFiles().get("Earth")));
+        this(numberOfPlayers, new World(World.getMapFiles().get("Earth")));
     }
+
+
+
     public Game(int numberOfPlayers, ArrayList<Player> players) {
-        this(numberOfPlayers, new MapLoaderYAML(MapLoader.getMapFiles().get("Earth")), players);
+        this(numberOfPlayers, new World(World.getMapFiles().get("Earth")), players);
     }
 
 
     public void initWindow() {
-        gameView = new GameView(this, this.map);
+        gameView = new GameView(this, this.world);
         updateGameView();
         gameView.showMessage(playerController.getCurrentPlayer().getName() + " "
                 + messages.getString("playerWillStartFirstMessage"));
