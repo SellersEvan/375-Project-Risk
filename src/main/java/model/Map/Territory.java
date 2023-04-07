@@ -17,6 +17,8 @@ public class Territory {
     private final String name;
     private final Continent continent;
     private final ArrayList<Territory> adjacentTerritories;
+    private double posX;
+    private double posY;
     private Player occupant;
     private int armies;
 
@@ -140,6 +142,25 @@ public class Territory {
         removeArmies(unitsToMove);
         toFortify.addArmies(unitsToMove);
         return true;
+    }
+
+
+    public void setPosX(double posX) {
+        this.posX = posX;
+    }
+
+
+    public void setPosY(double posY) {
+        this.posY = posY;
+    }
+
+
+    public double getPosX() {
+        return this.posX;
+    }
+
+    public double getPosY() {
+        return this.posY;
     }
 
 
