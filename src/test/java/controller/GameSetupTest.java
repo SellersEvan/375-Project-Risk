@@ -54,15 +54,12 @@ public class GameSetupTest {
 
     @Test
     void testFillPlayerArray3() {
-        GameSetup g = new GameSetup(6);
-
-        assertFalse(g.fillPlayerArray(6).isEmpty());
+        assertFalse(Setup.fillPlayerArray(6).isEmpty());
     }
 
     @Test
     void testDistinctPlayerColors() {
-        GameSetup g = new GameSetup(6);
-        ArrayList<Player> playerArray = g.fillPlayerArray(6);
+        ArrayList<Player> playerArray = Setup.fillPlayerArray(6);
         assertNotEquals(playerArray.get(1).getColor(), playerArray.get(2).getColor());
     }
 
@@ -71,19 +68,23 @@ public class GameSetupTest {
         GameSetup g = new GameSetup(6);
         assertThrows(IllegalArgumentException.class, () -> g.getPlayerWhoGoesFirst(0));
     }
+
     @Test
     void testSetPlayerWhoGoesFirst1() {
         GameSetup g = new GameSetup(6);
         assertEquals(0, g.getPlayerWhoGoesFirst(1));
     }
+
     @Test
     void testSetPlayerWhoGoesFirst6() {
         GameSetup g = new GameSetup(6);
         assertEquals(5, g.getPlayerWhoGoesFirst(6));
     }
+
     @Test
     void testSetPlayerWhoGoesFirst7() {
         GameSetup g = new GameSetup(6);
         assertThrows(IllegalArgumentException.class, () -> g.getPlayerWhoGoesFirst(7));
     }
+
 }

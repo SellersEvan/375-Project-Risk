@@ -22,6 +22,8 @@ public class Game {
     protected GameSetup gameSetup;
     protected ResourceBundle messages;
 
+
+
     public Game(int numberOfPlayers, World world, ArrayList<Player> players) {
         gameSetup = new GameSetup(numberOfPlayers);
         playerController = new PlayerController(numberOfPlayers, players);
@@ -29,14 +31,7 @@ public class Game {
     }
 
 
-    public Game(int numberOfPlayers, World map) {
-        gameSetup = new GameSetup(numberOfPlayers);
-        playerController = new PlayerController(numberOfPlayers, gameSetup.fillPlayerArray(numberOfPlayers));
-        setupWorld(map);
-    }
-
-
-    public void setupWorld(World world) {
+    private void setupWorld(World world) {
         gameSetup.setInitialArmies();
         for (Player p: playerController.getPlayerArray()) {
             p.giveArmies(gameSetup.getArmiesPerPlayer());
@@ -46,17 +41,6 @@ public class Game {
         continentController = new ContinentController(this.world.getContinents());
         setFirstPlayer(new Random());
         currentPhase = Phase.territoryClaim;
-    }
-
-
-    public Game(int numberOfPlayers) {
-        this(numberOfPlayers, new World(World.getMapFiles().get("Earth")));
-    }
-
-
-
-    public Game(int numberOfPlayers, ArrayList<Player> players) {
-        this(numberOfPlayers, new World(World.getMapFiles().get("Earth")), players);
     }
 
 
