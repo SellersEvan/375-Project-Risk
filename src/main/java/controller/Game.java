@@ -9,6 +9,7 @@ import view.GameView;
 import view.TerritoryButton;
 import java.util.*;
 
+
 public class Game {
     protected Phase currentPhase;
     private GameView gameView;
@@ -21,7 +22,6 @@ public class Game {
 
     protected GameSetup gameSetup;
     protected ResourceBundle messages;
-
 
 
     public Game(int numberOfPlayers, World world, ArrayList<Player> players) {
@@ -51,11 +51,13 @@ public class Game {
                 + messages.getString("playerWillStartFirstMessage"));
     }
 
+
     public void updateGameView() {
         Player player = playerController.getCurrentPlayer();
         gameView.setPhase(currentPhase.toString());
         gameView.setPlayer(player.getName(), player.getArmiesAvailable());
     }
+
 
     public void territoryAction(Territory territory, TerritoryButton button) throws InvalidAttackException {
         switch (currentPhase) {
@@ -74,6 +76,7 @@ public class Game {
                 break;
         }
     }
+
 
     private void attacking(Territory territory, TerritoryButton button) throws InvalidAttackException {
         if (territoryController.getSelectedTerritory() == null) {
@@ -131,6 +134,7 @@ public class Game {
         }
     }
 
+
     private void fortifying(Territory territory, TerritoryButton button) {
         if (territoryController.getSelectedTerritory() == null) {
             if (!territory.getOccupant().equals(playerController.getCurrentPlayer())) {
@@ -164,6 +168,7 @@ public class Game {
             selectedButton = null;
         }
     }
+
 
     public void phaseAction() {
         switch (currentPhase) {
@@ -209,6 +214,7 @@ public class Game {
         }
     }
 
+
     private void territoryClaim(Territory territory, TerritoryButton button) {
         if (playerController.setPlayerOccupyTerritory(territory)) {
             button.setPlayer(playerController.getCurrentPlayerColor());
@@ -218,6 +224,7 @@ public class Game {
             gameView.showMessage(messages.getString("unableToClaimTerritoryMessage"));
         }
     }
+
 
     private void placeArmies(Territory territory, TerritoryButton button) {
         if (territory.getOccupant().equals(playerController.getCurrentPlayer())) {
@@ -261,14 +268,17 @@ public class Game {
         updateGameView();
     }
 
+
     private void changeTurn() {
         nextPlayer();
         updateGameView();
     }
 
+
     void nextPlayer() {
         playerController.nextPlayer();
     }
+
 
     public void setFirstPlayer(Random r) {
         int startingPlayer = r.nextInt(playerController.getNumberOfPlayers()) + 1;
@@ -284,15 +294,20 @@ public class Game {
         this.messages = ResourceBundle.getBundle(bundleName);
     }
 
+
     public ResourceBundle getLanguageBundle() {
         return this.messages;
     }
+
 
     public Player getCurrentPlayer() {
         return playerController.getCurrentPlayer();
     }
 
+
     public Phase getCurrentPhase() {
         return currentPhase;
     }
+
+
 }
