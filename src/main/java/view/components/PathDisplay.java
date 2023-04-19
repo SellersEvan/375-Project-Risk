@@ -1,19 +1,15 @@
 package view.components;
 
-import controller.Game;
 import model.Map.Territory;
-import model.PlayerColor;
 import view.GameView;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class PathDisplay extends JComponent {
 
 
-    private final static int BUTTON_PADDING = 5;
+    private static final int BUTTON_PADDING = 5;
 
     private Territory territoryFrom;
     private Territory territoryTo;
@@ -67,17 +63,23 @@ public class PathDisplay extends JComponent {
         g2d.setStroke(stroke);
         g2d.setColor(Color.red);
 
-        int dx = x2 - x1, dy = y2 - y1;
-        double D = Math.sqrt(dx*dx + dy*dy);
-        double xm = D - d, xn = xm, ym = h, yn = -h, x;
-        double sin = dy / D, cos = dx / D;
+        int dx = x2 - x1;
+        int dy = y2 - y1;
+        double dim = Math.sqrt(dx * dx + dy * dy);
+        double xm = dim - d;
+        double xn = xm;
+        double ym = h;
+        double yn = -h;
+        double x;
+        double sin = dy / dim;
+        double cos = dx / dim;
 
-        x = xm*cos - ym*sin + x1;
-        ym = xm*sin + ym*cos + y1;
+        x = xm * cos - ym * sin + x1;
+        ym = xm * sin + ym * cos + y1;
         xm = x;
 
-        x = xn*cos - yn*sin + x1;
-        yn = xn*sin + yn*cos + y1;
+        x = xn * cos - yn * sin + x1;
+        yn = xn * sin + yn * cos + y1;
         xn = x;
 
         int[] xpoints = {x2, (int) xm, (int) xn};

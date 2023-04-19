@@ -16,8 +16,8 @@ public class TerritoryButton extends JButton {
     private final Territory territory;
     private final Game game;
 
-    private final static Border BORDER_UNSELECTED = new EmptyBorder(0, 0, 0, 0);
-    private final static Border BORDER_SELECTED   = new MatteBorder(2, 2, 2, 2, Color.RED);
+    private static final Border BORDER_UNSELECTED = new EmptyBorder(0, 0, 0, 0);
+    private static final Border BORDER_SELECTED   = new MatteBorder(2, 2, 2, 2, Color.RED);
 
 
     public TerritoryButton(Territory territory, Game game) {

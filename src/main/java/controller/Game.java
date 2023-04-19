@@ -31,10 +31,10 @@ public class Game {
     // [x] make methods private as needed
     // [x] Split up Large Methods
     // [x] Draw Path
-    // [ ] Add Button Outline
+    // [x] Add Button Outline
+    // [x] Manual Testing
     // [ ] Add Additional Map
     // [ ] Simplify removeDefeatedPlayer
-    // [ ] Manual Testing
     // [ ] WTF phaseAction
     // [ ] testing
 
