@@ -50,7 +50,8 @@ public class Game {
         this.bundle = bundle;
         try {
             this.ui = viewClass.getConstructor(Game.class, World.class).newInstance(this, world);
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | InstantiationException
+                | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }

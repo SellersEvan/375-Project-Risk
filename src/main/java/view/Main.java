@@ -11,7 +11,7 @@ import model.PlayerColor;
 public class Main {
 
 
-    private static boolean SETUP_MODE_PRODUCTION = false;
+    private static final boolean SETUP_MODE_PRODUCTION = false;
 
 
     public static void main(String[] args) {

@@ -13,8 +13,8 @@ import java.util.*;
 public class Setup {
 
 
-    static String   BUNDLE_PREFIX       = "messages_";
-    static String[] SUPPORTED_LANGUAGES = new String[]{ "en", "fr" };
+    private static final String   BUNDLE_PREFIX       = "messages_";
+    private static final String[] SUPPORTED_LANGUAGES = new String[]{"en", "fr"};
 
 
     public static void setupProperties() {
