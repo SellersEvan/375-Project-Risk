@@ -109,13 +109,12 @@ public class GameView {
 
     private void addButtons(List<Territory> territories, int width, int height, Game game) {
         for (Territory territory : territories) {
-            JButton button = new TerritoryButton(bundle.getString("armies") + " 0", territory, game);
+            JButton button = new TerritoryButton(territory, game);
             int buttonWidth  = (int) (width * territory.getPosX());
             int buttonHeight = (int) (height * territory.getPosY());
-            button.setBounds(buttonWidth, buttonHeight,  100, 20);
+            button.setBounds(buttonWidth, buttonHeight,  100, 35);
             board.add(button);
         }
-        frame.setVisible(true);
     }
 
 
