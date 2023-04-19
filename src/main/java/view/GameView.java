@@ -24,7 +24,7 @@ public class GameView {
     private ResourceBundle messages;
 
     public GameView(Game game, World world) {
-        this.messages = game.getBundle();
+        this.messages = game.getLanguageBundle();
         frame = new JFrame(messages.getString("Risk"));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -35,7 +35,8 @@ public class GameView {
         this.createBoard(world.getBackground());
         int width = world.getWidth();
         int height = world.getHeight();
-        this.addButtons(world.getTerritories(), width, height, game);
+        this.addButtons(world.getTerritories(), world.getCoordinates(),
+                width, height, game);
         boardContainer.add(board);
 
         phase = new JLabel(" ");
@@ -92,11 +93,13 @@ public class GameView {
     }
 
 
-    private void addButtons(List<Territory> territories, int width, int height, Game game) {
-        for (Territory territory : territories) {
-            JButton button = new TerritoryButton(messages.getString("armies") + " 0", territory, game);
-            int buttonWidth  = (int) (width * territory.getPosX());
-            int buttonHeight = (int) (height * territory.getPosY());
+    private void addButtons(List<Territory> territoryList,
+                            List<World.Coordinate> coordinates,
+                            int width, int height, Game game) {
+        for (int i = 0; i < territoryList.size(); i++) {
+            JButton button = new TerritoryButton(messages.getString("armies") + " 0", territoryList.get(i), game);
+            int buttonWidth  = (int) (width * coordinates.get(i).getX());
+            int buttonHeight = (int) (height * coordinates.get(i).getY());
             button.setBounds(buttonWidth, buttonHeight,  100, 20);
             board.add(button);
         }

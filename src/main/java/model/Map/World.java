@@ -14,12 +14,33 @@ public class World {
     public static final String MAP_DIR = "./src/main/resources/maps";
     private final ArrayList<Continent> continents;
     private final ArrayList<Territory> territories;
+    private final ArrayList<Coordinate> coordinates;
     private BufferedImage background;
+
+
+    public static class Coordinate {
+        private final double x;
+        private final double y;
+
+        Coordinate(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public double getX() {
+            return x;
+        }
+
+        public double getY() {
+            return y;
+        }
+    }
 
 
     public World(File map) {
         this.continents  = new ArrayList<>();
         this.territories = new ArrayList<>();
+        this.coordinates = new ArrayList<>();
         try {
             InputStream         stream  = new FileInputStream(map);
             java.util.Map<String, Object> mapData = (new Yaml()).load(stream);
@@ -55,8 +76,11 @@ public class World {
             if (!(continentData.get("territories") instanceof List)) return;
             for (Map<String, Object> territoryData : (List<Map<String, Object>>) continentData.get("territories")) {
                 Territory territory   = parseTerritory(territoryData, continent);
+                Coordinate coordinate = parseCoordinate(territoryData);
                 if (territory == null) continue;
+                if (coordinate == null) continue;
                 territories.add(territory);
+                coordinates.add(coordinate);
             }
         }
     }
@@ -74,17 +98,19 @@ public class World {
     }
 
 
+    private Territory parseTerritory(Map<String, Object> territory, Continent continent) {
+        if (!(territory.get("name") instanceof String)) return null;
+        String name = (String) territory.get("name");
+        return new Territory(name, continent);
+    }
+
+
     @SuppressWarnings("unchecked")
-    private Territory parseTerritory(Map<String, Object> territoryData, Continent continent) {
-        if (!(territoryData.get("name") instanceof String)) return null;
-        if (!(territoryData.get("coordinates") instanceof List)) return null;
-        String name = (String) territoryData.get("name");
-        ArrayList<Double> coordinates = (ArrayList<Double>) territoryData.get("coordinates");
+    private Coordinate parseCoordinate(Map<String, Object> territory) {
+        if (!(territory.get("coordinates") instanceof List)) return null;
+        ArrayList<Double> coordinates = (ArrayList<Double>) territory.get("coordinates");
         if (coordinates.size() != 2) return null;
-        Territory territory = new Territory(name, continent);
-        territory.setPosX(coordinates.get(0));
-        territory.setPosY(coordinates.get(1));
-        return territory;
+        return new Coordinate(coordinates.get(0), coordinates.get(1));
     }
 
 
@@ -123,6 +149,11 @@ public class World {
 
     public List<Territory> getTerritories() {
         return this.territories;
+    }
+
+
+    public List<Coordinate> getCoordinates() {
+        return this.coordinates;
     }
 
 

@@ -82,9 +82,9 @@ public class WorldTest {
     void LoadedCoordinatesBrazil() {
         File file   = World.getMapFiles().get("Earth");
         World world = new World(file);
-        assertEquals(42, world.getTerritories().size());
-        assertEquals(0.21875, world.getTerritories().get(12).getPosX());
-        assertEquals(0.82222, world.getTerritories().get(12).getPosY());
+        assertEquals(42, world.getCoordinates().size());
+        assertEquals(0.21875, world.getCoordinates().get(12).getX());
+        assertEquals(0.82222, world.getCoordinates().get(12).getY());
     }
 
 
@@ -92,9 +92,9 @@ public class WorldTest {
     void LoadedCoordinatesWAustralia() {
         File file   = World.getMapFiles().get("Earth");
         World world = new World(file);
-        assertEquals(42, world.getTerritories().size());
-        assertEquals(0.4625, world.getTerritories().get(39).getPosX());
-        assertEquals(0.82222, world.getTerritories().get(12).getPosY());
+        assertEquals(42, world.getCoordinates().size());
+        assertEquals(0.4625, world.getCoordinates().get(39).getX());
+        assertEquals(0.82222, world.getCoordinates().get(12).getY());
     }
 
 
@@ -102,9 +102,9 @@ public class WorldTest {
     void LoadedCoordinatesScandinavia() {
         File file   = World.getMapFiles().get("Earth");
         World world = new World(file);
-        assertEquals(42, world.getTerritories().size());
-        assertEquals(0.78125, world.getTerritories().get(24).getPosX());
-        assertEquals(0.12222, world.getTerritories().get(24).getPosY());
+        assertEquals(42, world.getCoordinates().size());
+        assertEquals(0.78125, world.getCoordinates().get(24).getX());
+        assertEquals(0.12222, world.getCoordinates().get(24).getY());
     }
 
 
