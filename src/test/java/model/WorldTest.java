@@ -83,8 +83,8 @@ public class WorldTest {
         File file   = World.getMapFiles().get("Earth");
         World world = new World(file);
         assertEquals(42, world.getTerritories().size());
-        assertEquals(0.21875, world.getTerritories().get(12).getPosX());
-        assertEquals(0.82222, world.getTerritories().get(12).getPosY());
+        assertEquals(0.26875, world.getTerritories().get(12).getPosX());
+        assertEquals(0.67222, world.getTerritories().get(12).getPosY());
     }
 
 
@@ -94,7 +94,7 @@ public class WorldTest {
         World world = new World(file);
         assertEquals(42, world.getTerritories().size());
         assertEquals(0.4625, world.getTerritories().get(39).getPosX());
-        assertEquals(0.82222, world.getTerritories().get(12).getPosY());
+        assertEquals(0.67222, world.getTerritories().get(12).getPosY());
     }
 
 
