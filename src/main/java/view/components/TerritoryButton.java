@@ -20,7 +20,6 @@ public class TerritoryButton extends JButton {
     private final static Border BORDER_SELECTED   = new MatteBorder(2, 2, 2, 2, Color.RED);
 
 
-
     public TerritoryButton(Territory territory, Game game) {
         super();
         this.territory  = territory;
