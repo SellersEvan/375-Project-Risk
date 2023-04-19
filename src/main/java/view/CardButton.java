@@ -64,7 +64,7 @@ public class CardButton extends JButton {
                 }
                 dialog.dispose();
                 if (gameController.getCurrentPlayer().tradeInCards(selectedCards)) {
-                    gameController.updateGameView();
+                    gameController.update();
                     JOptionPane.showMessageDialog(null, messages.getString("tradeCardGainMessage") + " "
                             + gameController.getCurrentPlayer().getArmiesAvailable()
                             + " " + messages.getString("tradeCardArmiesMessage"));

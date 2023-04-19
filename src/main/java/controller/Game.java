@@ -25,16 +25,18 @@ public class Game {
 
 
 
-    // [ ] remove button system
     // [x] remove extra parameter on player control for number of players
     // [x] setup window
     // [x] change setup of resource bundle
     // [x] remove game setup
+    // [ ] Clean Up Main
+    // [ ] Enable UI to use Phase instead of just string
+    // [ ] remove button system
     // [ ] make methods private as needed
     // [ ] testing
 
 
-    public Game(World world, ArrayList<Player> players) {
+    public Game(World world, List<Player> players) {
         this.playerController    = new PlayerController(players);
         this.phase               = Phase.territoryClaim;
         this.world               = world;
@@ -54,14 +56,14 @@ public class Game {
 
 
     public void begin() {
-        this.updateGameView();
+        this.update();
         String playerName = this.playerController.getCurrentPlayer().getName();
         String message    = this.bundle.getString("playerWillStartFirstMessage");
         this.ui.showMessage(String.format("%s %s", playerName, message));
     }
 
 
-    public void updateGameView() {
+    public void update() {
         Player player = playerController.getCurrentPlayer();
         this.ui.setPhase(phase.toString());
         this.ui.setPlayer(player.getName(), player.getArmiesAvailable());
@@ -70,18 +72,19 @@ public class Game {
 
     public void territoryAction(Territory territory, TerritoryButton button) throws InvalidAttackException {
         switch (phase) {
-            case territoryClaim:
-                territoryClaim(territory, button);
-                break;
             case initialArmies:
+                break;
+            case territoryClaim:
+                this.territoryClaim(territory, button);
+                break;
             case placeArmies:
-                placeArmies(territory, button);
+                this.placeArmies(territory, button);
                 break;
             case attacking:
-                attacking(territory, button);
+                this.attacking(territory, button);
                 break;
             case fortifying:
-                fortifying(territory, button);
+                this.fortifying(territory, button);
                 break;
         }
     }
@@ -133,7 +136,7 @@ public class Game {
                     ui.showMessage(playerController.getCurrentPlayer().getName()
                             + " " + bundle.getString("hasWonMessage"));
                     phase = Phase.gameOver;
-                    updateGameView();
+                    update();
                 }
                 selectedButton.updateDisplay();
                 button.updateDisplay();
@@ -194,7 +197,7 @@ public class Game {
                 }
                 phase = Phase.placeArmies;
                 playerController.addNewTurnArmiesForCurrentPlayer(continentController.getContinents());
-                updateGameView();
+                update();
                 ui.showMessage(bundle.getString("tradeCardGainMessage") + " "
                         + playerController.getCurrentPlayer().getArmiesAvailable()
                         + " " + bundle.getString("tradeCardArmiesMessage"));
@@ -211,14 +214,14 @@ public class Game {
                     ui.showMessage(bundle.getString("mustTrade"));
                     ui.openCardTradeDisplay();
                 }
-                updateGameView();
+                update();
                 break;
             case fortifying:
                 phase = Phase.tradeCards;
                 territoryController.setSelectedTerritory(null);
                 selectedButton = null;
                 changeTurn();
-                updateGameView();
+                update();
                 break;
         }
     }
@@ -243,7 +246,7 @@ public class Game {
                 return;
             }
             checkIfAllArmiesPlaced();
-            updateGameView();
+            update();
             button.updateDisplay();
         } else {
 
@@ -274,13 +277,13 @@ public class Game {
         if (territoryController.checkIfAllClaimed())
             return;
         phase = Phase.initialArmies;
-        updateGameView();
+        update();
     }
 
 
     private void changeTurn() {
         nextPlayer();
-        updateGameView();
+        update();
     }
 
 

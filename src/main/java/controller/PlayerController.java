@@ -10,8 +10,8 @@ import java.util.List;
 
 public class PlayerController {
 
-    private static final int MIN_PLAYERS = 2;
-    private static final int MAX_PLAYERS = 6;
+    public static final int  MIN_PLAYERS = 2;
+    public static final int  MAX_PLAYERS = 6;
     private static final int BASE_ARMIES = 40;
     private static final int EXTRA_PLAYER_MULTIPLIER = 5;
 
