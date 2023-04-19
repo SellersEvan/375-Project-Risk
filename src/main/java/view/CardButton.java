@@ -25,7 +25,7 @@ public class CardButton extends JButton {
 
     private void setActionListener() {
         this.addActionListener(e -> {
-            if (gameController.getCurrentPhase() == Phase.tradeCards) {
+            if (gameController.getPhase() == Phase.tradeCards) {
                 tradeCardDialog(true);
             } else {
                 tradeCardDialog(false);

@@ -26,7 +26,7 @@ public class GameTest {
     void testRemoveDefeatedPlayerFromGameLoop0() {
         Game game = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
         game.removeDefeatedPlayer(0);
-        assertEquals(game.playerController.playerArray.size(), 5);
+        assertEquals(game.playerController.players.size(), 5);
         assertEquals(game.playerController.getNumberOfPlayers(), 5);
     }
 
@@ -34,7 +34,7 @@ public class GameTest {
     void testRemoveDefeatedPlayerFromGameLoop5() {
         Game game = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
         game.removeDefeatedPlayer(5);
-        assertEquals(game.playerController.playerArray.size(), 5);
+        assertEquals(game.playerController.players.size(), 5);
         assertEquals(game.playerController.getNumberOfPlayers(), 5);
     }
 
@@ -82,7 +82,7 @@ public class GameTest {
     @Test
     void testInitGamePlayerArray() {
         Game g = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
-        assertEquals(g.gameSetup.getArmiesPerPlayer(), g.playerController.playerArray.get(0).getArmiesAvailable());
+        assertEquals(g.gameSetup.getArmiesPerPlayer(), g.playerController.players.get(0).getArmiesAvailable());
     }
 
     @Test
@@ -93,14 +93,14 @@ public class GameTest {
         playerList.add(p1);
         playerList.add(p2);
         Game g = new Game(2, Setup.defaultWorld(), playerList);
-        assertEquals("AAAAAAAAAAAAAAAAA", g.playerController.playerArray.get(0).getName());
+        assertEquals("AAAAAAAAAAAAAAAAA", g.playerController.players.get(0).getName());
     }
 
 
     @Test
     void testDefaultPlayers(){
         Game g = new Game(2, Setup.defaultWorld(), Setup.fillPlayerArray(6));
-        assertEquals("Colonel Mustard", g.playerController.playerArray.get(0).getName());
+        assertEquals("Colonel Mustard", g.playerController.players.get(0).getName());
     }
 
 
