@@ -3,10 +3,9 @@ package controller;
 import model.Map.Continent;
 import model.Map.Territory;
 import model.Player;
-import model.PlayerColor;
-
 import java.util.Collections;
 import java.util.List;
+
 
 public class PlayerController {
 
