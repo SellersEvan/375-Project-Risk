@@ -27,10 +27,15 @@ public class Game {
     // [x] remove game setup
     // [X] Clean Up Main
     // [x] Enable UI to use Phase instead of just string
-    // [ ] remove button system
-    // [ ] make methods private as needed
-    // [ ] Split up Large Methods
+    // [x] remove button system
+    // [x] make methods private as needed
+    // [x] Split up Large Methods
+    // [ ] Draw Path
+    // [ ] Manual Testing
+    // [ ] WTF phaseAction
+    // [ ] Simplify removeDefeatedPlayer
     // [ ] testing
+    // [ ] Add Additional Map
 
 
     public Game(World world, List<Player> players) {
@@ -234,8 +239,6 @@ public class Game {
 
 
     private void placeArmies(Territory territory) {
-        System.out.println(territory);
-        System.out.println(playerController.getCurrentPlayer());
         if (territory.getOccupant().equals(playerController.getCurrentPlayer())) {
             int amount = this.ui.getNumber(this.bundle.getString("howManyArmiesMessage"));
             if (!this.playerController.addArmiesToTerritoryForCurrentPlayer(territory, amount)) {
