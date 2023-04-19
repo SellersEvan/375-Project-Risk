@@ -19,13 +19,13 @@ public class CardButton extends JButton {
         super(text);
         this.gameController = game;
         this.cardTrader = new CardTrader();
-        messages = game.getLanguageBundle();
+        messages = game.getBundle();
         setActionListener();
     }
 
     private void setActionListener() {
         this.addActionListener(e -> {
-            if (gameController.getCurrentPhase() == Phase.tradeCards) {
+            if (gameController.getPhase() == Phase.tradeCards) {
                 tradeCardDialog(true);
             } else {
                 tradeCardDialog(false);
@@ -64,7 +64,7 @@ public class CardButton extends JButton {
                 }
                 dialog.dispose();
                 if (gameController.getCurrentPlayer().tradeInCards(selectedCards)) {
-                    gameController.updateGameView();
+                    gameController.update();
                     JOptionPane.showMessageDialog(null, messages.getString("tradeCardGainMessage") + " "
                             + gameController.getCurrentPlayer().getArmiesAvailable()
                             + " " + messages.getString("tradeCardArmiesMessage"));
