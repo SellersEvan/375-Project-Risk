@@ -40,12 +40,18 @@ public class Game {
 //    }
 //
 
-    public Game(int numberOfPlayers, World world, ArrayList<Player> players) {
+    public Game(int numberOfPlayers, World world, ArrayList<Player> players, ResourceBundle bundle) {
         this.playerController    = new PlayerController(players);
         this.phase               = Phase.territoryClaim;
         this.world               = world;
         this.territoryController = new TerritoryController(world.getTerritories());
         this.continentController = new ContinentController(world.getContinents());
+        this.resource            = bundle;
+    }
+
+
+    public Game(int numberOfPlayers, World world, ArrayList<Player> players) {
+        this(numberOfPlayers, world, players, null);
     }
 
 
@@ -287,10 +293,6 @@ public class Game {
 
     public void removeDefeatedPlayer(int playerNum) throws IllegalArgumentException {
         playerController.removeDefeatedPlayer(playerNum);
-    }
-
-    public void setLanguageBundle(String bundleName) {
-        this.resource = ResourceBundle.getBundle(bundleName);
     }
 
 

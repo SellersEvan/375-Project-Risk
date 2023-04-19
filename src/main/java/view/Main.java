@@ -6,10 +6,7 @@ import model.Player;
 import model.PlayerColor;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import model.Map.World;
 import java.io.File;
@@ -39,8 +36,7 @@ public class Main {
         File mapFile = (File) World.getMapFiles().values().toArray()[mapOptions.getSelectedIndex()];
         World map = new World(mapFile);
 
-        Game gameController = new Game(numberOfPlayers.getSelectedIndex() + 2, map, players);
-        gameController.setLanguageBundle(bundleName);
+        Game gameController = new Game(numberOfPlayers.getSelectedIndex() + 2, map, players, ResourceBundle.getBundle(bundleName));
         gameController.initWindow();
     }
     private static ArrayList<Player> fillPlayerArray(int numberOfPlayers) {

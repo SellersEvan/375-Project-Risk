@@ -90,10 +90,13 @@ public class GameTest {
 
     @Test
     void testDefaultPlayers(){
-        Game g = new Game(2, Setup.defaultWorld(), Setup.fillPlayerArray(6));
-        String playerName1 = g.playerController.players.get(0).getName();
-        String playerName2 = g.playerController.players.get(1).getName();
-        assertTrue("Colonel Mustard".equals(playerName1) || "Colonel Mustard".equals(playerName2));
+        ArrayList<Player> players = Setup.fillPlayerArray(6);
+        Game g = new Game(2, Setup.defaultWorld(), players);
+        ArrayList<String> playerNames = new ArrayList<>();
+        for (Player player : g.playerController.getPlayers()) {
+            playerNames.add(player.getName());
+        }
+        assertTrue(playerNames.contains("Colonel Mustard"));
     }
 
 
