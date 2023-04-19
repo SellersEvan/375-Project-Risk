@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 import controller.Game;
 import controller.Phase;
@@ -38,7 +38,7 @@ public class CardButton extends JButton {
         });
     }
 
-    void tradeCardDialog(boolean trading) {
+    public void tradeCardDialog(boolean trading) {
         JDialog dialog = new JDialog();
         dialog.setTitle(messages.getString("cards"));
         dialog.setFont(new Font("Serif", Font.PLAIN, 30));

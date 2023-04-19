@@ -3,6 +3,11 @@ package view;
 import controller.Game;
 import model.Map.World;
 import model.Map.Territory;
+import view.components.CardButton;
+import view.components.PhaseButton;
+import view.components.PlayerFlag;
+import view.components.TerritoryButton;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -23,7 +28,7 @@ public class GameView {
     private JLabel labelDetails;
     private JLabel labelPlayer;
     private PhaseButton actionEndPhase;
-    private CardButton  actionCardView;
+    private CardButton actionCardView;
 
 
     public GameView(Game game, World world) {

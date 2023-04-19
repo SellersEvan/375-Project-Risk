@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 import controller.Game;
 import model.PlayerColor;

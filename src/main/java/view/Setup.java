@@ -12,7 +12,6 @@ import java.util.*;
 
 public class Setup {
 
-
     private static final String   BUNDLE_PREFIX       = "messages_";
     private static final String[] SUPPORTED_LANGUAGES = new String[]{"en", "fr"};
 
@@ -104,6 +103,5 @@ public class Setup {
                 promptLabel, JOptionPane.INFORMATION_MESSAGE);
         return new World((File) World.getMapFiles().values().toArray()[worldPrompt.getSelectedIndex()]);
     }
-
 
 }

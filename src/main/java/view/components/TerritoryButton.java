@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 import controller.Game;
 import model.InvalidAttackException;
@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class TerritoryButton extends JButton {
+
     private final Territory territory;
     private final Game game;
 
@@ -58,7 +59,5 @@ public class TerritoryButton extends JButton {
     private void updateText(String text) {
         this.setText(String.format("<html><center>%s</center></html>", text.replaceAll("\\n", "<br>")));
     }
-
-
 
 }

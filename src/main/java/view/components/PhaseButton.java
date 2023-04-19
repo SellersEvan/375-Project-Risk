@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 import controller.Game;
 
@@ -8,7 +8,10 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class PhaseButton extends JButton {
-    private Game game;
+
+
+    private final Game game;
+
 
     public PhaseButton(String text, Game game) {
         super(text);
@@ -20,9 +23,11 @@ public class PhaseButton extends JButton {
         setActionListener();
     }
 
+
     private void setActionListener() {
         this.addActionListener(e -> {
-            game.phaseAction();
+            this.game.phaseAction();
         });
     }
+
 }

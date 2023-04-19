@@ -6,7 +6,7 @@ import model.Map.*;
 import model.Map.World;
 import model.Player;
 import view.GameView;
-import view.TerritoryButton;
+import view.components.TerritoryButton;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -22,8 +22,7 @@ public class Game {
     protected PlayerController playerController;
     protected TerritoryController territoryController;
     protected ContinentController continentController;
-
-
+    
 
     // [x] remove extra parameter on player control for number of players
     // [x] setup window
