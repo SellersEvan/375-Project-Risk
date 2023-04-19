@@ -29,7 +29,8 @@ public class TerritoryButton extends JButton {
     private void setActionListener() {
         this.addActionListener(e -> {
             try {
-                game.territoryAction(territory, this);
+                game.territoryAction(territory);
+                this.updateDisplay();
             } catch (InvalidAttackException ex) {
                 ex.printStackTrace();
             }

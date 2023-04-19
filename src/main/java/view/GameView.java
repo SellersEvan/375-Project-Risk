@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,6 +26,7 @@ public class GameView {
 
     private final ResourceBundle bundle;
     private final JFrame frame;
+    private final ArrayList<TerritoryButton> territories;
     private JLabel labelDetails;
     private JLabel labelPlayer;
     private PhaseButton actionEndPhase;
@@ -32,6 +34,7 @@ public class GameView {
 
 
     public GameView(Game game, World world) {
+        this.territories = new ArrayList<>();
         this.bundle = game.getBundle();
         frame = new JFrame(bundle.getString("Risk"));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -115,11 +118,12 @@ public class GameView {
 
     private void addButtons(List<Territory> territories, int width, int height, Game game) {
         for (Territory territory : territories) {
-            JButton button = new TerritoryButton(territory, game);
+            TerritoryButton button = new TerritoryButton(territory, game);
             int buttonWidth  = (int) (width * territory.getPosX());
             int buttonHeight = (int) (height * territory.getPosY());
             button.setBounds(buttonWidth, buttonHeight,  100, 35);
             board.add(button);
+            this.territories.add(button);
         }
     }
 
@@ -167,6 +171,13 @@ public class GameView {
 
     public void openCardTradeDisplay() {
         this.actionCardView.tradeCardDialog(true);
+    }
+
+
+    public void updateTerritoryButtons() {
+        for (TerritoryButton territoryButton : this.territories) {
+            territoryButton.updateDisplay();
+        }
     }
 
 

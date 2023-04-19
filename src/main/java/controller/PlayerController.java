@@ -58,11 +58,6 @@ public class PlayerController {
     }
 
 
-    public void setCurrentPlayer(int player) {
-        this.currentPlayer = player;
-    }
-
-
     public Player getCurrentPlayer() {
         return this.players.get(currentPlayer);
     }
