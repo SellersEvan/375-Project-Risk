@@ -74,18 +74,18 @@ continents:
                 - Peru
                 - Brazil
           - name: Peru
-            coordinates: [ 0.26875, 0.67222 ]
+            coordinates: [ 0.19375, 0.67778 ]
             neighbors:
                 - Venezuela
                 - Brazil
                 - Argentina
           - name: Argentina
-            coordinates: [ 0.19375, 0.67778 ]
+            coordinates: [ 0.21875, 0.82222 ]
             neighbors:
                 - Peru
                 - Brazil
           - name: Brazil
-            coordinates: [ 0.21875, 0.82222 ]
+            coordinates: [ 0.26875, 0.67222 ]
             neighbors:
                 - Venezuela
                 - Peru
@@ -95,7 +95,7 @@ continents:
       bonus: 3
       territories:
           - name: North_Africa
-            coordinates: [ 0.5125, 0.6 ]
+            coordinates: [ 0.43125, 0.65556 ]
             neighbors:
                 - W_Europe
                 - S_Europe
@@ -104,24 +104,24 @@ continents:
                 - Congo
                 - Brazil
           - name: Congo
-            coordinates: [ 0.43125, 0.65556 ]
+            coordinates: [ 0.49375, 0.77222 ]
             neighbors:
                 - North_Africa
                 - E_Africa
                 - South_Africa
           - name: South_Africa
-            coordinates: [ 0.5375, 0.65556 ]
+            coordinates: [ 0.50625, 0.91111 ]
             neighbors:
                 - Congo
                 - Madagascar
                 - E_Africa
           - name: Madagascar
-            coordinates: [ 0.49375, 0.77222 ]
+            coordinates: [ 0.6375, 0.88889 ]
             neighbors:
                 - South_Africa
                 - E_Africa
           - name: E_Africa
-            coordinates: [ 0.50625, 0.91111 ]
+            coordinates: [ 0.5375, 0.65556 ]
             neighbors:
                 - North_Africa
                 - Egypt
@@ -130,7 +130,7 @@ continents:
                 - South_Africa
                 - Congo
           - name: Egypt
-            coordinates: [ 0.6375, 0.88889 ]
+            coordinates: [ 0.5125, 0.6 ]
             neighbors:
                 - North_Africa
                 - E_Africa
