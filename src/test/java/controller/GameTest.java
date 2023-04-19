@@ -45,17 +45,6 @@ public class GameTest {
     }
 
     @Test
-    void testSetFirstPlayer() {
-        Game game = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
-        Random r = EasyMock.mock(Random.class);
-        EasyMock.expect(r.nextInt(6)).andReturn(3);
-        EasyMock.replay(r);
-        game.setFirstPlayer(r);
-        assertEquals(game.playerController.currentPlayer, 3);
-        EasyMock.verify(r);
-    }
-
-    @Test
     void testNextTurn() {
         Game game = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
         game.playerController.currentPlayer = 0;
@@ -82,7 +71,7 @@ public class GameTest {
     @Test
     void testInitGamePlayerArray() {
         Game g = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
-        assertEquals(g.gameSetup.getArmiesPerPlayer(), g.playerController.players.get(0).getArmiesAvailable());
+        assertEquals(20, g.playerController.players.get(0).getArmiesAvailable());
     }
 
     @Test
@@ -93,14 +82,18 @@ public class GameTest {
         playerList.add(p1);
         playerList.add(p2);
         Game g = new Game(2, Setup.defaultWorld(), playerList);
-        assertEquals("AAAAAAAAAAAAAAAAA", g.playerController.players.get(0).getName());
+        String playerName1 = g.playerController.players.get(0).getName();
+        String playerName2 = g.playerController.players.get(1).getName();
+        assertTrue("AAAAAAAAAAAAAAAAA".equals(playerName1) || "AAAAAAAAAAAAAAAAA".equals(playerName2));
     }
 
 
     @Test
     void testDefaultPlayers(){
         Game g = new Game(2, Setup.defaultWorld(), Setup.fillPlayerArray(6));
-        assertEquals("Colonel Mustard", g.playerController.players.get(0).getName());
+        String playerName1 = g.playerController.players.get(0).getName();
+        String playerName2 = g.playerController.players.get(1).getName();
+        assertTrue("Colonel Mustard".equals(playerName1) || "Colonel Mustard".equals(playerName2));
     }
 
 

@@ -15,20 +15,19 @@ public class Game {
     private GameView view;
     private World world;
     protected TerritoryButton selectedButton;
+    protected ResourceBundle resource;
 
     protected PlayerController playerController;
     protected TerritoryController territoryController;
     protected ContinentController continentController;
 
-    protected GameSetup gameSetup;
-    protected ResourceBundle resource;
 
 
     // [ ] remove button system
-    // [ ] remove extra paramater on player control for number of players
+    // [x] remove extra parameter on player control for number of players
     // [ ] setup window
     // [ ] change setup of resource bundle
-    // [ ] remove game setup
+    // [x] remove game setup
     // [ ] make methods private as needed
     // [ ] testing
 
@@ -42,22 +41,11 @@ public class Game {
 //
 
     public Game(int numberOfPlayers, World world, ArrayList<Player> players) {
-        this.gameSetup   = new GameSetup(numberOfPlayers);
-        playerController = new PlayerController(players);
-        setupWorld(world);
-    }
-
-
-    private void setupWorld(World world) {
-        gameSetup.setInitialArmies();
-        for (Player p: playerController.getPlayers()) {
-            p.giveArmies(gameSetup.getArmiesPerPlayer());
-        }
-        this.world          = world;
-        territoryController = new TerritoryController(this.world.getTerritories());
-        continentController = new ContinentController(this.world.getContinents());
-        setFirstPlayer(new Random());
-        phase = Phase.territoryClaim;
+        this.playerController    = new PlayerController(players);
+        this.phase               = Phase.territoryClaim;
+        this.world               = world;
+        this.territoryController = new TerritoryController(world.getTerritories());
+        this.continentController = new ContinentController(world.getContinents());
     }
 
 
@@ -294,12 +282,6 @@ public class Game {
 
     void nextPlayer() {
         playerController.nextPlayer();
-    }
-
-
-    public void setFirstPlayer(Random r) {
-        int startingPlayer = r.nextInt(playerController.getNumberOfPlayers()) + 1;
-        playerController.setCurrentPlayer(gameSetup.getPlayerWhoGoesFirst(startingPlayer));
     }
 
 
