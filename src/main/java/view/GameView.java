@@ -103,22 +103,14 @@ public class GameView {
     }
 
 
-    public void setDetails(String player, int armies, String phase) {
-        this.labelPlayer.setText(player);
-        this.labelDetails.setText(String.format("%d %s  |  %s", armies,
-                bundle.getString("armies"), bundle.getString(phase)));
-        this.labelDetails.paintImmediately(this.labelDetails.getVisibleRect());
-        this.labelPlayer.paintImmediately(this.labelPlayer.getVisibleRect());
-        this.frame.repaint();
-    }
-
-
-    private void addButtons(List<Territory> territories, int width, int height, Game game) {
-        for (Territory territory : territories) {
-            JButton button = new TerritoryButton(territory, game);
-            int buttonWidth  = (int) (width * territory.getPosX());
-            int buttonHeight = (int) (height * territory.getPosY());
-            button.setBounds(buttonWidth, buttonHeight,  100, 35);
+    private void addButtons(List<Territory> territoryList,
+                            List<World.Coordinate> coordinates,
+                            int width, int height, Game game) {
+        for (int i = 0; i < territoryList.size(); i++) {
+            JButton button = new TerritoryButton(messages.getString("armies") + " 0", territoryList.get(i), game);
+            int buttonWidth  = (int) (width * coordinates.get(i).getX());
+            int buttonHeight = (int) (height * coordinates.get(i).getY());
+            button.setBounds(buttonWidth, buttonHeight,  100, 20);
             board.add(button);
         }
     }
