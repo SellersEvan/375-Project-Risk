@@ -34,7 +34,7 @@ public class Game {
     // [x] Add Button Outline
     // [x] Manual Testing
     // [ ] Add Additional Map
-    // [ ] Simplify removeDefeatedPlayer
+    // [x] Simplify removeDefeatedPlayer
     // [ ] WTF phaseAction
     // [ ] testing
 
@@ -143,7 +143,7 @@ public class Game {
 
         if (defender.hasLost()) {
             this.ui.showMessage(defender.getName() + " " + bundle.getString("hasLostMessage"));
-            this.removeDefeatedPlayer(playerController.getIndexOfPlayer(defender));
+            this.playerController.removePlayer(defender);
         }
 
         if (attacker.hasWon()) {
@@ -299,11 +299,6 @@ public class Game {
     void nextPlayer() {
         this.territoryController.setSelectedTerritory(null);
         this.playerController.nextPlayer();
-    }
-
-
-    public void removeDefeatedPlayer(int playerNum) throws IllegalArgumentException {
-        playerController.removeDefeatedPlayer(playerNum);
     }
 
 

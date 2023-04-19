@@ -16,35 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GameTest {
 
     @Test
-    void testRemoveDefeatedPlayerFromGameLoopNegative1() {
-        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
-        assertThrows(IllegalArgumentException.class, () -> game.removeDefeatedPlayer(-1));
-    }
-
-
-    @Test
-    void testRemoveDefeatedPlayerFromGameLoop0() {
-        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
-        game.removeDefeatedPlayer(0);
-        assertEquals(game.playerController.players.size(), 5);
-        assertEquals(game.playerController.getNumberOfPlayers(), 5);
-    }
-
-    @Test
-    void testRemoveDefeatedPlayerFromGameLoop5() {
-        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
-        game.removeDefeatedPlayer(5);
-        assertEquals(game.playerController.players.size(), 5);
-        assertEquals(game.playerController.getNumberOfPlayers(), 5);
-    }
-
-    @Test
-    void testRemoveDefeatedPlayerFromGameLoop6() {
-        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
-        assertThrows(IllegalArgumentException.class, () -> game.removeDefeatedPlayer(6));
-    }
-
-    @Test
     void testNextTurn() {
         Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
         game.playerController.currentPlayer = 0;

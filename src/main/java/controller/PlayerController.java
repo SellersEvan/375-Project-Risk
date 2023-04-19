@@ -43,11 +43,6 @@ public class PlayerController {
     }
 
 
-    public PlayerColor getCurrentPlayerColor() {
-        return getCurrentPlayer().getColor();
-    }
-
-
     public List<Player> getPlayers() {
         return this.players;
     }
@@ -63,14 +58,8 @@ public class PlayerController {
     }
 
 
-    public void removeDefeatedPlayer(int playerNum) {
-        Player currentPlayerObject = this.players.get(currentPlayer);
-        if (playerNum < 0 || playerNum > this.players.size() - 1) {
-            throw new IllegalArgumentException("player number must be between "
-                    + "0 and the number of players minus one");
-        }
-        this.players.remove(playerNum);
-        this.currentPlayer = players.indexOf(currentPlayerObject);
+    public void removePlayer(Player player) {
+        this.players.remove(player);
     }
 
 
