@@ -33,10 +33,10 @@ public class PlayerFlag extends JButton {
         g.fillRect(16, 8, 25, 25);
 
         g.setColor(Color.DARK_GRAY);
-        g.fillRect(0,0,6,50);
+        g.fillRect(0, 0, 6, 50);
 
         g.setColor(Color.GRAY);
-        g.fillRect(2,2,2,46);
+        g.fillRect(2, 2, 2, 46);
     }
 
 }

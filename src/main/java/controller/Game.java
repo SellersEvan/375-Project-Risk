@@ -22,7 +22,7 @@ public class Game {
     protected PlayerController playerController;
     protected TerritoryController territoryController;
     protected ContinentController continentController;
-    
+
 
     // [x] remove extra parameter on player control for number of players
     // [x] setup window

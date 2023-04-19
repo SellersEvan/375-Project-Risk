@@ -105,7 +105,8 @@ public class GameView {
 
     public void setDetails(String player, int armies, String phase) {
         this.labelPlayer.setText(player);
-        this.labelDetails.setText(String.format("%d %s  |  %s", armies, bundle.getString("armies"), bundle.getString(phase)));
+        this.labelDetails.setText(String.format("%d %s  |  %s", armies,
+                bundle.getString("armies"), bundle.getString(phase)));
         this.labelDetails.paintImmediately(this.labelDetails.getVisibleRect());
         this.labelPlayer.paintImmediately(this.labelPlayer.getVisibleRect());
         this.frame.repaint();

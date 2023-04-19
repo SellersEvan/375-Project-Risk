@@ -2,7 +2,6 @@ package view.components;
 
 import controller.Game;
 import model.InvalidAttackException;
-import model.Player;
 import model.PlayerColor;
 import model.Map.Territory;
 
@@ -43,7 +42,7 @@ public class TerritoryButton extends JButton {
             PlayerColor color = this.territory.getOccupant().getColor();
             this.setBackground(PlayerColor.getBackground(color));
             this.setForeground(PlayerColor.getForeground(color));
-            this.updateText(String.format("%s\n%d %s",
+            this.updateText(String.format("%s%n%d %s",
                     this.territory.getOccupant().getName(),
                     this.territory.getArmies(),
                     game.getBundle().getString("armies")));
