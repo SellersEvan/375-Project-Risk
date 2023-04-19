@@ -36,9 +36,13 @@ public class Main {
         File mapFile = (File) World.getMapFiles().values().toArray()[mapOptions.getSelectedIndex()];
         World map = new World(mapFile);
 
-        Game gameController = new Game(map, players, ResourceBundle.getBundle(bundleName));
-        gameController.initWindow();
+        Game game = new Game(map, players);
+        game.setupUI(ResourceBundle.getBundle(bundleName), GameView.class);
+        game.begin();
     }
+
+
+
     private static ArrayList<Player> fillPlayerArray(int numberOfPlayers) {
         PlayerColor[] playerColors = PlayerColor.values();
         ArrayList<Player> playerArray = new ArrayList<>();

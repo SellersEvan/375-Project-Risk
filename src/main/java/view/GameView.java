@@ -24,7 +24,7 @@ public class GameView {
     private ResourceBundle messages;
 
     public GameView(Game game, World world) {
-        this.messages = game.getLanguageBundle();
+        this.messages = game.getBundle();
         frame = new JFrame(messages.getString("Risk"));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);

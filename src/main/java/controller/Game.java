@@ -7,16 +7,18 @@ import model.Map.World;
 import model.Player;
 import view.GameView;
 import view.TerritoryButton;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 
 public class Game {
     protected Phase phase;
-    private GameView view;
-    private World world;
+    private GameView ui;
     protected TerritoryButton selectedButton;
-    protected ResourceBundle resource;
+    protected ResourceBundle bundle;
 
+    private final World world;
     protected PlayerController playerController;
     protected TerritoryController territoryController;
     protected ContinentController continentController;
@@ -25,40 +27,44 @@ public class Game {
 
     // [ ] remove button system
     // [x] remove extra parameter on player control for number of players
-    // [ ] setup window
-    // [ ] change setup of resource bundle
+    // [x] setup window
+    // [x] change setup of resource bundle
     // [x] remove game setup
     // [ ] make methods private as needed
     // [ ] testing
 
 
-    public Game(World world, ArrayList<Player> players, ResourceBundle bundle) {
+    public Game(World world, ArrayList<Player> players) {
         this.playerController    = new PlayerController(players);
         this.phase               = Phase.territoryClaim;
         this.world               = world;
         this.territoryController = new TerritoryController(world.getTerritories());
         this.continentController = new ContinentController(world.getContinents());
-        this.resource            = bundle;
     }
 
 
-    public Game(World world, ArrayList<Player> players) {
-        this(world, players, null);
+    public void setupUI(ResourceBundle bundle, Class<GameView> viewClass) {
+        this.bundle = bundle;
+        try {
+            this.ui = viewClass.getConstructor(Game.class, World.class).newInstance(this, world);
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
 
-    public void initWindow() {
-        view = new GameView(this, this.world);
-        updateGameView();
-        view.showMessage(playerController.getCurrentPlayer().getName() + " "
-                + resource.getString("playerWillStartFirstMessage"));
+    public void begin() {
+        this.updateGameView();
+        String playerName = this.playerController.getCurrentPlayer().getName();
+        String message    = this.bundle.getString("playerWillStartFirstMessage");
+        this.ui.showMessage(String.format("%s %s", playerName, message));
     }
 
 
     public void updateGameView() {
         Player player = playerController.getCurrentPlayer();
-        view.setPhase(phase.toString());
-        view.setPlayer(player.getName(), player.getArmiesAvailable());
+        this.ui.setPhase(phase.toString());
+        this.ui.setPlayer(player.getName(), player.getArmiesAvailable());
     }
 
 
@@ -84,48 +90,48 @@ public class Game {
     private void attacking(Territory territory, TerritoryButton button) throws InvalidAttackException {
         if (territoryController.getSelectedTerritory() == null) {
             if (!territory.getOccupant().equals(playerController.getCurrentPlayer())) {
-                view.showMessage(resource.getString("selectOwnTerritoryMessage"));
+                ui.showMessage(bundle.getString("selectOwnTerritoryMessage"));
             } else if (territory.getArmies() <= 1) {
-                view.showMessage(resource.getString("attackTerritoryMessage"));
+                ui.showMessage(bundle.getString("attackTerritoryMessage"));
             } else {
                 territoryController.setSelectedTerritory(territory);
                 selectedButton = button;
             }
         } else {
             if (territory.getOccupant().equals(playerController.getCurrentPlayer())) {
-                view.showMessage(resource.getString("cannotAttackOwnTerritoryMessage"));
+                ui.showMessage(bundle.getString("cannotAttackOwnTerritoryMessage"));
             } else if (!territoryController.getSelectedTerritory().isAdjacentTerritory(territory)) {
-                view.showMessage(resource.getString("attackNonAdjacentTerritoryMessage"));
+                ui.showMessage(bundle.getString("attackNonAdjacentTerritoryMessage"));
             } else {
                 Player defender = territory.getOccupant();
-                int attack = view.getNumberOfDice(territoryController.getSelectedTerritory().getArmies(),
+                int attack = ui.getNumberOfDice(territoryController.getSelectedTerritory().getArmies(),
                         playerController.getCurrentPlayer().getName(), true);
-                int defend = view.getNumberOfDice(territory.getArmies(),
+                int defend = ui.getNumberOfDice(territory.getArmies(),
                         territory.getOccupant().getName(), false);
                 AttackData data = new AttackData(territoryController.getSelectedTerritory(), territory, attack, defend);
                 int[] attackRolls = data.getADice();
                 int[] defendRolls = data.getDDice();
-                view.displayRolls(attackRolls, defendRolls);
+                ui.displayRolls(attackRolls, defendRolls);
                 int attemptAttack = playerController.getCurrentPlayer().
                         attackTerritory(data);
                 if (attemptAttack != 0) {
                     int additional = -1;
                     while (additional < 0 || additional > attemptAttack) {
-                        additional = view.getNumber(resource.getString("conqueredTerritoryMessage")
+                        additional = ui.getNumber(bundle.getString("conqueredTerritoryMessage")
                                 + attemptAttack);
                         if (additional < 0 || additional > attemptAttack) {
-                            view.showMessage(resource.getString("invalidAmountMessage"));
+                            ui.showMessage(bundle.getString("invalidAmountMessage"));
                         }
                         territoryController.getSelectedTerritory().fortifyTerritory(territory, additional);
                     }
                 }
                 if (defender.hasLost()) {
-                    view.showMessage(defender.getName() + " " + resource.getString("hasLostMessage"));
+                    ui.showMessage(defender.getName() + " " + bundle.getString("hasLostMessage"));
                     removeDefeatedPlayer(playerController.getIndexOfPlayer(defender));
                 }
                 if (playerController.getCurrentPlayer().hasWon()) {
-                    view.showMessage(playerController.getCurrentPlayer().getName()
-                            + " " + resource.getString("hasWonMessage"));
+                    ui.showMessage(playerController.getCurrentPlayer().getName()
+                            + " " + bundle.getString("hasWonMessage"));
                     phase = Phase.gameOver;
                     updateGameView();
                 }
@@ -141,25 +147,25 @@ public class Game {
     private void fortifying(Territory territory, TerritoryButton button) {
         if (territoryController.getSelectedTerritory() == null) {
             if (!territory.getOccupant().equals(playerController.getCurrentPlayer())) {
-                view.showMessage(resource.getString("fortifyFromOwnTerritoryMessage"));
+                ui.showMessage(bundle.getString("fortifyFromOwnTerritoryMessage"));
             } else if (territory.getArmies() <= 1) {
-                view.showMessage(resource.getString("fortifyInvalidArmiesMessage"));
+                ui.showMessage(bundle.getString("fortifyInvalidArmiesMessage"));
             } else {
                 territoryController.setSelectedTerritory(null);
                 selectedButton = button;
             }
         } else {
             if (!territory.getOccupant().equals(playerController.getCurrentPlayer())) {
-                view.showMessage(resource.getString("fortifyToOwnTerritoryMessage"));
+                ui.showMessage(bundle.getString("fortifyToOwnTerritoryMessage"));
             } else if (!territoryController.getSelectedTerritory().isAdjacentTerritory(territory)) {
-                view.showMessage(resource.getString("fortifyAdjacentTerritoryMessage"));
+                ui.showMessage(bundle.getString("fortifyAdjacentTerritoryMessage"));
             } else {
                 int additional = -1;
                 int max = territoryController.getSelectedTerritory().getArmies() - 1;
                 while (additional < 0 || additional > max) {
-                    additional = view.getNumber(resource.getString("fortifyCountMessage") + max);
+                    additional = ui.getNumber(bundle.getString("fortifyCountMessage") + max);
                     if (additional < 0 || additional > max) {
-                        view.showMessage(resource.getString("invalidAmountMessage"));
+                        ui.showMessage(bundle.getString("invalidAmountMessage"));
                     }
                     territoryController.getSelectedTerritory().fortifyTerritory(territory, additional);
                 }
@@ -176,25 +182,25 @@ public class Game {
     public void phaseAction() {
         switch (phase) {
             case territoryClaim:
-                view.showMessage(resource.getString("selectTerritoryToClaimMessage"));
+                ui.showMessage(bundle.getString("selectTerritoryToClaimMessage"));
                 break;
             case initialArmies:
-                view.showMessage(resource.getString("selectPlaceArmiesMessage"));
+                ui.showMessage(bundle.getString("selectPlaceArmiesMessage"));
                 break;
             case tradeCards:
                 if (playerController.getNumberOfCardForCurrentPlayer() >= 5) {
-                    view.showMessage(resource.getString("mustTrade"));
+                    ui.showMessage(bundle.getString("mustTrade"));
                     break;
                 }
                 phase = Phase.placeArmies;
                 playerController.addNewTurnArmiesForCurrentPlayer(continentController.getContinents());
                 updateGameView();
-                view.showMessage(resource.getString("tradeCardGainMessage") + " "
+                ui.showMessage(bundle.getString("tradeCardGainMessage") + " "
                         + playerController.getCurrentPlayer().getArmiesAvailable()
-                        + " " + resource.getString("tradeCardArmiesMessage"));
+                        + " " + bundle.getString("tradeCardArmiesMessage"));
                 break;
             case placeArmies:
-                view.showMessage(resource.getString("placeAllArmiesMessage"));
+                ui.showMessage(bundle.getString("placeAllArmiesMessage"));
                 break;
             case attacking:
                 playerController.getCurrentPlayer().endTurn();
@@ -202,8 +208,8 @@ public class Game {
                 territoryController.setSelectedTerritory(null);
                 selectedButton = null;
                 while (playerController.getNumberOfCardForCurrentPlayer() > 6) {
-                    view.showMessage(resource.getString("mustTrade"));
-                    view.openCardTradeDisplay();
+                    ui.showMessage(bundle.getString("mustTrade"));
+                    ui.openCardTradeDisplay();
                 }
                 updateGameView();
                 break;
@@ -224,16 +230,16 @@ public class Game {
             changeTurn();
             checkIfAllClaimed();
         } else {
-            view.showMessage(resource.getString("unableToClaimTerritoryMessage"));
+            ui.showMessage(bundle.getString("unableToClaimTerritoryMessage"));
         }
     }
 
 
     private void placeArmies(Territory territory, TerritoryButton button) {
         if (territory.getOccupant().equals(playerController.getCurrentPlayer())) {
-            int amount = view.getNumber(resource.getString("howManyArmiesMessage"));
+            int amount = ui.getNumber(bundle.getString("howManyArmiesMessage"));
             if (!playerController.addArmiesToTerritoryForCurrentPlayer(territory, amount)) {
-                view.showMessage(resource.getString("invalidAmountOfArmiesMessage"));
+                ui.showMessage(bundle.getString("invalidAmountOfArmiesMessage"));
                 return;
             }
             checkIfAllArmiesPlaced();
@@ -241,7 +247,7 @@ public class Game {
             button.updateDisplay();
         } else {
 
-            view.showMessage(resource.getString("doNotControlTerritoryMessage"));
+            ui.showMessage(bundle.getString("doNotControlTerritoryMessage"));
         }
     }
 
@@ -288,8 +294,8 @@ public class Game {
     }
 
 
-    public ResourceBundle getLanguageBundle() {
-        return this.resource;
+    public ResourceBundle getBundle() {
+        return this.bundle;
     }
 
 

@@ -30,7 +30,7 @@ public class TerritoryButton extends JButton {
     }
 
     public void setPlayer(PlayerColor color) {
-        this.setText(gameController.getLanguageBundle().getString("armies") + " " + territory.getArmies());
+        this.setText(gameController.getBundle().getString("armies") + " " + territory.getArmies());
         switch (color) {
             case RED:
                 this.setBackground(Color.RED);
@@ -61,6 +61,6 @@ public class TerritoryButton extends JButton {
 
     public void updateDisplay() {
         setPlayer(territory.getOccupant().getColor());
-        setText(gameController.getLanguageBundle().getString("armies") + " " + territory.getArmies());
+        setText(gameController.getBundle().getString("armies") + " " + territory.getArmies());
     }
 }

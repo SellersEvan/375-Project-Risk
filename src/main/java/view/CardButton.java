@@ -19,7 +19,7 @@ public class CardButton extends JButton {
         super(text);
         this.gameController = game;
         this.cardTrader = new CardTrader();
-        messages = game.getLanguageBundle();
+        messages = game.getBundle();
         setActionListener();
     }
 
