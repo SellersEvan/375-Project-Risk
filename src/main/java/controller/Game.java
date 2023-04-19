@@ -29,10 +29,11 @@ public class Game {
     // [x] setup window
     // [x] change setup of resource bundle
     // [x] remove game setup
-    // [ ] Clean Up Main
+    // [X] Clean Up Main
     // [ ] Enable UI to use Phase instead of just string
     // [ ] remove button system
     // [ ] make methods private as needed
+    // [ ] Split up Large Methods
     // [ ] testing
 
 
