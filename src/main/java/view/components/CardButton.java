@@ -1,4 +1,4 @@
-package view;
+package view.components;
 
 import controller.Game;
 import controller.Phase;
@@ -6,6 +6,7 @@ import model.Card;
 import model.CardTrader;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.*;
@@ -17,15 +18,19 @@ public class CardButton extends JButton {
 
     public CardButton(String text, Game game) {
         super(text);
+        this.setForeground(Color.WHITE);
+        this.setBackground(new Color(55, 114, 255));
+        this.setBorder(new EmptyBorder(6, 16, 6, 16));
+        this.setFont(new Font("SansSerif", Font.PLAIN, 18));
         this.gameController = game;
         this.cardTrader = new CardTrader();
-        messages = game.getLanguageBundle();
+        messages = game.getBundle();
         setActionListener();
     }
 
     private void setActionListener() {
         this.addActionListener(e -> {
-            if (gameController.getCurrentPhase() == Phase.tradeCards) {
+            if (gameController.getPhase() == Phase.tradeCards) {
                 tradeCardDialog(true);
             } else {
                 tradeCardDialog(false);
@@ -33,7 +38,7 @@ public class CardButton extends JButton {
         });
     }
 
-    void tradeCardDialog(boolean trading) {
+    public void tradeCardDialog(boolean trading) {
         JDialog dialog = new JDialog();
         dialog.setTitle(messages.getString("cards"));
         dialog.setFont(new Font("Serif", Font.PLAIN, 30));
@@ -64,7 +69,7 @@ public class CardButton extends JButton {
                 }
                 dialog.dispose();
                 if (gameController.getCurrentPlayer().tradeInCards(selectedCards)) {
-                    gameController.updateGameView();
+                    gameController.update();
                     JOptionPane.showMessageDialog(null, messages.getString("tradeCardGainMessage") + " "
                             + gameController.getCurrentPlayer().getArmiesAvailable()
                             + " " + messages.getString("tradeCardArmiesMessage"));
