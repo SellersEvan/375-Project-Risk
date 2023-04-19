@@ -30,12 +30,13 @@ public class Game {
     // [x] remove button system
     // [x] make methods private as needed
     // [x] Split up Large Methods
-    // [ ] Draw Path
+    // [x] Draw Path
+    // [ ] Add Button Outline
+    // [ ] Add Additional Map
+    // [ ] Simplify removeDefeatedPlayer
     // [ ] Manual Testing
     // [ ] WTF phaseAction
-    // [ ] Simplify removeDefeatedPlayer
     // [ ] testing
-    // [ ] Add Additional Map
 
 
     public Game(World world, List<Player> players) {

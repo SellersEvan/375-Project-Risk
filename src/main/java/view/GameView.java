@@ -187,16 +187,38 @@ public class GameView {
 
     public void selectTerritory() {
         this.path.update(null, null);
+        this.unselectAllTerritoryButton();
     }
 
 
     public void selectTerritory(Territory territoryFrom) {
         this.path.update(null, null);
+        this.unselectAllTerritoryButton();
+        this.selectTerritoryButton(territoryFrom);
     }
 
 
     public void selectTerritory(Territory territoryFrom, Territory territoryTo) {
         this.path.update(territoryFrom, territoryTo);
+        this.unselectAllTerritoryButton();
+        this.selectTerritoryButton(territoryFrom);
+        this.selectTerritoryButton(territoryTo);
+    }
+
+
+    private void unselectAllTerritoryButton() {
+        for (TerritoryButton territoryButton : this.territories) {
+            territoryButton.unselect();
+        }
+    }
+
+
+    private void selectTerritoryButton(Territory territory) {
+        for (TerritoryButton territoryButton : this.territories) {
+            if (territoryButton.getTerritory() == territory) {
+                territoryButton.select();
+            }
+        }
     }
 
 

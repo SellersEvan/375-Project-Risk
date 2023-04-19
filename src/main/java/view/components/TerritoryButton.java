@@ -6,7 +6,9 @@ import model.PlayerColor;
 import model.Map.Territory;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 
 public class TerritoryButton extends JButton {
@@ -14,13 +16,17 @@ public class TerritoryButton extends JButton {
     private final Territory territory;
     private final Game game;
 
+    private final static Border BORDER_UNSELECTED = new EmptyBorder(0, 0, 0, 0);
+    private final static Border BORDER_SELECTED   = new MatteBorder(2, 2, 2, 2, Color.RED);
+
+
 
     public TerritoryButton(Territory territory, Game game) {
         super();
-        this.territory = territory;
-        this.game      = game;
+        this.territory  = territory;
+        this.game       = game;
         this.setFont(new Font("SansSerif", Font.PLAIN, 10));
-        this.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.setBorder(BORDER_UNSELECTED);
         this.setActionListener();
         this.updateDisplay();
     }
@@ -52,6 +58,21 @@ public class TerritoryButton extends JButton {
             this.setForeground(Color.WHITE);
             this.updateText("Unclaimed");
         }
+    }
+
+
+    public void select() {
+        this.setBorder(BORDER_SELECTED);
+    }
+
+
+    public void unselect() {
+        this.setBorder(BORDER_UNSELECTED);
+    }
+
+
+    public Territory getTerritory() {
+        return this.territory;
     }
 
 
