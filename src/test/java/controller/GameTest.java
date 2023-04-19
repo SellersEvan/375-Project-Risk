@@ -17,14 +17,14 @@ public class GameTest {
 
     @Test
     void testRemoveDefeatedPlayerFromGameLoopNegative1() {
-        Game game = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
+        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
         assertThrows(IllegalArgumentException.class, () -> game.removeDefeatedPlayer(-1));
     }
 
 
     @Test
     void testRemoveDefeatedPlayerFromGameLoop0() {
-        Game game = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
+        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
         game.removeDefeatedPlayer(0);
         assertEquals(game.playerController.players.size(), 5);
         assertEquals(game.playerController.getNumberOfPlayers(), 5);
@@ -32,7 +32,7 @@ public class GameTest {
 
     @Test
     void testRemoveDefeatedPlayerFromGameLoop5() {
-        Game game = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
+        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
         game.removeDefeatedPlayer(5);
         assertEquals(game.playerController.players.size(), 5);
         assertEquals(game.playerController.getNumberOfPlayers(), 5);
@@ -40,13 +40,13 @@ public class GameTest {
 
     @Test
     void testRemoveDefeatedPlayerFromGameLoop6() {
-        Game game = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
+        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
         assertThrows(IllegalArgumentException.class, () -> game.removeDefeatedPlayer(6));
     }
 
     @Test
     void testNextTurn() {
-        Game game = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
+        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
         game.playerController.currentPlayer = 0;
         game.nextPlayer();
         assertEquals(game.playerController.currentPlayer, 1);
@@ -54,7 +54,7 @@ public class GameTest {
 
     @Test
     void testNextTurn1() {
-        Game game = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
+        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
         game.playerController.currentPlayer = 1;
         game.nextPlayer();
         assertEquals(game.playerController.currentPlayer, 2);
@@ -62,7 +62,7 @@ public class GameTest {
 
     @Test
     void testNextTurn5() {
-        Game game = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
+        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
         game.playerController.currentPlayer = 5;
         game.nextPlayer();
         assertEquals(game.playerController.currentPlayer, 0);
@@ -70,7 +70,7 @@ public class GameTest {
 
     @Test
     void testInitGamePlayerArray() {
-        Game g = new Game(6, Setup.defaultWorld(), Setup.fillPlayerArray(6));
+        Game g = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
         assertEquals(20, g.playerController.players.get(0).getArmiesAvailable());
     }
 
@@ -81,7 +81,7 @@ public class GameTest {
         ArrayList<Player> playerList = new ArrayList<Player>();
         playerList.add(p1);
         playerList.add(p2);
-        Game g = new Game(2, Setup.defaultWorld(), playerList);
+        Game g = new Game(Setup.defaultWorld(), playerList);
         String playerName1 = g.playerController.players.get(0).getName();
         String playerName2 = g.playerController.players.get(1).getName();
         assertTrue("AAAAAAAAAAAAAAAAA".equals(playerName1) || "AAAAAAAAAAAAAAAAA".equals(playerName2));
@@ -91,7 +91,7 @@ public class GameTest {
     @Test
     void testDefaultPlayers(){
         ArrayList<Player> players = Setup.fillPlayerArray(6);
-        Game g = new Game(2, Setup.defaultWorld(), players);
+        Game g = new Game(Setup.defaultWorld(), players);
         ArrayList<String> playerNames = new ArrayList<>();
         for (Player player : g.playerController.getPlayers()) {
             playerNames.add(player.getName());

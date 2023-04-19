@@ -36,7 +36,7 @@ public class Main {
         File mapFile = (File) World.getMapFiles().values().toArray()[mapOptions.getSelectedIndex()];
         World map = new World(mapFile);
 
-        Game gameController = new Game(numberOfPlayers.getSelectedIndex() + 2, map, players, ResourceBundle.getBundle(bundleName));
+        Game gameController = new Game(map, players, ResourceBundle.getBundle(bundleName));
         gameController.initWindow();
     }
     private static ArrayList<Player> fillPlayerArray(int numberOfPlayers) {

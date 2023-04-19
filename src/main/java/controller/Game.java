@@ -32,15 +32,7 @@ public class Game {
     // [ ] testing
 
 
-//    public Game(List<Player> players, World world, ResourceBundle messages, GameView view) {
-//        this.playerController = new PlayerController(players);
-//        this.gameView         = view;
-//        this.
-//        this.setupWorld();
-//    }
-//
-
-    public Game(int numberOfPlayers, World world, ArrayList<Player> players, ResourceBundle bundle) {
+    public Game(World world, ArrayList<Player> players, ResourceBundle bundle) {
         this.playerController    = new PlayerController(players);
         this.phase               = Phase.territoryClaim;
         this.world               = world;
@@ -50,8 +42,8 @@ public class Game {
     }
 
 
-    public Game(int numberOfPlayers, World world, ArrayList<Player> players) {
-        this(numberOfPlayers, world, players, null);
+    public Game(World world, ArrayList<Player> players) {
+        this(world, players, null);
     }
 
 
