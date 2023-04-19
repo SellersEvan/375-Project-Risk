@@ -3,10 +3,7 @@ package view;
 import controller.Game;
 import model.Map.World;
 import model.Map.Territory;
-import view.components.CardButton;
-import view.components.PhaseButton;
-import view.components.PlayerFlag;
-import view.components.TerritoryButton;
+import view.components.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -21,8 +18,12 @@ import java.util.ResourceBundle;
 public class GameView {
 
 
+    public static final int TERRITORY_BUTTON_WIDTH = 100;
+    public static final int TERRITORY_BUTTON_HEIGHT = 35;
+
     private JPanel boardContainer;
     private JLabel board;
+    private PathDisplay path;
 
     private final ResourceBundle bundle;
     private final JFrame frame;
@@ -91,7 +92,10 @@ public class GameView {
         int width = world.getWidth();
         int height = world.getHeight();
         this.addButtons(world.getTerritories(), width, height, game);
-        boardContainer.add(board);
+        this.path = new PathDisplay();
+        this.path.setBounds(0, 0, width, height);
+        this.board.add(this.path);
+        this.boardContainer.add(this.board);
         return this.boardContainer;
     }
 
@@ -99,7 +103,7 @@ public class GameView {
     private void setBoardBackground(BufferedImage background) {
         try {
             ImageIcon icon = new ImageIcon(background);
-            board = new JLabel(icon);
+            this.board = new JLabel(icon);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,8 +125,8 @@ public class GameView {
             TerritoryButton button = new TerritoryButton(territory, game);
             int buttonWidth  = (int) (width * territory.getPosX());
             int buttonHeight = (int) (height * territory.getPosY());
-            button.setBounds(buttonWidth, buttonHeight,  100, 35);
-            board.add(button);
+            button.setBounds(buttonWidth, buttonHeight, TERRITORY_BUTTON_WIDTH, TERRITORY_BUTTON_HEIGHT);
+            this.board.add(button);
             this.territories.add(button);
         }
     }
@@ -178,6 +182,21 @@ public class GameView {
         for (TerritoryButton territoryButton : this.territories) {
             territoryButton.updateDisplay();
         }
+    }
+
+
+    public void selectTerritory() {
+        this.path.update(null, null);
+    }
+
+
+    public void selectTerritory(Territory territoryFrom) {
+        this.path.update(null, null);
+    }
+
+
+    public void selectTerritory(Territory territoryFrom, Territory territoryTo) {
+        this.path.update(territoryFrom, territoryTo);
     }
 
 

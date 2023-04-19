@@ -52,7 +52,6 @@ public class TerritoryButton extends JButton {
             this.setForeground(Color.WHITE);
             this.updateText("Unclaimed");
         }
-
     }
 
 

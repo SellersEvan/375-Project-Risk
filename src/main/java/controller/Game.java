@@ -93,13 +93,18 @@ public class Game {
 
     private void selectAttack(Territory territory) throws InvalidAttackException {
         if (this.territoryController.getSelectedTerritory() != null) {
+            this.ui.selectTerritory(this.territoryController.getSelectedTerritory(), territory);
             this.attack(this.territoryController.getSelectedTerritory(), territory);
             this.territoryController.setSelectedTerritory(null);
+            this.ui.selectTerritory();
         } else if (!territory.getOccupant().equals(playerController.getCurrentPlayer())) {
+            this.ui.selectTerritory();
             this.ui.showMessage(bundle.getString("selectOwnTerritoryMessage"));
         } else if (territory.getArmies() <= 1) {
+            this.ui.selectTerritory();
             this.ui.showMessage(bundle.getString("attackTerritoryMessage"));
         } else {
+            this.ui.selectTerritory(territory);
             this.territoryController.setSelectedTerritory(territory);
         }
     }
@@ -152,14 +157,19 @@ public class Game {
 
     private void selectFortify(Territory territory) {
         if (this.territoryController.getSelectedTerritory() != null) {
+            this.ui.selectTerritory(this.territoryController.getSelectedTerritory(), territory);
             this.fortify(this.territoryController.getSelectedTerritory(), territory);
             this.territoryController.setSelectedTerritory(null);
+            this.ui.selectTerritory();
         } else if (!territory.getOccupant().equals(this.playerController.getCurrentPlayer())) {
             this.ui.showMessage(this.bundle.getString("fortifyFromOwnTerritoryMessage"));
+            this.ui.selectTerritory();
         } else if (territory.getArmies() <= 1) {
             this.ui.showMessage(this.bundle.getString("fortifyInvalidArmiesMessage"));
+            this.ui.selectTerritory();
         }
         this.territoryController.setSelectedTerritory(territory);
+        this.ui.selectTerritory(territory);
     }
 
 
