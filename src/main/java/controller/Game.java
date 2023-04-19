@@ -67,8 +67,7 @@ public class Game {
 
     public void update() {
         Player player = playerController.getCurrentPlayer();
-        this.ui.setPhase(phase.toString());
-        this.ui.setPlayer(player.getName(), player.getArmiesAvailable());
+        this.ui.setDetails(player.getName(), player.getArmiesAvailable(), phase.toString());
     }
 
 

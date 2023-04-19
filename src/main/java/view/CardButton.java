@@ -6,6 +6,7 @@ import model.Card;
 import model.CardTrader;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.*;
@@ -17,6 +18,10 @@ public class CardButton extends JButton {
 
     public CardButton(String text, Game game) {
         super(text);
+        this.setForeground(Color.WHITE);
+        this.setBackground(new Color(55, 114, 255));
+        this.setBorder(new EmptyBorder(6, 16, 6, 16));
+        this.setFont(new Font("SansSerif", Font.PLAIN, 18));
         this.gameController = game;
         this.cardTrader = new CardTrader();
         messages = game.getBundle();
