@@ -10,7 +10,6 @@ import model.PlayerColor;
 
 public class Main {
 
-
     
     private static final boolean SETUP_MODE_PRODUCTION = false;
 
