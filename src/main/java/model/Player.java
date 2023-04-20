@@ -19,10 +19,11 @@ public class Player {
 	private CardTrader cardTrader;
 	boolean capturedThisTurn;
 	WinCondition winCondition;
-	
+
 	public Player(PlayerColor color, Random random, CardTrader cardTrader) {
 		this(color, color.toString(), random, cardTrader);
 	}
+
 	public Player(PlayerColor color, String name, Random random, CardTrader cardTrader) {
 		this.color = color;
 		this.name = name;
