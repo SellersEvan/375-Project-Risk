@@ -29,13 +29,13 @@ continents:
       bonus: 2
       territories:
           - name: One
-            coordinates: [ 0.03, 0.7 ]
+            coordinates: [ 0.03, 0.65 ]
             neighbors:
                 - Two
                 - Three
                 - Blueberry
           - name: Two
-            coordinates: [ 0.12, 0.7 ]
+            coordinates: [ 0.12, 0.65 ]
             neighbors:
                 - One
                 - Four
@@ -79,24 +79,24 @@ continents:
       bonus: 3
       territories:
           - name: New_New_York
-            coordinates: [ 0.28, 0.7 ]
+            coordinates: [ 0.28, 0.65 ]
             neighbors:
                 - New_New_Hampshire
                 - New_New_Jersey
           - name: New_New_Jersey
-            coordinates: [ 0.28, 0.86667 ]
+            coordinates: [ 0.28, 0.8333 ]
             neighbors:
                 - New_New_York
                 - New_New_Tennessee
                 - Four
           - name: New_New_Tennessee
-            coordinates: [ 0.37, 0.86667 ]
+            coordinates: [ 0.37, 0.8333 ]
             neighbors:
                 - New_New_Hampshire
                 - New_New_Jersey
                 - Marvel
           - name: New_New_Hampshire
-            coordinates: [ 0.37, 0.7 ]
+            coordinates: [ 0.37, 0.65 ]
             neighbors:
                 - New_New_Tennessee
                 - New_New_York
@@ -105,26 +105,26 @@ continents:
       bonus: 3
       territories:
           - name: Star_Trek
-            coordinates: [ 0.53, 0.7 ]
+            coordinates: [ 0.53, 0.65 ]
             neighbors:
                 - New_New_Hampshire
                 - Star_Wars
                 - Marvel
           - name: Star_Wars
-            coordinates: [ 0.62, 0.7 ]
+            coordinates: [ 0.62, 0.65 ]
             neighbors:
                 - Star_Trek
                 - DC
                 - Saturn
                 - New_Tennessee
           - name: Marvel
-            coordinates: [ 0.53, 0.86667 ]
+            coordinates: [ 0.53, 0.8333 ]
             neighbors:
                 - Star_Trek
                 - DC
                 - New_New_Tennessee
           - name: DC
-            coordinates: [ 0.62, 0.86667 ]
+            coordinates: [ 0.62, 0.8333 ]
             neighbors:
                 - Marvel
                 - Star_Wars
@@ -181,23 +181,23 @@ continents:
       bonus: 2
       territories:
         - name: Saturn
-          coordinates: [ 0.78, 0.7 ]
+          coordinates: [ 0.78, 0.65 ]
           neighbors:
             - Jupiter
             - Venus
             - Star_Wars
         - name: Jupiter
-          coordinates: [ 0.87, 0.7 ]
+          coordinates: [ 0.87, 0.65 ]
           neighbors:
             - Saturn
             - Neptune
         - name: Venus
-          coordinates: [ 0.78, 0.86667 ]
+          coordinates: [ 0.78, 0.8333 ]
           neighbors:
             - Saturn
             - Neptune
         - name: Neptune
-          coordinates: [ 0.87, 0.86667 ]
+          coordinates: [ 0.87, 0.8333 ]
           neighbors:
             - Jupiter
             - Venus
