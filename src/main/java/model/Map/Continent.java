@@ -1,23 +1,28 @@
 package model.Map;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class Continent {
 
 
     public final String name;
-    public final int territories;
+    public final Set<Territory> territories = new HashSet<>();
     public final int bonus;
 
 
-    public Continent(String name, int territories, int bonus) {
+    public Continent(String name, int bonus) {
         this.name        = name;
-        this.territories = territories;
         this.bonus       = bonus;
     }
 
+    public void addTerritory(Territory territory) {
+        this.territories.add(territory);
+    }
+
+    public Set<Territory> getComposingTerritories() {
+        return Collections.unmodifiableSet(this.territories);
+    }
 
     public static int calculateContinentBonus(List<Territory> controlledTerritories, List<Continent> continents) {
         HashMap<Continent, Integer> byContinent;
@@ -26,7 +31,7 @@ public class Continent {
 
         for (Continent continent : continents) {
             if (!byContinent.containsKey(continent)) continue;
-            if (byContinent.get(continent) != continent.territories) continue;
+            if (byContinent.get(continent) != continent.territories.size()) continue;
             bonus += continent.bonus;
         }
 
