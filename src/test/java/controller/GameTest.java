@@ -2,7 +2,9 @@ package controller;
 
 
 import model.CardTrader;
+import model.InvalidAttackException;
 import model.Map.Continent;
+import model.Map.MapManager;
 import model.Map.Territory;
 import model.Player;
 import model.PlayerColor;
@@ -13,6 +15,8 @@ import org.junit.jupiter.api.Test;
 import view.GameView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -97,35 +101,31 @@ public class GameTest {
             game.ui = uiMock;
             cardTraderMock = new CardTrader();
 
-            asia = new Continent("Asia", 5, 1);
-            northAmerica = new Continent("North America", 5, 1);
-            attackingTerritory = new Territory("attackingTerritory", asia);
-            defendingTerritory = new Territory("defendingTerritory", asia);
-            otherTerritory = new Territory("otherTerritory", northAmerica);
-            attackingTerritory.addAdjacentTerritory(defendingTerritory);
+            attackingTerritory = MapManager.getInstance().getTerritories().get(0);   // Alaska (North America)
+            defendingTerritory = MapManager.getInstance().getTerritories().get(1);   // Northwest_Terr (North America)
+            otherTerritory     = MapManager.getInstance().getTerritories().get(10);  // Peru (South America)
             attacker = new Player(PlayerColor.RED, "Joe", randomMock, cardTraderMock);
             defender = new Player(PlayerColor.GREEN, "Mama", randomMock, cardTraderMock);
+            attacker.giveArmies(5);
+            defender.giveArmies(5);
             attacker.occupyTerritory(attackingTerritory);
             defender.occupyTerritory(defendingTerritory);
             defender.occupyTerritory(otherTerritory);
         }
 
         @Test
-        void testAttack() {
+        void testAttack() throws InvalidAttackException {
             attacker.giveArmies(5);
             defender.giveArmies(2);
             attacker.addArmiesToTerritory(attackingTerritory, 3);
             defender.addArmiesToTerritory(defendingTerritory, 1);
 
-            EasyMock.expect(uiMock.getNumberOfDice(2, attacker.getName(), true)).andReturn(2);
-            EasyMock.expect(uiMock.getNumberOfDice(1, defender.getName(), false)).andReturn(1);
+            EasyMock.expect(uiMock.getNumberOfDice(4, attacker.getName(), true)).andReturn(2);
+            EasyMock.expect(uiMock.getNumberOfDice(2, defender.getName(), false)).andReturn(1);
             EasyMock.replay(uiMock);
 
-            try {
-                game.attack(attackingTerritory, defendingTerritory);
-            } catch (Exception e) {
-                fail();
-            }
+            game.attack(attackingTerritory, defendingTerritory);
+
             EasyMock.verify(uiMock);
         }
 
