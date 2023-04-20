@@ -1,7 +1,6 @@
 package model;
 
 import model.Map.Continent;
-import model.Map.MapManager;
 import model.Map.Territory;
 
 import java.util.*;
