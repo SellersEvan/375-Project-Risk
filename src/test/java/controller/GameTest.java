@@ -7,6 +7,8 @@ import model.Map.Territory;
 import model.Player;
 import model.PlayerColor;
 import org.easymock.EasyMock;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import view.GameView;
 
@@ -73,62 +75,80 @@ public class GameTest {
         assertTrue(playerNames.contains("Colonel Mustard"));
     }
 
-    @Test
-    void testAttack(){
-        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
-        Random randomMock = EasyMock.strictMock(Random.class);
-        GameView uiMock = EasyMock.strictMock(GameView.class);
-        game.ui = uiMock;
-        Continent asia = new Continent("Asia", 5, 1);
-        Continent northAmerica = new Continent("North America", 5, 1);
-        CardTrader cardTrader = new CardTrader();
+    @Nested
+    class actionTests {
+        Game game;
+        Random randomMock;
+        GameView uiMock;
+        CardTrader cardTraderMock;
+        Continent asia;
+        Continent northAmerica;
+        Territory attackingTerritory;
+        Territory defendingTerritory;
+        Territory otherTerritory;
+        Player attacker;
+        Player defender;
 
-        Territory attackingTerritory = new Territory("attackingTerritory", asia);
-        Territory defendingTerritory = new Territory("defendingTerritory", asia);
-        Territory otherTerritory = new Territory("otherTerritory", northAmerica);
-        attackingTerritory.addAdjacentTerritory(defendingTerritory);
+        @BeforeEach
+        void setUp(){
+            game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
+            randomMock = EasyMock.strictMock(Random.class);
+            uiMock = EasyMock.strictMock(GameView.class);
+            game.ui = uiMock;
+            cardTraderMock = new CardTrader();
 
-        Player aggressor = new Player(PlayerColor.RED, "Joe", randomMock, cardTrader);
-        Player defender = new Player(PlayerColor.GREEN, "Mama", randomMock, cardTrader);
-        aggressor.giveArmies(5);
-        defender.giveArmies(2);
-        aggressor.occupyTerritory(attackingTerritory);
-        aggressor.addArmiesToTerritory(attackingTerritory, 3);
-        defender.occupyTerritory(defendingTerritory);
-        defender.addArmiesToTerritory(defendingTerritory, 1);
-        defender.occupyTerritory(otherTerritory);
-
-        EasyMock.expect(uiMock.getNumberOfDice(2, aggressor.getName(), true)).andReturn(2);
-        EasyMock.expect(uiMock.getNumberOfDice(1, defender.getName(), false)).andReturn(1);
-        EasyMock.replay(uiMock);
-        try {
-            game.attack(attackingTerritory, defendingTerritory);
-        } catch(Exception e){
-            fail();
+            asia = new Continent("Asia", 5, 1);
+            northAmerica = new Continent("North America", 5, 1);
+            attackingTerritory = new Territory("attackingTerritory", asia);
+            defendingTerritory = new Territory("defendingTerritory", asia);
+            otherTerritory = new Territory("otherTerritory", northAmerica);
+            attackingTerritory.addAdjacentTerritory(defendingTerritory);
+            attacker = new Player(PlayerColor.RED, "Joe", randomMock, cardTraderMock);
+            defender = new Player(PlayerColor.GREEN, "Mama", randomMock, cardTraderMock);
+            attacker.occupyTerritory(attackingTerritory);
+            defender.occupyTerritory(defendingTerritory);
+            defender.occupyTerritory(otherTerritory);
         }
-        EasyMock.verify(uiMock);
 
-    }
+        @Test
+        void testAttack() {
+            attacker.giveArmies(5);
+            defender.giveArmies(2);
+            attacker.addArmiesToTerritory(attackingTerritory, 3);
+            defender.addArmiesToTerritory(defendingTerritory, 1);
 
-    @Test
-    void testForify(){
+            EasyMock.expect(uiMock.getNumberOfDice(2, attacker.getName(), true)).andReturn(2);
+            EasyMock.expect(uiMock.getNumberOfDice(1, defender.getName(), false)).andReturn(1);
+            EasyMock.replay(uiMock);
 
-    }
+            try {
+                game.attack(attackingTerritory, defendingTerritory);
+            } catch (Exception e) {
+                fail();
+            }
+            EasyMock.verify(uiMock);
+        }
 
-    @Test
-    void testPhaseAction(){
-        //tradecards
-        //attacking
-        //fortifying
-    }
+        @Test
+        void testFortify() {
 
-    @Test
-    void testClaimTerritory(){
-       
-    }
+        }
 
-    @Test
-    void testPlaceArmies(){
+        @Test
+        void testPhaseAction() {
+            //tradecards
+            //attacking
+            //fortifying
+        }
 
+        @Test
+        void testClaimTerritory() {
+
+        }
+
+        @Test
+        void testPlaceArmies() {
+
+        }
     }
 }
