@@ -92,7 +92,7 @@ public class Game {
     }
 
 
-    private void selectAttack(Territory territory) throws InvalidAttackException {
+    public void selectAttack(Territory territory) throws InvalidAttackException {
         if (this.territoryController.getSelectedTerritory() != null) {
             this.ui.selectTerritory(this.territoryController.getSelectedTerritory(), territory);
             this.attack(this.territoryController.getSelectedTerritory(), territory);
@@ -111,7 +111,7 @@ public class Game {
     }
 
 
-    private void attack(Territory territoryAttacker, Territory territoryDefender) throws InvalidAttackException {
+    public void attack(Territory territoryAttacker, Territory territoryDefender) throws InvalidAttackException {
         Player defender = territoryDefender.getOccupant();
         Player attacker = territoryAttacker.getOccupant();
         if (defender.equals(attacker)) {
@@ -156,7 +156,7 @@ public class Game {
     }
 
 
-    private void selectFortify(Territory territory) {
+    public void selectFortify(Territory territory) {
         if (this.territoryController.getSelectedTerritory() != null) {
             this.ui.selectTerritory(this.territoryController.getSelectedTerritory(), territory);
             this.fortify(this.territoryController.getSelectedTerritory(), territory);

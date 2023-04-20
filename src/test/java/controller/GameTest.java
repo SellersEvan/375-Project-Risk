@@ -2,6 +2,8 @@ package controller;
 
 
 import model.CardTrader;
+import model.Map.Continent;
+import model.Map.Territory;
 import model.Player;
 import model.PlayerColor;
 import org.easymock.EasyMock;
@@ -70,5 +72,52 @@ public class GameTest {
         assertTrue(playerNames.contains("Colonel Mustard"));
     }
 
+    @Test
+    void testSelectAttack(){
+        Territory testTerritory = new Territory("test", new Continent("test", 1, 0))
+        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
+        try {
+            game.selectAttack(testTerritory);
+            assertTrue(game.territoryController.getTerritories() == testTerritory);
+        } catch (Exception e){
+            fail();
+        }
+    }
 
+    @Test
+    void testAttack(){
+        //test lose
+        //test win
+    }
+
+    @Test
+    void testSelectFority(){
+        Territory testTerritory = new Territory("test", new Continent("test", 1, 0))
+        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
+        game.selectFortify(testTerritory);
+        assertTrue(game.territoryController.getSelectedTerritory() == testTerritory);
+
+    }
+
+    @Test
+    void testForify(){
+
+    }
+
+    @Test
+    void testPhaseAction(){
+        //tradecards
+        //attacking
+        //fortifying
+    }
+
+    @Test
+    void testClaimTerritory(){
+        //
+    }
+
+    @Test
+    void testPlaceArmies(){
+
+    }
 }
