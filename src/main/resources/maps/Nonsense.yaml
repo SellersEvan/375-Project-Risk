@@ -1,0 +1,203 @@
+continents:
+    - name: BerryTerritory
+      bonus: 2
+      territories:
+          - name: Raspberry
+            coordinates: [ 0.03, 0.16667 ]
+            neighbors:
+                - Strawberry
+                - Blueberry
+          - name: Strawberry
+            coordinates: [ 0.12, 0.16667 ]
+            neighbors:
+                - Raspberry
+                - Blackberry
+                - Pina_Colada
+          - name: Blueberry
+            coordinates: [ 0.03, 0.3 ]
+            neighbors:
+                - Raspberry
+                - Blackberry
+                - One
+          - name: Blackberry
+            coordinates: [ 0.12, 0.3 ]
+            neighbors:
+                - Strawberry
+                - Blueberry
+                - Miami_Vice
+    - name: NumeralTerritory
+      bonus: 2
+      territories:
+          - name: One
+            coordinates: [ 0.03, 0.7 ]
+            neighbors:
+                - Two
+                - Three
+                - Blueberry
+          - name: Two
+            coordinates: [ 0.12, 0.7 ]
+            neighbors:
+                - One
+                - Four
+          - name: Three
+            coordinates: [ 0.12, 0.8333 ]
+            neighbors:
+                - One
+                - Four
+          - name: Four
+            coordinates: [ 0.03, 0.8333 ]
+            neighbors:
+                - Two
+                - Three
+                - New_New_Jersey
+    - name: FrozenDrunkenTerritories
+      bonus: 3
+      territories:
+          - name: Pina_Colada
+            coordinates: [ 0.28, 0.16667 ]
+            neighbors:
+                - Strawberry
+                - Miami_Vice
+                - Mudslide
+          - name: Miami_Vice
+            coordinates: [ 0.28, 0.3 ]
+            neighbors:
+                - Blackberry
+                - Pina_Colada
+                - Sgroppino
+          - name: Sgroppino
+            coordinates: [ 0.37, 0.3 ]
+            neighbors:
+                - Miami_Vice
+                - Mudslide
+          - name: Mudslide
+            coordinates: [ 0.37, 0.16667 ]
+            neighbors:
+                - Sgroppino
+                - Pina_Colada
+    - name: SuperNewMericaTerritories
+      bonus: 3
+      territories:
+          - name: New_New_York
+            coordinates: [ 0.28, 0.7 ]
+            neighbors:
+                - New_New_Hampshire
+                - New_New_Jersey
+          - name: New_New_Jersey
+            coordinates: [ 0.28, 0.86667 ]
+            neighbors:
+                - New_New_York
+                - New_New_Tennessee
+                - Four
+          - name: New_New_Tennessee
+            coordinates: [ 0.37, 0.86667 ]
+            neighbors:
+                - New_New_Hampshire
+                - New_New_Jersey
+                - Marvel
+          - name: New_New_Hampshire
+            coordinates: [ 0.37, 0.7 ]
+            neighbors:
+                - New_New_Tennessee
+                - New_New_York
+                - Star_Trek
+    - name: NerdTerritories
+      bonus: 3
+      territories:
+          - name: Star_Trek
+            coordinates: [ 0.53, 0.7 ]
+            neighbors:
+                - New_New_Hampshire
+                - Star_Wars
+                - Marvel
+          - name: Star_Wars
+            coordinates: [ 0.62, 0.7 ]
+            neighbors:
+                - Star_Trek
+                - DC
+                - Saturn
+                - New_Tennessee
+          - name: Marvel
+            coordinates: [ 0.53, 0.86667 ]
+            neighbors:
+                - Star_Trek
+                - DC
+                - New_New_Tennessee
+          - name: DC
+            coordinates: [ 0.62, 0.86667 ]
+            neighbors:
+                - Marvel
+                - Star_Wars
+    - name: NewMericaTerritories
+      bonus: 4
+      territories:
+          - name: New_Ohio
+            coordinates: [ 0.53, 0.16667 ]
+            neighbors:
+                - New_Indiana
+                - New_Florida
+          - name: New_Indiana
+            coordinates: [ 0.62, 0.16667 ]
+            neighbors:
+                - New_Ohio
+                - New_Tennessee
+                - Fire
+          - name: New_Tennessee
+            coordinates: [ 0.62, 0.3 ]
+            neighbors:
+                - New_Indiana
+                - New_Florida
+                - Star_Wars
+          - name: New_Florida
+            coordinates: [ 0.53, 0.3 ]
+            neighbors:
+                - New_Ohio
+                - New_Tennessee
+    - name: ElementalTerritories
+      bonus: 2
+      territories:
+        - name: Fire
+          coordinates: [ 0.78, 0.16667 ]
+          neighbors:
+            - Water
+            - Air
+            - New_Indiana
+        - name: Water
+          coordinates: [ 0.87, 0.16667 ]
+          neighbors:
+            - Fire
+            - Earth
+        - name: Earth
+          coordinates: [ 0.87, 0.3 ]
+          neighbors:
+            - Air
+            - Water
+        - name: Air
+          coordinates: [ 0.78, 0.3 ]
+          neighbors:
+            - Fire
+            - Earth
+    - name: OutOfThisWorldTerritories
+      bonus: 2
+      territories:
+        - name: Saturn
+          coordinates: [ 0.78, 0.7 ]
+          neighbors:
+            - Jupiter
+            - Venus
+            - Star_Wars
+        - name: Jupiter
+          coordinates: [ 0.87, 0.7 ]
+          neighbors:
+            - Saturn
+            - Neptune
+        - name: Venus
+          coordinates: [ 0.78, 0.86667 ]
+          neighbors:
+            - Saturn
+            - Neptune
+        - name: Neptune
+          coordinates: [ 0.87, 0.86667 ]
+          neighbors:
+            - Jupiter
+            - Venus
