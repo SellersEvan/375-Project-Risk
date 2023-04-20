@@ -1,6 +1,7 @@
 package model;
 
 import model.Map.Continent;
+import model.Map.MapManager;
 import model.Map.Territory;
 
 import java.util.*;
@@ -22,6 +23,8 @@ public class Player {
 	public Player(PlayerColor color, Random random, CardTrader cardTrader) {
 		this(color, color.toString(), random, cardTrader);
 	}
+
+
 	public Player(PlayerColor color, String name, Random random, CardTrader cardTrader) {
 		this.color = color;
 		this.name = name;
@@ -49,7 +52,7 @@ public class Player {
 	}
 
 	public boolean hasWon() {
-		return this.occupiedTerritories.size() == 42;
+		return this.occupiedTerritories.size() == MapManager.getInstance().getTerritories().size();
 	}
 
 	public void giveArmies(int numArmies) {

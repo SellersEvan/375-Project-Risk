@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 
 import model.Map.Continent;
+import model.Map.MapManager;
 import model.Map.Territory;
+import model.Map.World;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
@@ -525,6 +527,7 @@ class PlayerTest {
 
 	@Test
 	void testPlayerHasWon1() {
+		new World(World.getMapFiles().get("Earth"));
 		Player player = new Player(PlayerColor.RED, null, null);
 		occupyTerritoriesSetup(player, 42);
 		assertTrue(player.hasWon());
@@ -535,10 +538,13 @@ class PlayerTest {
 		Player player = new Player(PlayerColor.RED, null, null);
 		player.giveArmies(42);
 		Continent continent = EasyMock.mock(Continent.class);
+		ArrayList<Territory> territories = new ArrayList<>();
 		for(int i = 0; i < 42; i++) {
 			Territory t = new Territory("Test", continent);
 			player.occupyTerritory(t);
+			territories.add(t);
 		}
+		MapManager.getInstance().setTerritories(territories);
 		assertTrue(player.hasWon());
 	}
 
@@ -554,10 +560,15 @@ class PlayerTest {
 		Player player = new Player(PlayerColor.RED, null, null);
 		player.giveArmies(40);
 		Continent continent = EasyMock.mock(Continent.class);
+		ArrayList<Territory> territories = new ArrayList<>();
 		for(int i = 0; i < 40; i++) {
 			Territory t = new Territory("Test", continent);
-			player.occupyTerritory(t);
+			if (i != 1) {
+				player.occupyTerritory(t);
+			}
+			territories.add(t);
 		}
+		MapManager.getInstance().setTerritories(territories);
 		assertFalse(player.hasWon());
 	}
 
