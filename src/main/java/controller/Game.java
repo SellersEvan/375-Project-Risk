@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Game {
     protected Phase phase;
-    private GameView ui;
+    protected GameView ui;
     protected ResourceBundle bundle;
 
     private final World world;
@@ -92,7 +92,7 @@ public class Game {
     }
 
 
-    public void selectAttack(Territory territory) throws InvalidAttackException {
+    protected void selectAttack(Territory territory) throws InvalidAttackException {
         if (this.territoryController.getSelectedTerritory() != null) {
             this.ui.selectTerritory(this.territoryController.getSelectedTerritory(), territory);
             this.attack(this.territoryController.getSelectedTerritory(), territory);
@@ -111,7 +111,7 @@ public class Game {
     }
 
 
-    public void attack(Territory territoryAttacker, Territory territoryDefender) throws InvalidAttackException {
+    protected void attack(Territory territoryAttacker, Territory territoryDefender) throws InvalidAttackException {
         Player defender = territoryDefender.getOccupant();
         Player attacker = territoryAttacker.getOccupant();
         if (defender.equals(attacker)) {
@@ -156,7 +156,7 @@ public class Game {
     }
 
 
-    public void selectFortify(Territory territory) {
+    protected void selectFortify(Territory territory) {
         if (this.territoryController.getSelectedTerritory() != null) {
             this.ui.selectTerritory(this.territoryController.getSelectedTerritory(), territory);
             this.fortify(this.territoryController.getSelectedTerritory(), territory);
@@ -174,7 +174,7 @@ public class Game {
     }
 
 
-    private void fortify(Territory territoryFrom, Territory territoryTo) {
+    protected void fortify(Territory territoryFrom, Territory territoryTo) {
         if (!territoryFrom.getOccupant().equals(territoryTo.getOccupant())) {
             this.ui.showMessage(this.bundle.getString("fortifyToOwnTerritoryMessage"));
             return;
@@ -239,7 +239,7 @@ public class Game {
     }
 
 
-    private void claimTerritory(Territory territory) {
+    protected void claimTerritory(Territory territory) {
         if (this.playerController.setPlayerOccupyTerritory(territory)) {
             this.changeTurn();
             this.checkIfAllClaimed();
@@ -249,7 +249,7 @@ public class Game {
     }
 
 
-    private void placeArmies(Territory territory) {
+    protected void placeArmies(Territory territory) {
         if (territory.getOccupant().equals(playerController.getCurrentPlayer())) {
             int amount = this.ui.getNumber(this.bundle.getString("howManyArmiesMessage"));
             if (!this.playerController.addArmiesToTerritoryForCurrentPlayer(territory, amount)) {
@@ -264,7 +264,7 @@ public class Game {
     }
 
 
-    private void checkIfAllArmiesPlaced() {
+    protected void checkIfAllArmiesPlaced() {
         switch (phase) {
             case initialArmies:
                 if (playerController.getArmiesAvailableForCurrentPlayer() == 0) {
@@ -282,7 +282,7 @@ public class Game {
     }
 
 
-    private void checkIfAllClaimed() {
+    protected void checkIfAllClaimed() {
         if (territoryController.checkIfAllClaimed())
             return;
         phase = Phase.initialArmies;
@@ -290,13 +290,13 @@ public class Game {
     }
 
 
-    private void changeTurn() {
+    protected void changeTurn() {
         nextPlayer();
         update();
     }
 
 
-    void nextPlayer() {
+    protected void nextPlayer() {
         this.territoryController.setSelectedTerritory(null);
         this.playerController.nextPlayer();
     }

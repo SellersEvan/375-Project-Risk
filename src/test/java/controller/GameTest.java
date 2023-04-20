@@ -8,6 +8,7 @@ import model.Player;
 import model.PlayerColor;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
+import view.GameView;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -73,29 +74,39 @@ public class GameTest {
     }
 
     @Test
-    void testSelectAttack(){
-        Territory testTerritory = new Territory("test", new Continent("test", 1, 0))
+    void testAttack(){
         Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
+        Random randomMock = EasyMock.strictMock(Random.class);
+        GameView uiMock = EasyMock.strictMock(GameView.class);
+        game.ui = uiMock;
+        Continent asia = new Continent("Asia", 5, 1);
+        Continent northAmerica = new Continent("North America", 5, 1);
+        CardTrader cardTrader = new CardTrader();
+
+        Territory attackingTerritory = new Territory("attackingTerritory", asia);
+        Territory defendingTerritory = new Territory("defendingTerritory", asia);
+        Territory otherTerritory = new Territory("otherTerritory", northAmerica);
+        attackingTerritory.addAdjacentTerritory(defendingTerritory);
+
+        Player aggressor = new Player(PlayerColor.RED, "Joe", randomMock, cardTrader);
+        Player defender = new Player(PlayerColor.GREEN, "Mama", randomMock, cardTrader);
+        aggressor.giveArmies(5);
+        defender.giveArmies(2);
+        aggressor.occupyTerritory(attackingTerritory);
+        aggressor.addArmiesToTerritory(attackingTerritory, 3);
+        defender.occupyTerritory(defendingTerritory);
+        defender.addArmiesToTerritory(defendingTerritory, 1);
+        defender.occupyTerritory(otherTerritory);
+
+        EasyMock.expect(uiMock.getNumberOfDice(2, aggressor.getName(), true)).andReturn(2);
+        EasyMock.expect(uiMock.getNumberOfDice(1, defender.getName(), false)).andReturn(1);
+        EasyMock.replay(uiMock);
         try {
-            game.selectAttack(testTerritory);
-            assertTrue(game.territoryController.getTerritories() == testTerritory);
-        } catch (Exception e){
+            game.attack(attackingTerritory, defendingTerritory);
+        } catch(Exception e){
             fail();
         }
-    }
-
-    @Test
-    void testAttack(){
-        //test lose
-        //test win
-    }
-
-    @Test
-    void testSelectFority(){
-        Territory testTerritory = new Territory("test", new Continent("test", 1, 0))
-        Game game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
-        game.selectFortify(testTerritory);
-        assertTrue(game.territoryController.getSelectedTerritory() == testTerritory);
+        EasyMock.verify(uiMock);
 
     }
 
@@ -113,7 +124,7 @@ public class GameTest {
 
     @Test
     void testClaimTerritory(){
-        //
+       
     }
 
     @Test
