@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 
 import model.Map.Continent;
-import model.Map.MapManager;
 import model.Map.Territory;
-import model.Map.World;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
@@ -523,53 +521,6 @@ class PlayerTest {
 		player.giveArmies(1);
 		player.occupyTerritory(t);
 		assertFalse(player.hasLost());
-	}
-
-	@Test
-	void testPlayerHasWon1() {
-		new World(World.getMapFiles().get("Earth"));
-		Player player = new Player(PlayerColor.RED, null, null);
-		occupyTerritoriesSetup(player, 42);
-		assertTrue(player.hasWon());
-	}
-
-	@Test
-	void testPlayerHasWon1Integration() {
-		Player player = new Player(PlayerColor.RED, null, null);
-		player.giveArmies(42);
-		Continent continent = EasyMock.mock(Continent.class);
-		ArrayList<Territory> territories = new ArrayList<>();
-		for(int i = 0; i < 42; i++) {
-			Territory t = new Territory("Test", continent);
-			player.occupyTerritory(t);
-			territories.add(t);
-		}
-		MapManager.getInstance().setTerritories(territories);
-		assertTrue(player.hasWon());
-	}
-
-	@Test
-	void testPlayerHasWon2() {
-		Player player = new Player(PlayerColor.RED, null, null);
-		occupyTerritoriesSetup(player, 40);
-		assertFalse(player.hasWon());
-	}
-
-	@Test
-	void testPlayerHasWon2Integration() {
-		Player player = new Player(PlayerColor.RED, null, null);
-		player.giveArmies(40);
-		Continent continent = EasyMock.mock(Continent.class);
-		ArrayList<Territory> territories = new ArrayList<>();
-		for(int i = 0; i < 40; i++) {
-			Territory t = new Territory("Test", continent);
-			if (i != 1) {
-				player.occupyTerritory(t);
-			}
-			territories.add(t);
-		}
-		MapManager.getInstance().setTerritories(territories);
-		assertFalse(player.hasWon());
 	}
 
 	@Test
@@ -1128,9 +1079,10 @@ class PlayerTest {
 	public void testAddNewArmiesWith9Territories1Continent(){
 		Player red = new Player(PlayerColor.RED, new Random(), null);
 		List<Territory> mockedTerritories = new ArrayList<>();
-		Continent continent = new Continent("Test", 9, 5);
+		Continent continent = new Continent("Test", 5);
 		for (int i = 0; i < 9; i++) {
 			Territory mockedTerritory = EasyMock.strictMock(Territory.class);
+			continent.addTerritory(mockedTerritory);
 			EasyMock.expect(mockedTerritory.getContinent()).andReturn(continent);
 			red.getOccupiedTerritories().add(mockedTerritory);
 			mockedTerritories.add(mockedTerritory);
@@ -1153,7 +1105,7 @@ class PlayerTest {
 	public void testAddNewArmiesWith9Territories1ContinentIntegration(){
 		Player red = new Player(PlayerColor.RED, new Random(), null);
 		red.giveArmies(9);
-		Continent continent = new Continent("Test", 9, 5);
+		Continent continent = new Continent("Test", 5);
 		for (int i = 0; i < 9; i++) {
 			Territory t = new Territory("Test", continent);
 			red.occupyTerritory(t);
@@ -1207,25 +1159,28 @@ class PlayerTest {
 	public void testAddNewArmiesWith19Territories3Continents(){
 		Player red = new Player(PlayerColor.RED, new Random(), null);
 		List<Territory> mockedTerritories = new ArrayList<>();
-		Continent NorthAmerica = new Continent("North America", 9, 5);
-		Continent SouthAmerica = new Continent("South America", 4, 2);
-		Continent Africa       = new Continent("Africa",        6, 3);
+		Continent northAmerica = new Continent("North America",5);
+		Continent southAmerica = new Continent("South America",2);
+		Continent africa       = new Continent("Africa",       3);
 
 		for (int i = 0; i < 9; i++) {
 			Territory mockedTerritory = EasyMock.strictMock(Territory.class);
-			EasyMock.expect(mockedTerritory.getContinent()).andReturn(NorthAmerica);
+			northAmerica.addTerritory(mockedTerritory);
+			EasyMock.expect(mockedTerritory.getContinent()).andReturn(northAmerica);
 			red.getOccupiedTerritories().add(mockedTerritory);
 			mockedTerritories.add(mockedTerritory);
 		}
 		for (int i = 0; i < 4; i++) {
 			Territory mockedTerritory = EasyMock.strictMock(Territory.class);
-			EasyMock.expect(mockedTerritory.getContinent()).andReturn(SouthAmerica);
+			southAmerica.addTerritory(mockedTerritory);
+			EasyMock.expect(mockedTerritory.getContinent()).andReturn(southAmerica);
 			red.getOccupiedTerritories().add(mockedTerritory);
 			mockedTerritories.add(mockedTerritory);
 		}
 		for (int i = 0; i < 6; i++) {
 			Territory mockedTerritory = EasyMock.strictMock(Territory.class);
-			EasyMock.expect(mockedTerritory.getContinent()).andReturn(Africa);
+			africa.addTerritory(mockedTerritory);
+			EasyMock.expect(mockedTerritory.getContinent()).andReturn(africa);
 			red.getOccupiedTerritories().add(mockedTerritory);
 			mockedTerritories.add(mockedTerritory);
 		}
@@ -1235,7 +1190,7 @@ class PlayerTest {
 		}
 
 		assertEquals(0, red.getArmiesAvailable());
-		red.addNewTurnArmies(Arrays.asList(NorthAmerica, SouthAmerica, Africa));
+		red.addNewTurnArmies(Arrays.asList(northAmerica, southAmerica, africa));
 		assertEquals(16, red.getArmiesAvailable());
 		for (int i = 0; i < 19; i++) {
 			EasyMock.verify(mockedTerritories.get(i));
@@ -1245,25 +1200,25 @@ class PlayerTest {
 	@Test
 	public void testAddNewArmiesWith19Territories3ContinentsIntegration(){
 		Player red = new Player(PlayerColor.RED, new Random(), null);
-		Continent NorthAmerica = new Continent("North America", 9, 5);
-		Continent SouthAmerica = new Continent("South America", 4, 2);
-		Continent Africa       = new Continent("Africa",        6, 3);
+		Continent northAmerica = new Continent("North America",5);
+		Continent southAmerica = new Continent("South America",2);
+		Continent africa       = new Continent("Africa",       3);
 
 		red.giveArmies(19);
 		for (int i = 0; i < 9; i++) {
-			Territory t = new Territory("Test", NorthAmerica);
+			Territory t = new Territory("Test", northAmerica);
 			red.occupyTerritory(t);
 		}
 		for (int i = 0; i < 4; i++) {
-			Territory t = new Territory("Test", SouthAmerica);
+			Territory t = new Territory("Test", southAmerica);
 			red.occupyTerritory(t);
 		}
 		for (int i = 0; i < 6; i++) {
-			Territory t = new Territory("Test", Africa);
+			Territory t = new Territory("Test", africa);
 			red.occupyTerritory(t);
 		}
 		assertEquals(0, red.getArmiesAvailable());
-		red.addNewTurnArmies(Arrays.asList(NorthAmerica, SouthAmerica, Africa));
+		red.addNewTurnArmies(Arrays.asList(northAmerica, southAmerica, africa));
 		assertEquals(16, red.getArmiesAvailable());
 	}
 

@@ -19,12 +19,11 @@ public class Player {
 	private Random random;
 	private CardTrader cardTrader;
 	boolean capturedThisTurn;
+	WinCondition winCondition;
 	
 	public Player(PlayerColor color, Random random, CardTrader cardTrader) {
 		this(color, color.toString(), random, cardTrader);
 	}
-
-
 	public Player(PlayerColor color, String name, Random random, CardTrader cardTrader) {
 		this.color = color;
 		this.name = name;
@@ -34,6 +33,7 @@ public class Player {
 		this.cards = new HashSet<Card>();
 		this.armiesAvailable = 0;
 		this.capturedThisTurn = false;
+		this.winCondition = new WorldDominationWin(this);
 	}
 	
 	public PlayerColor getColor() {
@@ -52,7 +52,7 @@ public class Player {
 	}
 
 	public boolean hasWon() {
-		return this.occupiedTerritories.size() == MapManager.getInstance().getTerritories().size();
+		return this.winCondition.hasWon();
 	}
 
 	public void giveArmies(int numArmies) {
@@ -179,5 +179,9 @@ public class Player {
 		}
 		this.cards.removeAll(cardSet);
 		return true;
+	}
+
+	public void setWinCondition(WinCondition winCondition) {
+		this.winCondition = winCondition;
 	}
 }
