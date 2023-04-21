@@ -4,14 +4,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
 
+import controller.Setup;
 import model.Map.Continent;
 import model.Map.MapManager;
 import model.Map.Territory;
-import model.Map.World;
 import org.easymock.EasyMock;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PlayerTest {
+
+
+	@BeforeEach
+	void setupDefaultWorld() {
+		Setup.defaultWorld();
+	}
+
 
 	private void occupyTerritoriesSetup(Player player, int numTerritories) {
 		player.giveArmies(numTerritories);
@@ -485,7 +493,6 @@ class PlayerTest {
 	void testArmiesGainedFifteenTerritoryCount() {
 		Player player = new Player(PlayerColor.RED, null, null);
 		occupyTerritoriesSetup(player, 15);
-
 		assertEquals(player.calculateArmiesGainedFromTerritoryCount(), 5);
 	}
 
@@ -527,7 +534,6 @@ class PlayerTest {
 
 	@Test
 	void testPlayerHasWon1() {
-		new World(World.getMapFiles().get("Earth"));
 		Player player = new Player(PlayerColor.RED, null, null);
 		occupyTerritoriesSetup(player, 42);
 		assertTrue(player.hasWon());
