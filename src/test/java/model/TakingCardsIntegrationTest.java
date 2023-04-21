@@ -20,7 +20,7 @@ public class TakingCardsIntegrationTest {
 	CardTrader cardTrader;
 	@BeforeEach
 	void doSetup(){
-		Random randomMock = EasyMock.strictMock(Random.class);
+		randomMock = EasyMock.strictMock(Random.class);
 
 		Continent asia = EasyMock.mock(Continent.class);
 		attackingTerritory = new Territory("attackingTerritory", asia);
