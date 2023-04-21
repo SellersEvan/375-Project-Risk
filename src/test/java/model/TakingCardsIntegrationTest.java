@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Random;
 
+import controller.Setup;
 import model.Map.Continent;
 import model.Map.MapManager;
 import model.Map.Territory;
 import org.easymock.EasyMock;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +20,12 @@ public class TakingCardsIntegrationTest {
 	Player aggressor;
 	Player defender;
 	CardTrader cardTrader;
+
+	@BeforeAll
+	static void setupMap() {
+		Setup.defaultWorld();
+	}
+
 	@BeforeEach
 	void doSetup(){
 		randomMock = EasyMock.strictMock(Random.class);
