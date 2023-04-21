@@ -93,6 +93,20 @@ public class Setup {
         return colors;
     }
 
+    public static boolean selectSecretMissionMode(ResourceBundle bundle){
+        String promptLabel = bundle.getString("selectSecretMissionPrompt");
+        JComboBox<String> options = new JComboBox<>();
+        options.addItem("No");
+        options.addItem("Yes");
+        JOptionPane.showMessageDialog(null, options,
+                promptLabel, JOptionPane.INFORMATION_MESSAGE);
+        if(options.getSelectedIndex() == 0){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
     public static World selectWorld(ResourceBundle bundle) {
         String promptLabel = bundle.getString("selectWorld");

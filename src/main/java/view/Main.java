@@ -29,6 +29,8 @@ public class Main {
         World world           = Setup.selectWorld(bundle);
         int numberOfPlayers   = Setup.selectNumberOfPlayers(bundle);
         List<Player> players  = Setup.setupPlayers(bundle, numberOfPlayers);
+        boolean enableSecretMission = Setup.selectSecretMissionMode(bundle);
+        System.out.println(enableSecretMission);
 
         Game game = new Game(world, players);
         game.setupUI(bundle, GameView.class);
