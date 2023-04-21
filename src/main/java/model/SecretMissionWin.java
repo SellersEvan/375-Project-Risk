@@ -26,6 +26,18 @@ public class SecretMissionWin extends WinCondition {
         return true;
     }
 
+    @Override
+    public String getObjective() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("You need to conquer the following continents: [");
+        for (Continent c : secretTargets) {
+            sb.append(c.name);
+            sb.append(",");
+        }
+        sb.replace(sb.length() - 1, sb.length(), "]");
+        return sb.toString();
+    }
+
     private void generateSecretMission(List<Continent> targetContinents, Random random) {
         while (this.secretTargets.size() < 2) {
             this.secretTargets.add(targetContinents.get(random.nextInt(targetContinents.size())));

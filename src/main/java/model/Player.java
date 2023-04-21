@@ -183,4 +183,8 @@ public class Player {
 	public void setWinCondition(WinCondition winCondition) {
 		this.winCondition = winCondition;
 	}
+
+	public String displayWinConditions() {
+		return winCondition.getObjective();
+	}
 }
