@@ -31,4 +31,8 @@ public class SecretMissionWin extends WinCondition {
             this.secretTargets.add(targetContinents.get(random.nextInt(targetContinents.size())));
         }
     }
+
+    public Set<Continent> getSecretTargets() {
+        return Collections.unmodifiableSet(this.secretTargets);
+    }
 }
