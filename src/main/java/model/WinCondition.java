@@ -7,5 +7,9 @@ public abstract class WinCondition {
         this.player = playerToCheck;
     }
 
+    public String getObjective() {
+        return "Win";
+    }
+
     abstract boolean hasWon();
 }

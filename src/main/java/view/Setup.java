@@ -93,6 +93,35 @@ public class Setup {
         return colors;
     }
 
+    public static boolean selectSecretMissionMode(ResourceBundle bundle) {
+        String promptLabel = bundle.getString("selectSecretMissionPrompt");
+        JComboBox<String> options = new JComboBox<>();
+        options.addItem("No");
+        options.addItem("Yes");
+        JOptionPane.showMessageDialog(null, options,
+                promptLabel, JOptionPane.INFORMATION_MESSAGE);
+        if (options.getSelectedIndex() == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public static void displaySecretMissions(ResourceBundle bundle, List<Player> players) {
+        String promptText = "The secret mission is World Domination. Pass the laptop to player "
+                + players.get(0).getName() + " and continue.";
+        JLabel label = new JLabel();
+        label.setText(promptText);
+        JOptionPane.showMessageDialog(null, promptText,
+                "Secret Mission", JOptionPane.INFORMATION_MESSAGE);
+        for (Player p : players) {
+            promptText = "The mission for player " + p.getName() + ": " + p.displayWinConditions()
+                    + ". Please pass to next player and continue.";
+            label.setText(promptText);
+            JOptionPane.showMessageDialog(null, promptText,
+                    "Secret Mission", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
 
     public static World selectWorld(ResourceBundle bundle) {
         String promptLabel = bundle.getString("selectWorld");
