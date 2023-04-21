@@ -104,11 +104,11 @@ public class Game {
             return;
         }
 
-        int attack = this.ui.getNumberOfDice(territoryAttacker.getArmies(), attacker.getName(), true);
-        int defend = this.ui.getNumberOfDice(territoryDefender.getArmies(), defender.getName(), false);
-        AttackData battle = new AttackData(territoryAttacker, territoryDefender, attack, defend);
-        int[] attackRolls = battle.getADice();
-        int[] defendRolls = battle.getDDice();
+        int attackerDice = this.ui.getNumberOfDice(territoryAttacker.getArmies(), attacker.getName(), true);
+        int defenderDice = this.ui.getNumberOfDice(territoryDefender.getArmies(), defender.getName(), false);
+        int[] attackRolls = territoryAttacker.getOccupant().rollDice(attackerDice);
+        int[] defendRolls = territoryDefender.getOccupant().rollDice(defenderDice);
+        AttackData battle = new AttackData(territoryAttacker, territoryDefender, attackRolls, defendRolls);
         this.ui.displayRolls(attackRolls, defendRolls);
 
         int attemptAttack = attacker.attackTerritory(battle);

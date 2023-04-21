@@ -4,12 +4,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
 
+import controller.Setup;
 import model.Map.Continent;
+import model.Map.MapManager;
 import model.Map.Territory;
 import org.easymock.EasyMock;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PlayerTest {
+
+
+	@BeforeEach
+	void setupDefaultWorld() {
+		Setup.defaultWorld();
+	}
+
 
 	private void occupyTerritoriesSetup(Player player, int numTerritories) {
 		player.giveArmies(numTerritories);
@@ -483,7 +493,6 @@ class PlayerTest {
 	void testArmiesGainedFifteenTerritoryCount() {
 		Player player = new Player(PlayerColor.RED, null, null);
 		occupyTerritoriesSetup(player, 15);
-
 		assertEquals(player.calculateArmiesGainedFromTerritoryCount(), 5);
 	}
 
@@ -521,6 +530,52 @@ class PlayerTest {
 		player.giveArmies(1);
 		player.occupyTerritory(t);
 		assertFalse(player.hasLost());
+	}
+
+	@Test
+	void testPlayerHasWon1() {
+		Player player = new Player(PlayerColor.RED, null, null);
+		occupyTerritoriesSetup(player, 42);
+		assertTrue(player.hasWon());
+	}
+
+	@Test
+	void testPlayerHasWon1Integration() {
+		Player player = new Player(PlayerColor.RED, null, null);
+		player.giveArmies(42);
+		Continent continent = EasyMock.mock(Continent.class);
+		ArrayList<Territory> territories = new ArrayList<>();
+		for(int i = 0; i < 42; i++) {
+			Territory t = new Territory("Test", continent);
+			player.occupyTerritory(t);
+			territories.add(t);
+		}
+		MapManager.getInstance().setTerritories(territories);
+		assertTrue(player.hasWon());
+	}
+
+	@Test
+	void testPlayerHasWon2() {
+		Player player = new Player(PlayerColor.RED, null, null);
+		occupyTerritoriesSetup(player, 40);
+		assertFalse(player.hasWon());
+	}
+
+	@Test
+	void testPlayerHasWon2Integration() {
+		Player player = new Player(PlayerColor.RED, null, null);
+		player.giveArmies(40);
+		Continent continent = EasyMock.mock(Continent.class);
+		ArrayList<Territory> territories = new ArrayList<>();
+		for(int i = 0; i < 40; i++) {
+			Territory t = new Territory("Test", continent);
+			if (i != 1) {
+				player.occupyTerritory(t);
+			}
+			territories.add(t);
+		}
+		MapManager.getInstance().setTerritories(territories);
+		assertFalse(player.hasWon());
 	}
 
 	@Test
