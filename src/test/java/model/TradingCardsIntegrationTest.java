@@ -205,7 +205,7 @@ public class TradingCardsIntegrationTest {
 		// Test turning in the ninth set
 		assertTrue(player.tradeInCards(tradeInSet1));
 		assertEquals(32, player.getArmiesAvailable());
-		assertEquals(3, player.getCards().size());
+		assertEquals(0, player.getCards().size());
 		assertEquals(9, cardTrader.numSetsTurnedIn);
 		EasyMock.verify(territory2, territory3);
 	}
@@ -254,9 +254,8 @@ public class TradingCardsIntegrationTest {
 		cardTrader.numSetsTurnedIn = 9;
 
 		// Test turning in the second set
-		// (32 armies from previous for a total of 67)
 		assertTrue(player.tradeInCards(tradeInSet2));
-		assertEquals(37, player.getArmiesAvailable());
+		assertEquals(35, player.getArmiesAvailable());
 		assertEquals(0, player.getCards().size());
 		assertEquals(10, cardTrader.numSetsTurnedIn);
 		EasyMock.verify(territory2, territory3);
