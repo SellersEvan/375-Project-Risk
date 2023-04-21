@@ -1,11 +1,10 @@
 package view;
 
 import controller.Game;
-import model.CardTrader;
-import model.Player;
+import model.*;
+
 import java.util.*;
 import model.Map.World;
-import model.PlayerColor;
 
 
 public class Main {
@@ -29,6 +28,14 @@ public class Main {
         World world           = Setup.selectWorld(bundle);
         int numberOfPlayers   = Setup.selectNumberOfPlayers(bundle);
         List<Player> players  = Setup.setupPlayers(bundle, numberOfPlayers);
+        boolean enableSecretMission = Setup.selectSecretMissionMode(bundle);
+
+        if (enableSecretMission) {
+            for (Player p : players) {
+                p.setWinCondition(new SecretMissionWin(p, world.getContinents(), new Random()));
+            }
+            Setup.displaySecretMissions(bundle, players);
+        }
 
         Game game = new Game(world, players);
         game.setupUI(bundle, GameView.class);
