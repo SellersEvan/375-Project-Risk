@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -116,13 +115,13 @@ public class GameTest {
 
         @Test
         void testAttack() throws InvalidAttackException {
-            attacker.giveArmies(5);
-            defender.giveArmies(2);
             attacker.addArmiesToTerritory(attackingTerritory, 3);
             defender.addArmiesToTerritory(defendingTerritory, 1);
 
             EasyMock.expect(uiMock.getNumberOfDice(4, attacker.getName(), true)).andReturn(2);
             EasyMock.expect(uiMock.getNumberOfDice(2, defender.getName(), false)).andReturn(1);
+
+            //EasyMock.expect(uiMock.displayRolls([0,0], [1]);
             EasyMock.replay(uiMock, randomMock);
 
             game.attack(attackingTerritory, defendingTerritory);
