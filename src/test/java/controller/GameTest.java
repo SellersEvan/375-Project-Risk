@@ -103,7 +103,7 @@ public class GameTest {
 
             attackingTerritory = MapManager.getInstance().getTerritories().get(0);   // Alaska (North America)
             defendingTerritory = MapManager.getInstance().getTerritories().get(1);   // Northwest_Terr (North America)
-            otherTerritory     = MapManager.getInstance().getTerritories().get(10);  // Peru (South America)
+            otherTerritory     = MapManager.getInstance().getTerritories().get(4);  // Ontario (North    America)
             attacker = new Player(PlayerColor.RED, "Joe", randomMock, cardTraderMock);
             defender = new Player(PlayerColor.GREEN, "Mama", randomMock, cardTraderMock);
             attacker.giveArmies(5);
@@ -118,22 +118,38 @@ public class GameTest {
             attacker.addArmiesToTerritory(attackingTerritory, 3);
             defender.addArmiesToTerritory(defendingTerritory, 1);
 
-            EasyMock.expect(uiMock.getNumberOfDice(4, attacker.getName(), true)).andReturn(2);
-            EasyMock.expect(uiMock.getNumberOfDice(2, defender.getName(), false)).andReturn(1);
-
-            //EasyMock.expect(uiMock.displayRolls([0,0], [1]);
+            EasyMock.expect(uiMock.getNumberOfDice(4, attacker.getName(), true)).andReturn(3);
+            EasyMock.expect(uiMock.getNumberOfDice(2, defender.getName(), false)).andReturn(2);
+            uiMock.displayRolls(new int[]{0,0,0}, new int[]{0,0});
+            EasyMock.expectLastCall();
+            uiMock.updateTerritoryButtons();
+            EasyMock.expectLastCall();
             EasyMock.replay(uiMock, randomMock);
 
             game.attack(attackingTerritory, defendingTerritory);
-
             EasyMock.verify(uiMock);
+            assertEquals(2, defendingTerritory.getArmies());
+            assertEquals(2, attackingTerritory.getArmies());
         }
 
         @Test
         void testFortify() {
-
+            defender.addArmiesToTerritory(otherTerritory, 1);
+            EasyMock.replay(uiMock);
+            otherTerritory.fortifyTerritory(defendingTerritory, 1);
+            EasyMock.verify(uiMock);
+            assertEquals(2, defendingTerritory.getArmies());
+            assertEquals(1, otherTerritory.getArmies());
         }
-
+        @Test
+        void testInvalidFortify() {
+            defender.addArmiesToTerritory(otherTerritory, 1);
+            EasyMock.replay(uiMock);
+            defendingTerritory.fortifyTerritory(otherTerritory, 1);
+            EasyMock.verify(uiMock);
+            assertEquals(1, defendingTerritory.getArmies());
+            assertEquals(2, otherTerritory.getArmies());
+        }
         @Test
         void testPhaseAction() {
             //tradecards
