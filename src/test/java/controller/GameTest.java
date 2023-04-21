@@ -79,13 +79,11 @@ public class GameTest {
     }
 
     @Nested
-    class actionTests {
+    static class ActionTests {
         Game game;
         Random randomMock;
         GameView uiMock;
         CardTrader cardTraderMock;
-        Continent asia;
-        Continent northAmerica;
         Territory attackingTerritory;
         Territory defendingTerritory;
         Territory otherTerritory;
