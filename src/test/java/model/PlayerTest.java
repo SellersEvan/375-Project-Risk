@@ -6,6 +6,7 @@ import java.util.*;
 
 import controller.Setup;
 import model.Map.Continent;
+import model.Map.MapManager;
 import model.Map.Territory;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
