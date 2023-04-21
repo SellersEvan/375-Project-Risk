@@ -107,17 +107,18 @@ public class Setup {
     }
 
     public static void displaySecretMissions(ResourceBundle bundle, List<Player> players) {
-        String promptLabel = "The secret mission is World Domination. Pass the laptop to player 1 and continue";
+        String promptText = "The secret mission is World Domination. Pass the laptop to player "
+                + players.get(0).getName() + " and continue.";
         JLabel label = new JLabel();
-        label.setText(promptLabel);
-        JOptionPane.showMessageDialog(null, label,
-                promptLabel, JOptionPane.INFORMATION_MESSAGE);
+        label.setText(promptText);
+        JOptionPane.showMessageDialog(null, promptText,
+                "Secret Mission", JOptionPane.INFORMATION_MESSAGE);
         for (Player p : players) {
-            promptLabel = "The mission for player " + p.getName() + ": " + p.displayWinConditions()
+            promptText = "The mission for player " + p.getName() + ": " + p.displayWinConditions()
                     + ". Please pass to next player and continue.";
-            label.setText(promptLabel);
-            JOptionPane.showMessageDialog(null, label,
-                    promptLabel, JOptionPane.INFORMATION_MESSAGE);
+            label.setText(promptText);
+            JOptionPane.showMessageDialog(null, promptText,
+                    "Secret Mission", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
