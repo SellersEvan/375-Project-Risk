@@ -97,6 +97,7 @@ public class GameTest {
         void setUp(){
             game = new Game(Setup.defaultWorld(), Setup.fillPlayerArray(6));
             randomMock = EasyMock.strictMock(Random.class);
+            EasyMock.expect(randomMock.nextInt(EasyMock.anyInt())).andReturn(-1).anyTimes();
             uiMock = EasyMock.strictMock(GameView.class);
             game.ui = uiMock;
             cardTraderMock = new CardTrader();
@@ -122,7 +123,7 @@ public class GameTest {
 
             EasyMock.expect(uiMock.getNumberOfDice(4, attacker.getName(), true)).andReturn(2);
             EasyMock.expect(uiMock.getNumberOfDice(2, defender.getName(), false)).andReturn(1);
-            EasyMock.replay(uiMock);
+            EasyMock.replay(uiMock, randomMock);
 
             game.attack(attackingTerritory, defendingTerritory);
 
