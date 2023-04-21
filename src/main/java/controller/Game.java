@@ -21,24 +21,6 @@ public class Game {
     protected ContinentController continentController;
 
 
-    // [x] remove extra parameter on player control for number of players
-    // [x] setup window
-    // [x] change setup of resource bundle
-    // [x] remove game setup
-    // [X] Clean Up Main
-    // [x] Enable UI to use Phase instead of just string
-    // [x] remove button system
-    // [x] make methods private as needed
-    // [x] Split up Large Methods
-    // [x] Draw Path
-    // [x] Add Button Outline
-    // [x] Manual Testing
-    // [ ] Add Additional Map
-    // [x] Simplify removeDefeatedPlayer
-    // [ ] WTF phaseAction
-    // [ ] testing
-
-
     public Game(World world, List<Player> players) {
         this.playerController    = new PlayerController(players);
         this.phase               = Phase.territoryClaim;
