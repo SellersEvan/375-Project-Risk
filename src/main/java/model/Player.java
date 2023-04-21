@@ -66,7 +66,7 @@ public class Player {
 		if (territory.hasOccupant() || this.armiesAvailable < 1) {
 			return false;
 		}
-		addOccupiedTerritory(territory);
+		this.addOccupiedTerritory(territory);
 		this.armiesAvailable--;
 		territory.addArmies(1);
 		return true;
