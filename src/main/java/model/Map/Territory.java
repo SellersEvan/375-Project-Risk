@@ -29,6 +29,7 @@ public class Territory {
         this.armies              = 0;
         this.occupant            = null;
         this.adjacentTerritories = new ArrayList<>();
+        continent.addTerritory(this);
     }
 
 

@@ -15,8 +15,8 @@ class DrawingCardIntegrationTest {
 	@Test
 	void testPlayerCapturesAndDrawsNoDefeat() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		Continent asia = new Continent("Asia", 5, 1);
-		Continent northAmerica = new Continent("North America", 5, 1);
+		Continent asia = new Continent("Asia", 1);
+		Continent northAmerica = new Continent("North America", 1);
 
 		Territory attackingTerritory = new Territory("attackingTerritory", asia);
 		Territory attackedTerritory = new Territory("attackedTerritory", asia);
@@ -65,7 +65,7 @@ class DrawingCardIntegrationTest {
 	@Test
 	void testPlayerDoesNotCaptureNoDraw() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		Continent asia = new Continent("Asia", 5, 1);
+		Continent asia = new Continent("Asia", 1);
 
 		Territory attackingTerritory = new Territory("attackingTerritory", asia);
 		Territory attackedTerritory = new Territory("attackedTerritory", asia);
@@ -109,7 +109,7 @@ class DrawingCardIntegrationTest {
 	@Test
 	void testPlayerCapturesAndDrawsAndTakesDefeatedCard() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		Continent asia = new Continent("Asia", 5, 1);
+		Continent asia = new Continent("Asia", 1);
 
 		Territory attackingTerritory = new Territory("attackingTerritory", asia);
 		Territory attackedTerritory = new Territory("attackedTerritory", asia);
@@ -169,7 +169,7 @@ class DrawingCardIntegrationTest {
 	@Test
 	void testPlayerWinsAttackButDoesNotCaptureNoDraw() throws InvalidAttackException {
 		Random randomMock = EasyMock.strictMock(Random.class);
-		Continent asia = new Continent("Asia", 5, 1);
+		Continent asia = new Continent("Asia", 1);
 
 		Territory attackingTerritory = new Territory("attackingTerritory", asia);
 		Territory attackedTerritory = new Territory("attackedTerritory", asia);

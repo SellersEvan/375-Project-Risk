@@ -15,7 +15,6 @@ public class MapManager {
         return Collections.unmodifiableList(this.territories);
     }
 
-
     public void setTerritories(List<Territory> territories) {
         this.territories = territories;
     }

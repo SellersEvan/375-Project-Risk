@@ -160,7 +160,7 @@ public class TradingCardsIntegrationTest {
 	}
 
 	@Test
-	void testTradeInNinthAndTenthSets() {
+	void testTradeInNinthSet() {
 		Territory territory2 = EasyMock.mock(Territory.class);
 		Territory territory3 = EasyMock.mock(Territory.class);
 		List<Territory> territories = new ArrayList<>();
@@ -188,23 +188,62 @@ public class TradingCardsIntegrationTest {
 
 		Card card1 = new Card(territories.get(1), CardSymbol.CAVALRY);
 		Card card2 = new Card(territories.get(2), CardSymbol.INFANTRY);
-		Card card3 = new Card(territories.get(3), CardSymbol.CAVALRY);
-		Card card4 = new Card(territories.get(4), CardSymbol.CAVALRY);
 		Card card5 = new Card(territories.get(1), CardSymbol.ARTILLERY);
-		Card card6 = new Card(territories.get(0), CardSymbol.CAVALRY);
 
 		player.getCards().add(card1);
 		player.getCards().add(card2);
-		player.getCards().add(card3);
-		player.getCards().add(card4);
 		player.getCards().add(card5);
-		player.getCards().add(card6);
 
 		// One-of-each set with a Territory bonus
 		Set<Card> tradeInSet1 = new HashSet<>();
 		tradeInSet1.add(card1);
 		tradeInSet1.add(card2);
 		tradeInSet1.add(card5);
+
+		// Make this the ninth set traded in of the game
+		cardTrader.numSetsTurnedIn = 8;
+
+		// Test turning in the ninth set
+		assertTrue(player.tradeInCards(tradeInSet1));
+		assertEquals(32, player.getArmiesAvailable());
+		assertEquals(0, player.getCards().size());
+		assertEquals(9, cardTrader.numSetsTurnedIn);
+		EasyMock.verify(territory2, territory3);
+	}
+	@Test
+	void testTradeInTenthSet() {
+		Territory territory2 = EasyMock.mock(Territory.class);
+		Territory territory3 = EasyMock.mock(Territory.class);
+		List<Territory> territories = new ArrayList<>();
+		for (int i = 0; i < 42; i++) {
+			territories.add(EasyMock.mock(Territory.class));
+		}
+		territories.set(1, territory2);
+		territories.set(2, territory3);
+		MapManager.getInstance().setTerritories(territories);
+		CardTrader cardTrader = new CardTrader();
+		Player player = new Player(PlayerColor.RED, null, cardTrader);
+		EasyMock.expect(territory2.hasOccupant()).andReturn(false);
+		territory2.addArmies(1);
+		territory2.setOccupant(player);
+		EasyMock.expect(territory3.hasOccupant()).andReturn(false);
+		territory3.addArmies(1);
+		territory3.setOccupant(player);
+		EasyMock.expectLastCall();
+		EasyMock.replay(territory2, territory3);
+
+		player.giveArmies(2);
+		// Player occupies Territory 1 and 2
+		player.occupyTerritory(territories.get(1));
+		player.occupyTerritory(territories.get(2));
+
+		Card card3 = new Card(territories.get(3), CardSymbol.CAVALRY);
+		Card card4 = new Card(territories.get(4), CardSymbol.CAVALRY);
+		Card card6 = new Card(territories.get(0), CardSymbol.CAVALRY);
+
+		player.getCards().add(card3);
+		player.getCards().add(card4);
+		player.getCards().add(card6);
 
 		// One-of-each set with a Territory bonus
 		Set<Card> tradeInSet2 = new HashSet<>();
@@ -213,18 +252,11 @@ public class TradingCardsIntegrationTest {
 		tradeInSet2.add(card6);
 
 		// Make this the ninth set traded in of the game
-		cardTrader.numSetsTurnedIn = 8;
-
-		// Test turning in the first set
-		assertTrue(player.tradeInCards(tradeInSet1));
-		assertEquals(32, player.getArmiesAvailable());
-		assertEquals(3, player.getCards().size());
-		assertEquals(9, cardTrader.numSetsTurnedIn);
+		cardTrader.numSetsTurnedIn = 9;
 
 		// Test turning in the second set
-		// (32 armies from previous for a total of 67)
 		assertTrue(player.tradeInCards(tradeInSet2));
-		assertEquals(67, player.getArmiesAvailable());
+		assertEquals(35, player.getArmiesAvailable());
 		assertEquals(0, player.getCards().size());
 		assertEquals(10, cardTrader.numSetsTurnedIn);
 		EasyMock.verify(territory2, territory3);

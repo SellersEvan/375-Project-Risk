@@ -57,20 +57,19 @@ public class World {
                 Territory territory   = parseTerritory(territoryData, continent);
                 if (territory == null) continue;
                 territories.add(territory);
+                continent.addTerritory(territory);
             }
         }
     }
 
-
-    @SuppressWarnings("unchecked")
     private Continent parseContinent(Map<String, Object> continent) {
         if (!(continent.get("name") instanceof String)) return null;
         if (!(continent.get("bonus") instanceof Integer)) return null;
         if (!(continent.get("territories") instanceof List)) return null;
         String name = (String) continent.get("name");
         Integer bonus = (Integer) continent.get("bonus");
-        List<Object> territories = (List<Object>) continent.get("territories");
-        return new Continent(name, territories.size(), bonus);
+        return new Continent(name, bonus);
+
     }
 
 

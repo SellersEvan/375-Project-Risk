@@ -33,7 +33,7 @@ public class WorldTest {
         assertEquals(6, world.getContinents().size());
         assertEquals("Australia", world.getContinents().get(5).name);
         assertEquals(2, world.getContinents().get(5).bonus);
-        assertEquals(4, world.getContinents().get(5).territories);
+        assertEquals(4, world.getContinents().get(5).getComposingTerritories().size());
     }
 
 
@@ -44,7 +44,7 @@ public class WorldTest {
         assertEquals(6, world.getContinents().size());
         assertEquals("Africa", world.getContinents().get(2).name);
         assertEquals(3, world.getContinents().get(2).bonus);
-        assertEquals(6, world.getContinents().get(2).territories);
+        assertEquals(6, world.getContinents().get(2).getComposingTerritories().size());
     }
 
 
