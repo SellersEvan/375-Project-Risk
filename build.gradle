@@ -19,7 +19,6 @@ spotbugs {
 }
 
 jar {
-
     manifest {
         attributes "Main-Class": "view.Main"
     }

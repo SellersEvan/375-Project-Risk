@@ -5,6 +5,7 @@ import org.yaml.snakeyaml.Yaml;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Stream;
@@ -24,12 +25,16 @@ public class World {
         try {
             InputStream stream  = this.getClass().getClassLoader()
                     .getResourceAsStream(world);
+            if (stream == null) {
+                throw new Error("Unable to find world config \"" + world + "\"");
+            }
             java.util.Map<String, Object> mapData = (new Yaml()).load(stream);
             this.parse(mapData);
             this.parseAdjacent(mapData);
             stream.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Unable to Load World");
         }
         this.loadBackground(world);
         MapManager.getInstance().setTerritories(this.territories);
@@ -39,7 +44,11 @@ public class World {
     private void loadBackground(String mapFile) {
         String filename = "/" + mapFile.replace(".yaml", ".jpg");
         try {
-            this.background = ImageIO.read(Objects.requireNonNull(getClass().getResource(filename)));
+            URL url = getClass().getResource(filename);
+            if (url == null) {
+                throw new Error("Unable to find world image \"" + filename + "\"");
+            }
+            this.background = ImageIO.read(url);
         } catch (IOException e) {
             e.printStackTrace();
         }
