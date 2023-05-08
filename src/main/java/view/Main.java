@@ -10,11 +10,11 @@ import model.Map.World;
 public class Main {
 
 
-    private static final boolean SETUP_MODE_PRODUCTION = true;
+    public static final boolean DEVELOPER_MODE = false;
 
 
     public static void main(String[] args) {
-        if (SETUP_MODE_PRODUCTION) {
+        if (!DEVELOPER_MODE) {
             setupProduction();
         } else {
             setDevelopment();
