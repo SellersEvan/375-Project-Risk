@@ -18,6 +18,19 @@ spotbugs {
     excludeFilter = file("exclude.xml")
 }
 
+jar {
+
+    manifest {
+        attributes "Main-Class": "view.Main"
+    }
+
+    from {
+        duplicatesStrategy(DuplicatesStrategy.INCLUDE)
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
@@ -25,6 +38,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.easymock/easymock
     testImplementation 'org.easymock:easymock:4.2'
     implementation 'org.yaml:snakeyaml:2.0'
+
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
 }
 
 test {

@@ -5,23 +5,25 @@ import org.yaml.snakeyaml.Yaml;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.stream.Stream;
 
 
 public class World {
 
 
-    public static final String MAP_DIR = "./src/main/resources/maps";
     private final ArrayList<Continent> continents;
     private final ArrayList<Territory> territories;
     private BufferedImage background;
 
 
-    public World(File map) {
+    public World(String world) {
         this.continents  = new ArrayList<>();
         this.territories = new ArrayList<>();
         try {
-            InputStream         stream  = new FileInputStream(map);
+            InputStream stream  = this.getClass().getClassLoader()
+                    .getResourceAsStream(world);
             java.util.Map<String, Object> mapData = (new Yaml()).load(stream);
             this.parse(mapData);
             this.parseAdjacent(mapData);
@@ -29,16 +31,15 @@ public class World {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.loadBackground(map);
+        this.loadBackground(world);
         MapManager.getInstance().setTerritories(this.territories);
     }
 
 
-    private void loadBackground(File mapFile) {
-        String filename = mapFile.getPath().replace(".yaml", ".jpg");
-        File file = new File(filename);
+    private void loadBackground(String mapFile) {
+        String filename = "/" + mapFile.replace(".yaml", ".jpg");
         try {
-            this.background = ImageIO.read(file);
+            this.background = ImageIO.read(Objects.requireNonNull(getClass().getResource(filename)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -140,14 +141,21 @@ public class World {
     }
 
 
-    public static Map<String, File> getMapFiles() {
-        Map<String, File> maps = new HashMap<>();
-        Arrays.stream(Objects.requireNonNull((new File(MAP_DIR)).listFiles()))
-                .filter((File file) -> !file.toPath().endsWith(".yaml"))
-                .forEach((File file) -> {
-                    String mapName = file.getName().split("\\.")[0];
-                    maps.put(mapName, file);
-                });
+    public static Map<String, String> getMapFiles() {
+        Map<String, String> maps = new HashMap<>();
+        try {
+            InputStream stream = World.class.getResourceAsStream("/maps/index");
+            InputStreamReader reader = new InputStreamReader(Objects.requireNonNull(stream), StandardCharsets.UTF_8);
+            BufferedReader buffer = new BufferedReader(reader);
+            Stream<String> lines = buffer.lines();
+            lines.forEach((String name) -> {
+                maps.put(name, "maps/" + name + ".yaml");
+            });
+            reader.close();
+            buffer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return maps;
     }
 
