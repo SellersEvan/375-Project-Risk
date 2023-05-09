@@ -80,7 +80,7 @@ public class Game {
             this.attack(this.territoryController.getSelectedTerritory(), territory);
             this.territoryController.setSelectedTerritory(null);
             this.ui.selectTerritory();
-        } else if (!territory.getOccupant().equals(playerController.getCurrentPlayer())) {
+        } else if (!playerController.getCurrentPlayer().equals(territory.getOccupant())) {
             this.ui.selectTerritory();
             this.ui.showMessage(bundle.getString("selectOwnTerritoryMessage"));
         } else if (territory.getArmies() <= 1) {
@@ -144,15 +144,16 @@ public class Game {
             this.fortify(this.territoryController.getSelectedTerritory(), territory);
             this.territoryController.setSelectedTerritory(null);
             this.ui.selectTerritory();
-        } else if (!territory.getOccupant().equals(this.playerController.getCurrentPlayer())) {
+        } else if (!this.playerController.getCurrentPlayer().equals(territory.getOccupant())) {
             this.ui.showMessage(this.bundle.getString("fortifyFromOwnTerritoryMessage"));
             this.ui.selectTerritory();
         } else if (territory.getArmies() <= 1) {
             this.ui.showMessage(this.bundle.getString("fortifyInvalidArmiesMessage"));
             this.ui.selectTerritory();
+        } else {
+            this.territoryController.setSelectedTerritory(territory);
+            this.ui.selectTerritory(territory);
         }
-        this.territoryController.setSelectedTerritory(territory);
-        this.ui.selectTerritory(territory);
     }
 
 
@@ -224,7 +225,7 @@ public class Game {
     protected void claimTerritory(Territory territory) {
         if (this.playerController.setPlayerOccupyTerritory(territory)) {
             this.changeTurn();
-            this.checkIfAllClaimed();
+            this.allTerritoriesClaimed();
         } else {
             this.ui.showMessage(bundle.getString("unableToClaimTerritoryMessage"));
         }
@@ -232,7 +233,7 @@ public class Game {
 
 
     protected void placeArmies(Territory territory) {
-        if (territory.getOccupant().equals(playerController.getCurrentPlayer())) {
+        if (playerController.getCurrentPlayer().equals(territory.getOccupant())) {
             int amount = this.ui.getNumber(this.bundle.getString("howManyArmiesMessage"));
             if (!this.playerController.addArmiesToTerritoryForCurrentPlayer(territory, amount)) {
                 this.ui.showMessage(this.bundle.getString("invalidAmountOfArmiesMessage"));
@@ -264,8 +265,8 @@ public class Game {
     }
 
 
-    protected void checkIfAllClaimed() {
-        if (territoryController.checkIfAllClaimed())
+    protected void allTerritoriesClaimed() {
+        if (!territoryController.allTerritoriesClaimed())
             return;
         phase = Phase.initialArmies;
         update();
