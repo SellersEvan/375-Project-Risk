@@ -19,7 +19,7 @@ public class WorldTest {
 
     @Test
     void LoadedBackground() {
-        File file   = World.getMapFiles().get("Earth");
+        String file   = World.getMapFiles().get("Earth");
         World world = new World(file);
         assertEquals(1600, world.getWidth());
         assertEquals(900, world.getHeight());
@@ -28,7 +28,7 @@ public class WorldTest {
 
     @Test
     void LoadedContinentAustralia() {
-        File file   = World.getMapFiles().get("Earth");
+        String file   = World.getMapFiles().get("Earth");
         World world = new World(file);
         assertEquals(6, world.getContinents().size());
         assertEquals("Australia", world.getContinents().get(5).name);
@@ -39,7 +39,7 @@ public class WorldTest {
 
     @Test
     void LoadedContinentAfrica() {
-        File file   = World.getMapFiles().get("Earth");
+        String file   = World.getMapFiles().get("Earth");
         World world = new World(file);
         assertEquals(6, world.getContinents().size());
         assertEquals("Africa", world.getContinents().get(2).name);
@@ -50,7 +50,7 @@ public class WorldTest {
 
     @Test
     void LoadedTerritoryBrazil() {
-        File file   = World.getMapFiles().get("Earth");
+        String file   = World.getMapFiles().get("Earth");
         World world = new World(file);
         assertEquals(42, world.getTerritories().size());
         assertEquals("Brazil", world.getTerritories().get(12).getName());
@@ -60,7 +60,7 @@ public class WorldTest {
 
     @Test
     void LoadedTerritoryWAustralia() {
-        File file   = World.getMapFiles().get("Earth");
+        String file   = World.getMapFiles().get("Earth");
         World world = new World(file);
         assertEquals(42, world.getTerritories().size());
         assertEquals("W_Australia", world.getTerritories().get(39).getName());
@@ -70,7 +70,7 @@ public class WorldTest {
 
     @Test
     void LoadedTerritoryScandinavia() {
-        File file   = World.getMapFiles().get("Earth");
+        String file   = World.getMapFiles().get("Earth");
         World world = new World(file);
         assertEquals(42, world.getTerritories().size());
         assertEquals("Scandinavia", world.getTerritories().get(24).getName());
@@ -80,7 +80,7 @@ public class WorldTest {
 
     @Test
     void LoadedCoordinatesBrazil() {
-        File file   = World.getMapFiles().get("Earth");
+        String file   = World.getMapFiles().get("Earth");
         World world = new World(file);
         assertEquals(42, world.getTerritories().size());
         assertEquals(0.26875, world.getTerritories().get(12).getPosX());
@@ -90,7 +90,7 @@ public class WorldTest {
 
     @Test
     void LoadedCoordinatesWAustralia() {
-        File file   = World.getMapFiles().get("Earth");
+        String file   = World.getMapFiles().get("Earth");
         World world = new World(file);
         assertEquals(42, world.getTerritories().size());
         assertEquals(0.825, world.getTerritories().get(39).getPosX());
@@ -100,7 +100,7 @@ public class WorldTest {
 
     @Test
     void LoadedCoordinatesScandinavia() {
-        File file   = World.getMapFiles().get("Earth");
+        String file   = World.getMapFiles().get("Earth");
         World world = new World(file);
         assertEquals(42, world.getTerritories().size());
         assertEquals(0.49375, world.getTerritories().get(24).getPosX());

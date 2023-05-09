@@ -4,6 +4,7 @@ import controller.Game;
 import model.InvalidAttackException;
 import model.PlayerColor;
 import model.Map.Territory;
+import view.Main;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -55,7 +56,11 @@ public class TerritoryButton extends JButton {
         } else {
             this.setBackground(Color.GRAY);
             this.setForeground(Color.WHITE);
-            this.updateText("Unclaimed");
+            if (Main.DEVELOPER_MODE) {
+                this.updateText(this.territory.getName());
+            } else {
+                this.updateText("Unclaimed");
+            }
         }
     }
 

@@ -7,7 +7,6 @@ import model.Player;
 import model.PlayerColor;
 
 import javax.swing.*;
-import java.io.File;
 import java.util.*;
 
 public class Setup {
@@ -130,7 +129,7 @@ public class Setup {
             worldPrompt.addItem(worldName);
         JOptionPane.showMessageDialog(null, worldPrompt,
                 promptLabel, JOptionPane.INFORMATION_MESSAGE);
-        return new World((File) World.getMapFiles().values().toArray()[worldPrompt.getSelectedIndex()]);
+        return new World((String) World.getMapFiles().values().toArray()[worldPrompt.getSelectedIndex()]);
     }
 
 }

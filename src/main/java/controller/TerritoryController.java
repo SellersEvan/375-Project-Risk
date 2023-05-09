@@ -25,11 +25,11 @@ public class TerritoryController {
         this.selectedTerritory = selectedTerritory;
     }
 
-    public boolean checkIfAllClaimed() {
+    public boolean allTerritoriesClaimed() {
         for (Territory territory : territories) {
             if (!territory.hasOccupant())
-                return true;
+                return false;
         }
-        return false;
+        return true;
     }
 }
