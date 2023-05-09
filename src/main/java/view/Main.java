@@ -10,7 +10,7 @@ import model.Map.World;
 public class Main {
 
 
-    public static final boolean DEVELOPER_MODE = true;
+    public static final boolean DEVELOPER_MODE = false;
 
 
     public static void main(String[] args) {
